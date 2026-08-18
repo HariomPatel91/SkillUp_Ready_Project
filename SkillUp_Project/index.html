@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillUp - Learn, Play & Grow</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="loginPage" class="auth-page">
+  <div class="auth-box">
+    <h1>🚀 SkillUp</h1>
+    <p class="tagline">Learn, Play & Grow</p>
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" placeholder="Enter Email">
+    <input type="password" id="loginPassword" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+    <p>Don't have an account?
+      <span class="link" onclick="showCreateAccount()">Create Account</span>
+    </p>
+    <p id="loginMessage"></p>
+  </div>
+</div>
+
+<div id="createAccountPage" class="auth-page hidden">
+  <div class="auth-box">
+    <h1>🚀 SkillUp</h1>
+    <p class="tagline">Create your account</p>
+    <h2>Create Account</h2>
+    <input type="text" id="signupName" placeholder="Enter Name">
+    <input type="email" id="signupEmail" placeholder="Enter Email">
+    <input type="password" id="signupPassword" placeholder="Create Password">
+    <button onclick="createAccount()">Create Account</button>
+    <p>Already have an account?
+      <span class="link" onclick="showLogin()">Login</span>
+    </p>
+    <p id="signupMessage"></p>
+  </div>
+</div>
+
+<div id="appPage" class="hidden">
+
+<header>
+  <div class="logo">🚀 SkillUp</div>
+  <div class="founder">Founder:
+    <strong>Hariom Patel & Vedika Yadav</strong>
+  </div>
+  <button class="theme-btn" onclick="toggleTheme()" id="themeButton">🌙</button>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</header>
+
+<section class="welcome">
+  <h1 id="welcomeUser">Welcome to SkillUp 👋</h1>
+  <p>Learn new skills, play quizzes and grow every day.</p>
+</section>
+
+<nav class="menu">
+  <button onclick="showSection('home')">🏠 Home</button>
+  <button onclick="showSection('learning')">📚 Learn English</button>
+  <button onclick="showSection('quiz')">🧠 Quizzes</button>
+  <button onclick="showSection('englishQuiz')">🇬🇧 English Quiz</button>
+  <button onclick="showSection('games')">🎮 Games</button>
+  <button onclick="showSection('learningGames')">🎓 Learning Games</button>
+  <button onclick="showSection('shayari')">✨ Motivational Shayari</button>
+  <button onclick="showSection('resume')">📄 Resume Builder</button>
+  <button onclick="showSection('refer')">🎁 Refer & Earn</button>
+  <button onclick="showSection('pdfMaker')">📕 PDF Maker</button>
+</nav>
+
+<section id="home" class="section">
+  <h2>🚀 SkillUp Features</h2>
+
+  <div class="cards">
+
+    <div class="card" onclick="showSection('learning')">
+      <div class="icon">🇬🇧</div>
+      <h3>Learn English</h3>
+      <p>Check your level and learn English with daily tasks.</p>
+    </div>
+
+    <div class="card" onclick="showSection('quiz')">
+      <div class="icon">🧠</div>
+      <h3>Programming Quizzes</h3>
+      <p>Practice C, C++, Python and Java.</p>
+    </div>
+
+    <div class="card" onclick="showSection('englishQuiz')">
+      <div class="icon">🇬🇧</div>
+      <h3>English Quiz</h3>
+      <p>Test your English knowledge separately.</p>
+    </div>
+
+    <div class="card" onclick="showSection('games')">
+      <div class="icon">🎮</div>
+      <h3>Play Zone</h3>
+      <p>Play games one by one and unlock the next game.</p>
+    </div>
+
+    <div class="card" onclick="showSection('learningGames')">
+      <div class="icon">🎓</div>
+      <h3>Learning Games</h3>
+      <p>Learn while playing educational games.</p>
+    </div>
+
+    <div class="card" onclick="showSection('shayari')">
+      <div class="icon">✨</div>
+      <h3>Motivational Shayari</h3>
+      <p>Read motivational Shayari.</p>
+    </div>
+
+    <div class="card" onclick="showSection('resume')">
+      <div class="icon">📄</div>
+      <h3>Resume Builder</h3>
+      <p>Create your basic resume.</p>
+    </div>
+
+    <div class="card" onclick="showSection('refer')">
+      <div class="icon">🎁</div>
+      <h3>Refer & Earn</h3>
+      <p>Share SkillUp with friends.</p>
+    </div>
+
+    <div class="card" onclick="showSection('pdfMaker')">
+      <div class="icon">📕</div>
+      <h3>PDF Maker</h3>
+      <p>Create printable PDF content.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- LEARN ENGLISH -->
+
+<section id="learning" class="section hidden">
+
+  <h2>🇬🇧 Learn English</h2>
+
+  <div class="learning-grid">
+
+    <div class="learning-card">
+      <span class="big-icon">📝</span>
+      <h3>English Level Test</h3>
+      <p>First test your English level.</p>
+      <button class="primary-btn"
+        onclick="startEnglishAssessment()">
+        Start Level Test
+      </button>
+    </div>
+
+    <div class="learning-card">
+      <span class="big-icon">📅</span>
+      <h3>Daily English Practice</h3>
+      <p id="dailyTaskText">Take your level test first.</p>
+
+      <button class="primary-btn"
+        onclick="startDailyEnglishTask()">
+        Start Today's Task
+      </button>
+
+      <p id="dailyTaskMessage" class="status"></p>
+    </div>
+
+    <div class="learning-card">
+      <span class="big-icon">📈</span>
+      <h3>Your Progress</h3>
+      <div id="learningProgress"></div>
+    </div>
+
+  </div>
+
+  <div id="englishAssessment" class="quiz-box hidden">
+    <h3>🇬🇧 English Level Test</h3>
+
+    <p id="englishAssessmentNumber"></p>
+
+    <h3 id="englishAssessmentQuestion"></h3>
+
+    <div id="englishAssessmentAnswers"></div>
+
+    <p id="englishAssessmentResult"></p>
+
+    <button class="primary-btn"
+      onclick="nextEnglishAssessment()">
+      Next Question
+    </button>
+  </div>
+
+  <div id="englishLesson" class="quiz-box hidden">
+
+    <h3 id="englishLevelTitle"></h3>
+
+    <p id="englishLessonText"></p>
+
+    <div id="englishTaskArea"></div>
+
+    <button class="primary-btn"
+      onclick="completeEnglishLesson()">
+      Complete Task
+    </button>
+
+    <p id="englishLessonMessage" class="status"></p>
+
+  </div>
+
+  <div class="history-box">
+    <h3>📜 English Learning History</h3>
+    <div id="learningHistory"></div>
+  </div>
+
+</section>
+
+<!-- PROGRAMMING QUIZZES -->
+
+<section id="quiz" class="section hidden">
+
+  <h2>🧠 Programming Quizzes</h2>
+
+  <div id="quizLanguages" class="quiz-box">
+
+    <h3>Select Programming Quiz</h3>
+
+    <div class="quiz-language-buttons">
+
+      <button onclick="startQuiz('C')">
+        💻 C Quiz
+      </button>
+
+      <button onclick="startQuiz('C++')">
+        ⚡ C++ Quiz
+      </button>
+
+      <button onclick="startQuiz('Python')">
+        🐍 Python Quiz
+      </button>
+
+      <button onclick="startQuiz('Java')">
+        ☕ Java Quiz
+      </button>
+
+    </div>
+
+  </div>
+
+  <div id="quizGame" class="quiz-box hidden">
+
+    <h3 id="quizTitle"></h3>
+
+    <p id="questionNumber"></p>
+
+    <h3 id="question"></h3>
+
+    <div id="answers"></div>
+
+    <p id="quizResult"></p>
+
+    <button class="primary-btn"
+      onclick="nextQuestion()">
+      Next Question
+    </button>
+
+  </div>
+
+  <div id="quizFinished" class="quiz-box hidden">
+
+    <h2>🎉 Quiz Completed!</h2>
+
+    <h3 id="finalScore"></h3>
+
+    <button class="primary-btn"
+      onclick="restartQuiz()">
+      🔄 Retry Quiz
+    </button>
+
+    <button class="secondary-btn"
+      onclick="chooseQuiz()">
+      📚 Choose Another Quiz
+    </button>
+
+  </div>
+
+  <div class="history-box">
+
+    <h3>📜 Quiz History</h3>
+
+    <div id="quizHistory"></div>
+
+  </div>
+
+</section>
+
+<!-- SEPARATE ENGLISH QUIZ -->
+
+<section id="englishQuiz" class="section hidden">
+
+  <h2>🇬🇧 English Quiz</h2>
+
+  <div id="englishQuizStart" class="quiz-box">
+
+    <h3>Test Your English</h3>
+
+    <p>
+      Choose the English quiz and improve your grammar,
+      vocabulary and sentence skills.
+    </p>
+
+    <button class="primary-btn"
+      onclick="startEnglishQuiz()">
+      ▶️ Start English Quiz
+    </button>
+
+  </div>
+
+  <div id="englishQuizGame" class="quiz-box hidden">
+
+    <h3>🇬🇧 English Quiz</h3>
+
+    <p id="englishQuizNumber"></p>
+
+    <h3 id="englishQuizQuestion"></h3>
+
+    <div id="englishQuizAnswers"></div>
+
+    <p id="englishQuizResult"></p>
+
+    <button class="primary-btn"
+      onclick="nextEnglishQuizQuestion()">
+      Next Question
+    </button>
+
+  </div>
+
+  <div id="englishQuizFinished" class="quiz-box hidden">
+
+    <h2>🎉 English Quiz Completed!</h2>
+
+    <h3 id="englishFinalScore"></h3>
+
+    <button class="primary-btn"
+      onclick="startEnglishQuiz()">
+      🔄 Retry English Quiz
+    </button>
+
+    <button class="secondary-btn"
+      onclick="returnToQuizzes()">
+      📚 Return to Quizzes
+    </button>
+
+  </div>
+
+</section>
+
+<!-- GAMES -->
+
+<section id="games" class="section hidden">
+
+  <div class="play-zone-header">
+    <h2>🎮 SkillUp Play Zone</h2>
+    <p>Complete one game to unlock the next.</p>
+  </div>
+
+  <div id="gamesGrid" class="games-grid"></div>
+
+</section>
+
+<!-- LEARNING GAMES -->
+
+<section id="learningGames" class="section hidden">
+
+  <div class="play-zone-header">
+    <h2>🎓 SkillUp Learning Games</h2>
+    <p>Select difficulty and play educational games.</p>
+  </div>
+
+  <div class="quiz-box difficulty-box">
+
+    <h3>🎯 Choose Difficulty</h3>
+
+    <button onclick="selectLearningDifficulty('easy')">
+      🟢 Easy
+    </button>
+
+    <button onclick="selectLearningDifficulty('medium')">
+      🟡 Medium
+    </button>
+
+    <button onclick="selectLearningDifficulty('hard')">
+      🔴 Hard
+    </button>
+
+    <p id="learningDifficultyMessage">
+      Please select difficulty first.
+    </p>
+
+  </div>
+
+  <div class="games-grid">
+
+    <div class="game-card">
+      <div class="game-image">
+        <div class="game-placeholder">🧠</div>
+      </div>
+
+      <div class="game-content">
+        <h3>🧠 Brain Challenge</h3>
+        <p>Improve logical thinking and memory.</p>
+        <button class="play-btn"
+          onclick="openLearningGame('brain-challenge')">
+          ▶️ Play Now
+        </button>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-image">
+        <div class="game-placeholder">💻</div>
+      </div>
+
+      <div class="game-content">
+        <h3>💻 Code Quest</h3>
+        <p>Learn programming concepts.</p>
+        <button class="play-btn"
+          onclick="openLearningGame('code-quest')">
+          ▶️ Play Now
+        </button>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-image">
+        <div class="game-placeholder">🌍</div>
+      </div>
+
+      <div class="game-content">
+        <h3>🌍 GK Master</h3>
+        <p>Improve General Knowledge.</p>
+        <button class="play-btn"
+          onclick="openLearningGame('gk-master')">
+          ▶️ Play Now
+        </button>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-image">
+        <div class="game-placeholder">🔢</div>
+      </div>
+
+      <div class="game-content">
+        <h3>🔢 Math Rush</h3>
+        <p>Practice calculations.</p>
+        <button class="play-btn"
+          onclick="openLearningGame('math-rush')">
+          ▶️ Play Now
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SHAYARI -->
+
+<section id="shayari" class="section hidden">
+
+  <h2>✨ Motivational Shayari</h2>
+
+  <div class="shayari-box">
+
+    <p id="shayariText">
+      मेहनत इतनी खामोशी से करो, कि सफलता शोर मचा दे। 🚀
+    </p>
+
+    <button onclick="newShayari()">New Shayari</button>
+
+  </div>
+
+</section>
+
+<!-- RESUME -->
+
+<section id="resume" class="section hidden">
+
+  <h2>📄 Resume Builder</h2>
+
+  <div class="resume-form">
+
+    <input type="text" id="resumeName" placeholder="Full Name">
+    <input type="email" id="resumeEmail" placeholder="Email">
+    <input type="text" id="resumePhone" placeholder="Phone">
+    <input type="text" id="resumeEducation" placeholder="Education">
+    <input type="text" id="resumeSkills" placeholder="Skills">
+
+    <textarea id="resumeAbout"
+      placeholder="About Yourself"></textarea>
+
+    <button onclick="generateResume()">
+      Generate Resume
+    </button>
+
+  </div>
+
+  <div id="resumeOutput"
+    class="resume-output hidden"></div>
+
+</section>
+
+<!-- REFER -->
+
+<section id="refer" class="section hidden">
+
+  <h2>🎁 Refer & Earn</h2>
+
+  <div class="refer-box">
+
+    <p>Share SkillUp with your friends!</p>
+
+    <p>Your Referral Code:</p>
+
+    <h2 id="referralCode">SKILLUP</h2>
+
+    <button onclick="copyReferral()">
+      📋 Copy Referral Code
+    </button>
+
+    <button onclick="shareReferral()">
+      📤 Share Referral Link
+    </button>
+
+    <button onclick="copyReferralLink()">
+      🔗 Copy Referral Link
+    </button>
+
+    <p id="shareMessage"></p>
+    <p id="copyMessage"></p>
+
+  </div>
+
+</section>
+
+<!-- PDF -->
+
+<section id="pdfMaker" class="section hidden">
+
+  <h2>📕 PDF Maker</h2>
+
+  <div class="pdf-maker-box">
+
+    <input type="text"
+      id="pdfTitle"
+      placeholder="Enter PDF Title">
+
+    <textarea
+      id="pdfContent"
+      placeholder="Write your content here..."></textarea>
+
+    <button onclick="generatePDF()">
+      📄 Create PDF
+    </button>
+
+  </div>
+
+</section>
+
+<footer>
+  <p>© 2026 SkillUp - Learn, Play & Grow</p>
+  <p>Made with ❤️ by Hariom Patel & Vedika Yadav</p>
+</footer>
+
+</div>
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
