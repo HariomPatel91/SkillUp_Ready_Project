@@ -1006,3 +1006,438 @@ width:100%
 }
 
 }
+/* =====================================================
+   TYPING MASTER
+===================================================== */
+
+.typing-master-card {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 20px;
+    background: var(--card-bg, #ffffff);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.typing-icon {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.typing-master-card h2 {
+    margin-bottom: 8px;
+}
+
+.typing-master-card p {
+    margin-bottom: 25px;
+}
+
+.typing-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.typing-options button {
+    min-width: 150px;
+}
+
+
+/* =====================================================
+   TYPING STATS
+===================================================== */
+
+.typing-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.typing-stat {
+    padding: 15px;
+    border-radius: 15px;
+    background: #f5f7fb;
+}
+
+.typing-stat span {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.typing-stat strong {
+    display: block;
+    font-size: 25px;
+}
+
+
+/* =====================================================
+   TYPING TEXT
+===================================================== */
+
+.typing-text {
+    text-align: left;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    background: #f5f7fb;
+    font-size: 19px;
+    line-height: 1.8;
+    min-height: 120px;
+    user-select: none;
+}
+
+.typing-text .correct {
+    color: green;
+}
+
+.typing-text .wrong {
+    color: red;
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   TYPING INPUT
+===================================================== */
+
+.typing-input {
+    width: 100%;
+    min-height: 130px;
+    padding: 18px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    font-size: 18px;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+    font-family: monospace;
+}
+
+.typing-input:focus {
+    border-color: #2563eb;
+}
+
+.typing-message {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   RESULT
+===================================================== */
+
+.typing-result-icon {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.typing-result-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.typing-result-box {
+    padding: 20px;
+    border-radius: 15px;
+    background: #f5f7fb;
+}
+
+.typing-result-box span {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.typing-result-box strong {
+    font-size: 28px;
+}
+
+.typing-performance {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   TYPING HISTORY
+===================================================== */
+
+.typing-history-card {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 20px;
+    background: var(--card-bg, #ffffff);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.typing-history-card h3 {
+    margin-bottom: 20px;
+}
+
+.typing-history-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    background: #f5f7fb;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .typing-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .typing-result-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .typing-master-card {
+        padding: 20px;
+    }
+
+    .typing-text {
+        font-size: 16px;
+    }
+
+    .typing-input {
+        font-size: 16px;
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .typing-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .typing-result-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .typing-stat {
+        padding: 10px;
+    }
+
+    .typing-stat strong {
+        font-size: 20px;
+    }
+
+}
+/* =========================================
+   TYPING MASTER
+========================================= */
+
+.typing-master-card {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.typing-master-card .feature-icon {
+    font-size: 55px;
+    margin-bottom: 10px;
+    animation: typingSticker 1.5s ease-in-out infinite;
+}
+
+@keyframes typingSticker {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(-3deg);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.typing-master-card h2,
+.typing-master-card h3 {
+    margin-bottom: 8px;
+}
+
+.typing-master-card p {
+    margin-bottom: 15px;
+}
+/* =====================================================
+   PROFILE BUTTON
+===================================================== */
+
+.profile-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.profile-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.profile-avatar,
+.preview-avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: white;
+}
+
+.profile-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 25px;
+}
+
+.profile-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 18px;
+}
+
+.profile-field label {
+    font-weight: 600;
+}
+
+.profile-field input,
+.profile-field select,
+.profile-field textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.full-field {
+    width: 100%;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.profile-preview {
+    text-align: center;
+}
+
+.profile-preview .preview-avatar {
+    margin: 10px auto;
+}
+
+.preview-info {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.preview-info div {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.preview-info span {
+    display: block;
+    font-size: 13px;
+    opacity: 0.7;
+    margin-bottom: 4px;
+}
+
+.preview-info strong {
+    display: block;
+    word-break: break-word;
+}
+
+.preview-section {
+    text-align: left;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.preview-section h4 {
+    margin-bottom: 8px;
+}
+
+#previewSkills,
+#previewAbout {
+    line-height: 1.6;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .profile-container {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+}

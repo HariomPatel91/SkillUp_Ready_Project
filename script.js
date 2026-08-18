@@ -33,6 +33,31 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+async function login() {
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+
+    if (!email || !password) {
+        alert("Please enter email and password.");
+        return;
+    }
+document.getElementById("loginButton").addEventListener("click", login);
+    try {
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        alert("Login successful!");
+
+    } catch (error) {
+        console.error("Login Error:", error);
+        alert("Login failed: " + error.message);
+    }
+}
+window.login = login;
 
 /* =====================================================
    HELPER
@@ -382,6 +407,8 @@ function load() {
 
             saved.courseHistory =
                 saved.courseHistory || [];
+            saved.typingHistory=
+                saved.typingHistory || [];
 
             return saved;
         }
@@ -401,7 +428,8 @@ function load() {
         quizHistory: [],
         learningHistory: [],
         games: [],
-        courseHistory: []
+        courseHistory: [],
+        typingHistory: []
     };
 }
 
@@ -3426,3 +3454,1077 @@ if (
 console.log(
     "✅ SkillUp JavaScript loaded successfully."
 );
+/* =====================================================
+   TYPING MASTER
+===================================================== */
+
+const typingTexts = [
+
+    "Learning never stops when you keep practicing every day.",
+
+    "Success comes from consistent effort, patience and practice.",
+
+    "Programming is not about memorizing code. It is about solving problems.",
+
+    "Every small improvement brings you one step closer to your goal.",
+
+    "Practice typing every day to improve your speed and accuracy.",
+
+    "Believe in yourself, keep learning and never give up on your dreams.",
+
+    "A good programmer learns from mistakes and keeps improving every day."
+
+];
+
+
+let typingTime = 30;
+let typingTimeLeft = 30;
+let typingTimerInterval = null;
+
+let typingStarted = false;
+let typingFinished = false;
+
+let typingStartTime = null;
+let typingCurrentText = "";
+
+let typingCorrectChars = 0;
+let typingWrongChars = 0;
+
+
+/* =====================================================
+   START TYPING TEST
+===================================================== */
+
+window.startTypingTest = function (seconds) {
+
+    clearInterval(typingTimerInterval);
+
+    typingTime = seconds;
+    typingTimeLeft = seconds;
+
+    typingStarted = false;
+    typingFinished = false;
+
+    typingCorrectChars = 0;
+    typingWrongChars = 0;
+
+    typingStartTime = null;
+
+    const startScreen =
+        el("typingStartScreen");
+
+    const testScreen =
+        el("typingTestScreen");
+
+    const resultScreen =
+        el("typingResultScreen");
+
+    if (startScreen) {
+        startScreen.classList.add("hidden");
+    }
+
+    if (resultScreen) {
+        resultScreen.classList.add("hidden");
+    }
+
+    if (testScreen) {
+        testScreen.classList.remove("hidden");
+    }
+
+
+    /* Random typing text */
+
+    typingCurrentText =
+        typingTexts[
+            Math.floor(
+                Math.random() *
+                typingTexts.length
+            )
+        ];
+
+
+    const text =
+        el("typingText");
+
+    if (text) {
+        text.textContent =
+            typingCurrentText;
+    }
+
+
+    const input =
+        el("typingInput");
+
+    if (input) {
+
+        input.value = "";
+
+        input.disabled = false;
+
+        input.focus();
+
+        input.oninput =
+            handleTypingInput;
+    }
+
+
+    updateTypingStats();
+
+    const timer =
+        el("typingTimer");
+
+    if (timer) {
+        timer.textContent =
+            typingTimeLeft;
+    }
+
+    const message =
+        el("typingMessage");
+
+    if (message) {
+
+        message.textContent =
+            "Start typing to begin.";
+
+    }
+};
+
+
+/* =====================================================
+   HANDLE TYPING
+===================================================== */
+
+function handleTypingInput() {
+
+    const input =
+        el("typingInput");
+
+    if (!input || typingFinished) {
+        return;
+    }
+
+
+    const value =
+        input.value;
+
+
+    /* Start timer on first character */
+
+    if (!typingStarted && value.length > 0) {
+
+        typingStarted = true;
+
+        typingStartTime =
+            Date.now();
+
+        startTypingTimer();
+
+        const message =
+            el("typingMessage");
+
+        if (message) {
+
+            message.textContent =
+                "⌨️ Keep typing...";
+
+        }
+    }
+
+
+    calculateTypingScore(value);
+
+    updateTypingText(value);
+
+    updateTypingStats();
+
+
+    /* Finish automatically */
+
+    if (
+        value.length >=
+        typingCurrentText.length
+    ) {
+
+        finishTypingTest();
+
+    }
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+function startTypingTimer() {
+
+    clearInterval(typingTimerInterval);
+
+    typingTimerInterval =
+        setInterval(function () {
+
+            typingTimeLeft--;
+
+            const timer =
+                el("typingTimer");
+
+            if (timer) {
+                timer.textContent =
+                    typingTimeLeft;
+            }
+
+
+            updateTypingStats();
+
+
+            if (typingTimeLeft <= 0) {
+
+                finishTypingTest();
+
+            }
+
+        }, 1000);
+}
+
+
+/* =====================================================
+   CALCULATE SCORE
+===================================================== */
+
+function calculateTypingScore(value) {
+
+    let correct = 0;
+    let wrong = 0;
+
+
+    for (
+        let i = 0;
+        i < value.length;
+        i++
+    ) {
+
+        if (
+            value[i] ===
+            typingCurrentText[i]
+        ) {
+
+            correct++;
+
+        } else {
+
+            wrong++;
+
+        }
+    }
+
+
+    typingCorrectChars = correct;
+    typingWrongChars = wrong;
+}
+
+
+/* =====================================================
+   UPDATE TYPING TEXT
+===================================================== */
+
+function updateTypingText(value) {
+
+    const text =
+        el("typingText");
+
+    if (!text) {
+        return;
+    }
+
+
+    let html = "";
+
+
+    for (
+        let i = 0;
+        i < typingCurrentText.length;
+        i++
+    ) {
+
+        const character =
+            typingCurrentText[i];
+
+
+        if (i < value.length) {
+
+            if (
+                value[i] ===
+                character
+            ) {
+
+                html +=
+                    `<span class="correct">${escapeTypingHTML(character)}</span>`;
+
+            } else {
+
+                html +=
+                    `<span class="wrong">${escapeTypingHTML(character)}</span>`;
+            }
+
+        } else {
+
+            html +=
+                escapeTypingHTML(character);
+
+        }
+    }
+
+
+    text.innerHTML = html;
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeTypingHTML(text) {
+
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =====================================================
+   UPDATE STATS
+===================================================== */
+
+function updateTypingStats() {
+
+    const elapsed =
+        typingTime -
+        typingTimeLeft;
+
+
+    let minutes =
+        elapsed / 60;
+
+
+    if (minutes <= 0) {
+        minutes = 1 / 60;
+    }
+
+
+    const wpm =
+        Math.round(
+            (
+                typingCorrectChars / 5
+            ) / minutes
+        );
+
+
+    const totalTyped =
+        typingCorrectChars +
+        typingWrongChars;
+
+
+    const accuracy =
+        totalTyped === 0
+            ? 100
+            : Math.round(
+                (
+                    typingCorrectChars /
+                    totalTyped
+                ) * 100
+            );
+
+
+    const wpmElement =
+        el("typingWPM");
+
+    if (wpmElement) {
+        wpmElement.textContent =
+            wpm;
+    }
+
+
+    const accuracyElement =
+        el("typingAccuracy");
+
+    if (accuracyElement) {
+
+        accuracyElement.textContent =
+            accuracy + "%";
+
+    }
+
+
+    const correctElement =
+        el("typingCorrect");
+
+    if (correctElement) {
+
+        correctElement.textContent =
+            typingCorrectChars;
+
+    }
+}
+
+
+/* =====================================================
+   FINISH TEST
+===================================================== */
+
+function finishTypingTest() {
+
+    if (typingFinished) {
+        return;
+    }
+
+    typingFinished = true;
+
+    clearInterval(
+        typingTimerInterval
+    );
+
+
+    const input =
+        el("typingInput");
+
+    if (input) {
+        input.disabled = true;
+    }
+
+
+    const totalTyped =
+        typingCorrectChars +
+        typingWrongChars;
+
+
+    const elapsedSeconds =
+        Math.max(
+            1,
+            typingTime -
+            typingTimeLeft
+        );
+
+
+    const minutes =
+        elapsedSeconds / 60;
+
+
+    const wpm =
+        Math.round(
+            (
+                typingCorrectChars / 5
+            ) / minutes
+        );
+
+
+    const accuracy =
+        totalTyped === 0
+            ? 0
+            : Math.round(
+                (
+                    typingCorrectChars /
+                    totalTyped
+                ) * 100
+            );
+
+
+    /* Result values */
+
+    const finalWPM =
+        el("finalTypingWPM");
+
+    if (finalWPM) {
+        finalWPM.textContent =
+            wpm;
+    }
+
+
+    const finalAccuracy =
+        el("finalTypingAccuracy");
+
+    if (finalAccuracy) {
+
+        finalAccuracy.textContent =
+            accuracy + "%";
+
+    }
+
+
+    const finalCorrect =
+        el("finalTypingCorrect");
+
+    if (finalCorrect) {
+
+        finalCorrect.textContent =
+            typingCorrectChars;
+
+    }
+
+
+    const finalWrong =
+        el("finalTypingWrong");
+
+    if (finalWrong) {
+
+        finalWrong.textContent =
+            typingWrongChars;
+
+    }
+
+
+    /* Performance message */
+
+    let performance =
+        "Keep practicing! 💪";
+
+
+    if (
+        wpm >= 50 &&
+        accuracy >= 90
+    ) {
+
+        performance =
+            "🔥 Excellent! You are a Typing Master!";
+
+    } else if (
+        wpm >= 35 &&
+        accuracy >= 85
+    ) {
+
+        performance =
+            "⭐ Great job! Your typing is improving.";
+
+    } else if (
+        wpm >= 20
+    ) {
+
+        performance =
+            "👍 Good work! Keep practicing.";
+
+    }
+
+
+    const performanceElement =
+        el("typingPerformance");
+
+    if (performanceElement) {
+
+        performanceElement.textContent =
+            performance;
+
+    }
+
+
+    const testScreen =
+        el("typingTestScreen");
+
+    const resultScreen =
+        el("typingResultScreen");
+
+
+    if (testScreen) {
+        testScreen.classList.add("hidden");
+    }
+
+    if (resultScreen) {
+        resultScreen.classList.remove("hidden");
+    }
+
+
+    saveTypingHistory(
+        wpm,
+        accuracy,
+        typingCorrectChars,
+        typingWrongChars
+    );
+}
+
+
+/* =====================================================
+   SAVE TYPING HISTORY
+===================================================== */
+
+function saveTypingHistory(
+    wpm,
+    accuracy,
+    correct,
+    wrong
+) {
+
+    const data =
+        load();
+
+
+    if (!data.typingHistory) {
+        data.typingHistory = [];
+    }
+
+
+    data.typingHistory.unshift({
+
+        date:
+            new Date().toLocaleString(),
+
+        time:
+            typingTime,
+
+        wpm:
+            wpm,
+
+        accuracy:
+            accuracy,
+
+        correct:
+            correct,
+
+        wrong:
+            wrong
+
+    });
+
+
+    data.typingHistory =
+        data.typingHistory.slice(0, 20);
+
+
+    save(data);
+
+    renderTypingHistory();
+}
+
+
+/* =====================================================
+   RENDER TYPING HISTORY
+===================================================== */
+
+function renderTypingHistory() {
+
+    const history =
+        el("typingHistory");
+
+    if (!history) {
+        return;
+    }
+
+
+    const data =
+        load();
+
+
+    if (
+        !data.typingHistory ||
+        !data.typingHistory.length
+    ) {
+
+        history.innerHTML =
+            "No typing tests completed yet.";
+
+        return;
+    }
+
+
+    history.innerHTML =
+        data.typingHistory
+            .map(function (item) {
+
+                return `
+
+                    <div class="typing-history-item">
+
+                        📅 ${item.date}
+
+                        <br>
+
+                        ⏱️ ${item.time} sec
+
+                        • ⚡ ${item.wpm} WPM
+
+                        • 🎯 ${item.accuracy}%
+
+                        <br>
+
+                        ✅ Correct:
+                        ${item.correct}
+
+                        • ❌ Wrong:
+                        ${item.wrong}
+
+                    </div>
+
+                `;
+
+            })
+            .join("");
+}
+
+
+/* =====================================================
+   RESTART TYPING
+===================================================== */
+
+window.restartTypingTest = function () {
+
+    const resultScreen =
+        el("typingResultScreen");
+
+    const startScreen =
+        el("typingStartScreen");
+
+    if (resultScreen) {
+        resultScreen.classList.add("hidden");
+    }
+
+    if (startScreen) {
+        startScreen.classList.remove("hidden");
+    }
+
+    renderTypingHistory();
+};
+
+
+/* =====================================================
+   TYPING MASTER STARTUP
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        renderTypingHistory();
+
+    }
+);
+// =====================================================
+// PROFILE
+// =====================================================
+
+function loadProfile() {
+
+    const savedName =
+        localStorage.getItem("skillupUserName") || "Student";
+
+    const savedEmail =
+        localStorage.getItem("skillupUserEmail") || "student@email.com";
+
+
+    // Name & Email
+    const profileName =
+        document.getElementById("profileName");
+
+    const profileEmail =
+        document.getElementById("profileEmail");
+
+
+    if (profileName) {
+        profileName.innerText = savedName;
+    }
+
+    if (profileEmail) {
+        profileEmail.innerText = savedEmail;
+    }
+
+
+    // Typing Tests
+    let typingHistory = [];
+
+    try {
+        typingHistory =
+            JSON.parse(
+                localStorage.getItem("typingHistory") || "[]"
+            );
+    } catch (error) {
+        typingHistory = [];
+    }
+
+
+    const typingCount =
+        document.getElementById("profileTyping");
+
+    if (typingCount) {
+        typingCount.innerText = typingHistory.length;
+    }
+
+
+    // Courses
+    let courseHistory = [];
+
+    try {
+        courseHistory =
+            JSON.parse(
+                localStorage.getItem("courseHistory") || "[]"
+            );
+    } catch (error) {
+        courseHistory = [];
+    }
+
+
+    const courses =
+        document.getElementById("profileCourses");
+
+    if (courses) {
+        courses.innerText = courseHistory.length;
+    }
+
+
+    // Quiz Count
+    const quizCount =
+        document.getElementById("profileQuizzes");
+
+    const savedQuizCount =
+        Number(
+            localStorage.getItem("skillupQuizCount") || 0
+        );
+
+    if (quizCount) {
+        quizCount.innerText = savedQuizCount;
+    }
+
+
+    // Certificates
+    const certificateCount =
+        document.getElementById("profileCertificates");
+
+    const savedCertificates =
+        Number(
+            localStorage.getItem("skillupCertificates") || 0
+        );
+
+    if (certificateCount) {
+        certificateCount.innerText =
+            savedCertificates;
+    }
+
+
+    // =================================================
+    // PROFILE PROGRESS
+    // =================================================
+
+    let progress = 0;
+
+    if (courseHistory.length > 0) {
+        progress += 25;
+    }
+
+    if (savedQuizCount > 0) {
+        progress += 25;
+    }
+
+    if (typingHistory.length > 0) {
+        progress += 25;
+    }
+
+    if (savedCertificates > 0) {
+        progress += 25;
+    }
+
+
+    const progressBar =
+        document.getElementById(
+            "profileProgressBar"
+        );
+
+    const progressText =
+        document.getElementById(
+            "profileProgressText"
+        );
+
+
+    if (progressBar) {
+        progressBar.style.width =
+            progress + "%";
+    }
+
+
+    if (progressText) {
+        progressText.innerText =
+            "Progress: " + progress + "%";
+    }
+
+}
+
+
+// =====================================================
+// SHOW PROFILE
+// =====================================================
+
+function showProfile() {
+
+    showSection("profile");
+
+    loadProfile();
+
+}
+
+
+// =====================================================
+// LOAD PROFILE WHEN APP OPENS
+// =====================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadProfile();
+
+    }
+);
+// =====================================================
+// PROFILE SYSTEM
+// =====================================================
+
+function saveProfile() {
+
+    const profile = {
+
+        name: document.getElementById("profileName").value,
+        email: document.getElementById("profileEmail").value,
+        phone: document.getElementById("profilePhone").value,
+        whatsapp: document.getElementById("profileWhatsapp").value,
+        college: document.getElementById("profileCollege").value,
+        course: document.getElementById("profileCourse").value,
+        year: document.getElementById("profileYear").value,
+        city: document.getElementById("profileCity").value,
+        skills: document.getElementById("profileSkills").value,
+        about: document.getElementById("profileAbout").value
+
+    };
+
+    localStorage.setItem(
+        "skillupProfile",
+        JSON.stringify(profile)
+    );
+
+    updateProfilePreview();
+
+    const message =
+        document.getElementById("profileMessage");
+
+    message.textContent =
+        "✅ Profile saved successfully!";
+
+    setTimeout(() => {
+        message.textContent = "";
+    }, 3000);
+}
+//=================== LOAD PROFILE=========================
+// ====================================================={
+ {
+
+    const savedProfile =
+        localStorage.getItem("skillupProfile");
+
+    if (!savedProfile) {
+        updateProfilePreview();
+
+    }
+
+    const profile =
+        JSON.parse(savedProfile);
+
+    document.getElementById("profileName").value =
+        profile.name || "";
+
+    document.getElementById("profileEmail").value =
+        profile.email || "";
+
+    document.getElementById("profilePhone").value =
+        profile.phone || "";
+
+    document.getElementById("profileWhatsapp").value =
+        profile.whatsapp || "";
+
+    document.getElementById("profileCollege").value =
+        profile.college || "";
+
+    document.getElementById("profileCourse").value =
+        profile.course || "";
+
+    document.getElementById("profileYear").value =
+        profile.year || "";
+
+    document.getElementById("profileCity").value =
+        profile.city || "";
+
+    document.getElementById("profileSkills").value =
+        profile.skills || "";
+
+    document.getElementById("profileAbout").value =
+        profile.about || "";
+
+    updateProfilePreview();
+}
+
+
+// =====================================================
+// PROFILE PREVIEW
+// =====================================================
+
+function updateProfilePreview() {
+
+    const getValue = (id) => {
+
+        const element =
+            document.getElementById(id);
+
+        if (!element) return "";
+
+        return element.value.trim();
+
+    };
+
+
+    const name = getValue("profileName");
+    const email = getValue("profileEmail");
+    const phone = getValue("profilePhone");
+    const whatsapp = getValue("profileWhatsapp");
+    const college = getValue("profileCollege");
+    const course = getValue("profileCourse");
+    const year = getValue("profileYear");
+    const city = getValue("profileCity");
+    const skills = getValue("profileSkills");
+    const about = getValue("profileAbout");
+
+
+    document.getElementById("previewName").textContent =
+        name || "Your Name";
+
+    document.getElementById("previewCourse").textContent =
+        course || "Your Course";
+
+    document.getElementById("previewEmail").textContent =
+        email || "Not Added";
+
+    document.getElementById("previewPhone").textContent =
+        phone || "Not Added";
+
+    document.getElementById("previewWhatsapp").textContent =
+        whatsapp || "Not Added";
+
+    document.getElementById("previewCollege").textContent =
+        college || "Not Added";
+
+    document.getElementById("previewYear").textContent =
+        year || "Not Added";
+
+    document.getElementById("previewCity").textContent =
+        city || "Not Added";
+
+    document.getElementById("previewSkills").textContent =
+        skills || "No skills added yet.";
+
+    document.getElementById("previewAbout").textContent =
+        about || "No information added yet.";
+}
+
+
+// =====================================================
+// LOAD PROFILE WHEN WEBSITE OPENS
+// =====================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadProfile();
+
+});
