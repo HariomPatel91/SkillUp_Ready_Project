@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -58,7 +59,7 @@
 <nav class="menu">
   <button onclick="showSection('home')">🏠 Home</button>
   <button onclick="showSection('learning')">📚 Learn English</button>
-  <button onclick="showSection('quiz')">🧠 Quizzes</button>
+  <button onclick="showSection('quiz')">🎓 Courses & Certificate</button>
   <button onclick="showSection('englishQuiz')">🇬🇧 English Quiz</button>
   <button onclick="showSection('games')">🎮 Games</button>
   <button onclick="showSection('learningGames')">🎓 Learning Games</button>
@@ -73,59 +74,61 @@
 
   <div class="cards">
 
-    <div class="card" onclick="showSection('learning')">
-      <div class="icon">🇬🇧</div>
-      <h3>Learn English</h3>
-      <p>Check your level and learn English with daily tasks.</p>
-    </div>
+```
+<div class="card" onclick="showSection('learning')">
+  <div class="icon">🇬🇧</div>
+  <h3>Learn English</h3>
+  <p>Check your level and learn English with daily tasks.</p>
+</div>
 
-    <div class="card" onclick="showSection('quiz')">
-      <div class="icon">🧠</div>
-      <h3>Programming Quizzes</h3>
-      <p>Practice C, C++, Python and Java.</p>
-    </div>
+<div class="card" onclick="showSection('quiz')">
+  <div class="icon">🎓</div>
+  <h3>Programming Courses</h3>
+  <p>Learn C, C++, Python and Java with reading, quizzes and certificates.</p>
+</div>
 
-    <div class="card" onclick="showSection('englishQuiz')">
-      <div class="icon">🇬🇧</div>
-      <h3>English Quiz</h3>
-      <p>Test your English knowledge separately.</p>
-    </div>
+<div class="card" onclick="showSection('englishQuiz')">
+  <div class="icon">🇬🇧</div>
+  <h3>English Quiz</h3>
+  <p>Test your English knowledge separately.</p>
+</div>
 
-    <div class="card" onclick="showSection('games')">
-      <div class="icon">🎮</div>
-      <h3>Play Zone</h3>
-      <p>Play games one by one and unlock the next game.</p>
-    </div>
+<div class="card" onclick="showSection('games')">
+  <div class="icon">🎮</div>
+  <h3>Play Zone</h3>
+  <p>Play games one by one and unlock the next game.</p>
+</div>
 
-    <div class="card" onclick="showSection('learningGames')">
-      <div class="icon">🎓</div>
-      <h3>Learning Games</h3>
-      <p>Learn while playing educational games.</p>
-    </div>
+<div class="card" onclick="showSection('learningGames')">
+  <div class="icon">🎓</div>
+  <h3>Learning Games</h3>
+  <p>Learn while playing educational games.</p>
+</div>
 
-    <div class="card" onclick="showSection('shayari')">
-      <div class="icon">✨</div>
-      <h3>Motivational Shayari</h3>
-      <p>Read motivational Shayari.</p>
-    </div>
+<div class="card" onclick="showSection('shayari')">
+  <div class="icon">✨</div>
+  <h3>Motivational Shayari</h3>
+  <p>Read motivational Shayari.</p>
+</div>
 
-    <div class="card" onclick="showSection('resume')">
-      <div class="icon">📄</div>
-      <h3>Resume Builder</h3>
-      <p>Create your basic resume.</p>
-    </div>
+<div class="card" onclick="showSection('resume')">
+  <div class="icon">📄</div>
+  <h3>Resume Builder</h3>
+  <p>Create your basic resume.</p>
+</div>
 
-    <div class="card" onclick="showSection('refer')">
-      <div class="icon">🎁</div>
-      <h3>Refer & Earn</h3>
-      <p>Share SkillUp with friends.</p>
-    </div>
+<div class="card" onclick="showSection('refer')">
+  <div class="icon">🎁</div>
+  <h3>Refer & Earn</h3>
+  <p>Share SkillUp with friends.</p>
+</div>
 
-    <div class="card" onclick="showSection('pdfMaker')">
-      <div class="icon">📕</div>
-      <h3>PDF Maker</h3>
-      <p>Create printable PDF content.</p>
-    </div>
+<div class="card" onclick="showSection('pdfMaker')">
+  <div class="icon">📕</div>
+  <h3>PDF Maker</h3>
+  <p>Create printable PDF content.</p>
+</div>
+```
 
   </div>
 </section>
@@ -138,68 +141,75 @@
 
   <div class="learning-grid">
 
-    <div class="learning-card">
-      <span class="big-icon">📝</span>
-      <h3>English Level Test</h3>
-      <p>First test your English level.</p>
-      <button class="primary-btn"
-        onclick="startEnglishAssessment()">
-        Start Level Test
-      </button>
-    </div>
+```
+<div class="learning-card">
+  <span class="big-icon">📝</span>
+  <h3>English Level Test</h3>
+  <p>First test your English level.</p>
+  <button class="primary-btn"
+    onclick="startEnglishAssessment()">
+    Start Level Test
+  </button>
+</div>
 
-    <div class="learning-card">
-      <span class="big-icon">📅</span>
-      <h3>Daily English Practice</h3>
-      <p id="dailyTaskText">Take your level test first.</p>
+<div class="learning-card">
+  <span class="big-icon">📅</span>
+  <h3>Daily English Practice</h3>
+  <p id="dailyTaskText">Take your level test first.</p>
 
-      <button class="primary-btn"
-        onclick="startDailyEnglishTask()">
-        Start Today's Task
-      </button>
+  <button class="primary-btn"
+    onclick="startDailyEnglishTask()">
+    Start Today's Task
+  </button>
 
-      <p id="dailyTaskMessage" class="status"></p>
-    </div>
+  <p id="dailyTaskMessage" class="status"></p>
+</div>
 
-    <div class="learning-card">
-      <span class="big-icon">📈</span>
-      <h3>Your Progress</h3>
-      <div id="learningProgress"></div>
-    </div>
+<div class="learning-card">
+  <span class="big-icon">📈</span>
+  <h3>Your Progress</h3>
+  <div id="learningProgress"></div>
+</div>
+```
 
   </div>
 
   <div id="englishAssessment" class="quiz-box hidden">
     <h3>🇬🇧 English Level Test</h3>
 
-    <p id="englishAssessmentNumber"></p>
+```
+<p id="englishAssessmentNumber"></p>
 
-    <h3 id="englishAssessmentQuestion"></h3>
+<h3 id="englishAssessmentQuestion"></h3>
 
-    <div id="englishAssessmentAnswers"></div>
+<div id="englishAssessmentAnswers"></div>
 
-    <p id="englishAssessmentResult"></p>
+<p id="englishAssessmentResult"></p>
 
-    <button class="primary-btn"
-      onclick="nextEnglishAssessment()">
-      Next Question
-    </button>
+<button class="primary-btn"
+  onclick="nextEnglishAssessment()">
+  Next Question
+</button>
+```
+
   </div>
 
   <div id="englishLesson" class="quiz-box hidden">
 
-    <h3 id="englishLevelTitle"></h3>
+```
+<h3 id="englishLevelTitle"></h3>
 
-    <p id="englishLessonText"></p>
+<p id="englishLessonText"></p>
 
-    <div id="englishTaskArea"></div>
+<div id="englishTaskArea"></div>
 
-    <button class="primary-btn"
-      onclick="completeEnglishLesson()">
-      Complete Task
-    </button>
+<button class="primary-btn"
+  onclick="completeEnglishLesson()">
+  Complete Task
+</button>
 
-    <p id="englishLessonMessage" class="status"></p>
+<p id="englishLessonMessage" class="status"></p>
+```
 
   </div>
 
@@ -210,80 +220,295 @@
 
 </section>
 
-<!-- PROGRAMMING QUIZZES -->
+<!-- PROGRAMMING COURSES + QUIZ + CERTIFICATE -->
 
 <section id="quiz" class="section hidden">
 
-  <h2>🧠 Programming Quizzes</h2>
+  <h2>🎓 Programming Courses & Certificates</h2>
 
   <div id="quizLanguages" class="quiz-box">
 
-    <h3>Select Programming Quiz</h3>
+```
+<h3>📚 Select Your Programming Course</h3>
 
-    <div class="quiz-language-buttons">
+<p class="course-intro">
+  Select one language. You will study the selected language,
+  complete the reading lessons and quiz, then unlock your certificate.
+</p>
 
-      <button onclick="startQuiz('C')">
-        💻 C Quiz
-      </button>
+<div class="quiz-language-buttons">
 
-      <button onclick="startQuiz('C++')">
-        ⚡ C++ Quiz
-      </button>
+  <button onclick="startCourse('C')">
+    💻 C Programming
+  </button>
 
-      <button onclick="startQuiz('Python')">
-        🐍 Python Quiz
-      </button>
+  <button onclick="startCourse('C++')">
+    ⚡ C++ Programming
+  </button>
 
-      <button onclick="startQuiz('Java')">
-        ☕ Java Quiz
-      </button>
+  <button onclick="startCourse('Python')">
+    🐍 Python Programming
+  </button>
+
+  <button onclick="startCourse('Java')">
+    ☕ Java Programming
+  </button>
+
+</div>
+```
+
+  </div>
+
+  <div id="courseDashboard" class="quiz-box hidden">
+
+```
+<div class="course-heading">
+  <h2 id="courseName"></h2>
+  <p>📖 Reading → 🧠 Quiz → 🏆 Certificate</p>
+</div>
+
+<div class="course-timer-box">
+
+  <span>⏱️ Minimum Course Time</span>
+
+  <div id="courseTimer">
+    20:00
+  </div>
+
+  <p id="courseTimerMessage">
+    Complete the minimum 20-minute learning time.
+  </p>
+
+</div>
+
+<div class="course-progress-box">
+
+  <p id="courseProgressText">
+    Course Progress: 0%
+  </p>
+
+  <div class="progress-bar">
+    <div id="courseProgressBar"></div>
+  </div>
+
+</div>
+
+<!-- READING -->
+
+<div id="courseReading" class="course-part">
+
+  <div class="reading-header">
+    <span>📖 Reading & Learning</span>
+    <span id="readingNumber">Reading 1</span>
+  </div>
+
+  <h2 id="readingTitle"></h2>
+
+  <div id="readingContent" class="reading-content"></div>
+
+  <div class="reading-lock-box">
+
+    <p id="readingTimer">
+      🔒 Next available in 5 seconds...
+    </p>
+
+    <button
+      id="nextReadingBtn"
+      class="primary-btn"
+      onclick="nextReading()"
+      disabled>
+      Next Reading →
+    </button>
+
+  </div>
+
+</div>
+
+<!-- QUIZ -->
+
+<div id="courseQuiz" class="course-part hidden">
+
+  <h3>🧠 Course Quiz</h3>
+
+  <p id="courseQuestionNumber"></p>
+
+  <h3 id="courseQuestion"></h3>
+
+  <div id="courseAnswers"></div>
+
+  <p id="courseQuizResult"></p>
+
+  <button
+    id="nextCourseQuestionBtn"
+    class="primary-btn"
+    onclick="nextCourseQuestion()">
+    Next Question →
+  </button>
+
+</div>
+
+<!-- COMPLETE -->
+
+<div id="courseCompleted" class="course-part hidden">
+
+  <h2>🎉 Course Completed!</h2>
+
+  <h3 id="courseFinalScore"></h3>
+
+  <p id="courseTimeMessage"></p>
+
+  <div class="certificate-status-box">
+
+    <h3>🏆 Certificate Status</h3>
+
+    <p id="certificateStatus">
+      Complete the course requirements to unlock your certificate.
+    </p>
+
+  </div>
+
+  <button
+    id="generateCertificateBtn"
+    class="primary-btn"
+    onclick="generateCertificate()"
+    disabled>
+    🏆 Generate Certificate
+  </button>
+
+  <button
+    class="secondary-btn"
+    onclick="chooseCourse()">
+    📚 Choose Another Course
+  </button>
+
+</div>
+
+<!-- CERTIFICATE -->
+
+<div id="certificateArea" class="hidden">
+
+  <div id="certificate">
+
+    <div class="certificate-border">
+
+      <div class="certificate-top">
+        <span>🚀 SKILLUP</span>
+        <span>LEARN • PLAY • GROW</span>
+      </div>
+
+      <div class="certificate-icon">
+        🏆
+      </div>
+
+      <p class="certificate-small-title">
+        CERTIFICATE OF COMPLETION
+      </p>
+
+      <h1>
+        Certificate of Achievement
+      </h1>
+
+      <p class="certificate-presented">
+        This certificate is proudly presented to
+      </p>
+
+      <h2 id="certificateStudentName">
+        Student Name
+      </h2>
+
+      <div class="certificate-line"></div>
+
+      <p>
+        for successfully completing the
+      </p>
+
+      <h3 id="certificateCourseName">
+        Programming Course
+      </h3>
+
+      <p class="certificate-description">
+        The learner successfully completed the required
+        reading lessons, learning activities and assessment.
+      </p>
+
+      <div class="certificate-details">
+
+        <div>
+          <span>COURSE</span>
+          <strong id="certificateLanguage">Programming</strong>
+        </div>
+
+        <div>
+          <span>ACHIEVEMENT</span>
+          <strong id="certificateAward">Gold</strong>
+        </div>
+
+        <div>
+          <span>SCORE</span>
+          <strong id="certificateScore">0%</strong>
+        </div>
+
+        <div>
+          <span>DATE</span>
+          <strong id="certificateDate"></strong>
+        </div>
+
+      </div>
+
+      <div class="certificate-signatures">
+
+        <div class="signature-box">
+          <div class="signature-style">
+            Hariom Patel
+          </div>
+          <div class="signature-line"></div>
+          <strong>Founder</strong>
+          <span>SkillUp</span>
+        </div>
+
+        <div class="certificate-seal">
+          <span>SKILLUP</span>
+          <strong id="certificateSeal">GOLD</strong>
+          <span>2026</span>
+        </div>
+
+        <div class="signature-box">
+          <div class="signature-style">
+            Vedika Yadav
+          </div>
+          <div class="signature-line"></div>
+          <strong>Co-Founder</strong>
+          <span>SkillUp</span>
+        </div>
+
+      </div>
 
     </div>
 
   </div>
 
-  <div id="quizGame" class="quiz-box hidden">
+  <div class="certificate-actions">
 
-    <h3 id="quizTitle"></h3>
-
-    <p id="questionNumber"></p>
-
-    <h3 id="question"></h3>
-
-    <div id="answers"></div>
-
-    <p id="quizResult"></p>
-
-    <button class="primary-btn"
-      onclick="nextQuestion()">
-      Next Question
+    <button
+      class="primary-btn"
+      onclick="printCertificate()">
+      🖨️ Print / Save Certificate
     </button>
 
   </div>
 
-  <div id="quizFinished" class="quiz-box hidden">
-
-    <h2>🎉 Quiz Completed!</h2>
-
-    <h3 id="finalScore"></h3>
-
-    <button class="primary-btn"
-      onclick="restartQuiz()">
-      🔄 Retry Quiz
-    </button>
-
-    <button class="secondary-btn"
-      onclick="chooseQuiz()">
-      📚 Choose Another Quiz
-    </button>
+</div>
+```
 
   </div>
 
   <div class="history-box">
 
-    <h3>📜 Quiz History</h3>
+```
+<h3>📜 Course & Certificate History</h3>
 
-    <div id="quizHistory"></div>
+<div id="courseHistory"></div>
+```
 
   </div>
 
@@ -297,54 +522,60 @@
 
   <div id="englishQuizStart" class="quiz-box">
 
-    <h3>Test Your English</h3>
+```
+<h3>Test Your English</h3>
 
-    <p>
-      Choose the English quiz and improve your grammar,
-      vocabulary and sentence skills.
-    </p>
+<p>
+  Choose the English quiz and improve your grammar,
+  vocabulary and sentence skills.
+</p>
 
-    <button class="primary-btn"
-      onclick="startEnglishQuiz()">
-      ▶️ Start English Quiz
-    </button>
+<button class="primary-btn"
+  onclick="startEnglishQuiz()">
+  ▶️ Start English Quiz
+</button>
+```
 
   </div>
 
   <div id="englishQuizGame" class="quiz-box hidden">
 
-    <h3>🇬🇧 English Quiz</h3>
+```
+<h3>🇬🇧 English Quiz</h3>
 
-    <p id="englishQuizNumber"></p>
+<p id="englishQuizNumber"></p>
 
-    <h3 id="englishQuizQuestion"></h3>
+<h3 id="englishQuizQuestion"></h3>
 
-    <div id="englishQuizAnswers"></div>
+<div id="englishQuizAnswers"></div>
 
-    <p id="englishQuizResult"></p>
+<p id="englishQuizResult"></p>
 
-    <button class="primary-btn"
-      onclick="nextEnglishQuizQuestion()">
-      Next Question
-    </button>
+<button class="primary-btn"
+  onclick="nextEnglishQuizQuestion()">
+  Next Question
+</button>
+```
 
   </div>
 
   <div id="englishQuizFinished" class="quiz-box hidden">
 
-    <h2>🎉 English Quiz Completed!</h2>
+```
+<h2>🎉 English Quiz Completed!</h2>
 
-    <h3 id="englishFinalScore"></h3>
+<h3 id="englishFinalScore"></h3>
 
-    <button class="primary-btn"
-      onclick="startEnglishQuiz()">
-      🔄 Retry English Quiz
-    </button>
+<button class="primary-btn"
+  onclick="startEnglishQuiz()">
+  🔄 Retry English Quiz
+</button>
 
-    <button class="secondary-btn"
-      onclick="returnToQuizzes()">
-      📚 Return to Quizzes
-    </button>
+<button class="secondary-btn"
+  onclick="returnToQuizzes()">
+  📚 Return to Quizzes
+</button>
+```
 
   </div>
 
@@ -374,87 +605,91 @@
 
   <div class="quiz-box difficulty-box">
 
-    <h3>🎯 Choose Difficulty</h3>
+```
+<h3>🎯 Choose Difficulty</h3>
 
-    <button onclick="selectLearningDifficulty('easy')">
-      🟢 Easy
-    </button>
+<button onclick="selectLearningDifficulty('easy')">
+  🟢 Easy
+</button>
 
-    <button onclick="selectLearningDifficulty('medium')">
-      🟡 Medium
-    </button>
+<button onclick="selectLearningDifficulty('medium')">
+  🟡 Medium
+</button>
 
-    <button onclick="selectLearningDifficulty('hard')">
-      🔴 Hard
-    </button>
+<button onclick="selectLearningDifficulty('hard')">
+  🔴 Hard
+</button>
 
-    <p id="learningDifficultyMessage">
-      Please select difficulty first.
-    </p>
+<p id="learningDifficultyMessage">
+  Please select difficulty first.
+</p>
+```
 
   </div>
 
   <div class="games-grid">
 
-    <div class="game-card">
-      <div class="game-image">
-        <div class="game-placeholder">🧠</div>
-      </div>
+```
+<div class="game-card">
+  <div class="game-image">
+    <div class="game-placeholder">🧠</div>
+  </div>
 
-      <div class="game-content">
-        <h3>🧠 Brain Challenge</h3>
-        <p>Improve logical thinking and memory.</p>
-        <button class="play-btn"
-          onclick="openLearningGame('brain-challenge')">
-          ▶️ Play Now
-        </button>
-      </div>
-    </div>
+  <div class="game-content">
+    <h3>🧠 Brain Challenge</h3>
+    <p>Improve logical thinking and memory.</p>
+    <button class="play-btn"
+      onclick="openLearningGame('brain-challenge')">
+      ▶️ Play Now
+    </button>
+  </div>
+</div>
 
-    <div class="game-card">
-      <div class="game-image">
-        <div class="game-placeholder">💻</div>
-      </div>
+<div class="game-card">
+  <div class="game-image">
+    <div class="game-placeholder">💻</div>
+  </div>
 
-      <div class="game-content">
-        <h3>💻 Code Quest</h3>
-        <p>Learn programming concepts.</p>
-        <button class="play-btn"
-          onclick="openLearningGame('code-quest')">
-          ▶️ Play Now
-        </button>
-      </div>
-    </div>
+  <div class="game-content">
+    <h3>💻 Code Quest</h3>
+    <p>Learn programming concepts.</p>
+    <button class="play-btn"
+      onclick="openLearningGame('code-quest')">
+      ▶️ Play Now
+    </button>
+  </div>
+</div>
 
-    <div class="game-card">
-      <div class="game-image">
-        <div class="game-placeholder">🌍</div>
-      </div>
+<div class="game-card">
+  <div class="game-image">
+    <div class="game-placeholder">🌍</div>
+  </div>
 
-      <div class="game-content">
-        <h3>🌍 GK Master</h3>
-        <p>Improve General Knowledge.</p>
-        <button class="play-btn"
-          onclick="openLearningGame('gk-master')">
-          ▶️ Play Now
-        </button>
-      </div>
-    </div>
+  <div class="game-content">
+    <h3>🌍 GK Master</h3>
+    <p>Improve General Knowledge.</p>
+    <button class="play-btn"
+      onclick="openLearningGame('gk-master')">
+      ▶️ Play Now
+    </button>
+  </div>
+</div>
 
-    <div class="game-card">
-      <div class="game-image">
-        <div class="game-placeholder">🔢</div>
-      </div>
+<div class="game-card">
+  <div class="game-image">
+    <div class="game-placeholder">🔢</div>
+  </div>
 
-      <div class="game-content">
-        <h3>🔢 Math Rush</h3>
-        <p>Practice calculations.</p>
-        <button class="play-btn"
-          onclick="openLearningGame('math-rush')">
-          ▶️ Play Now
-        </button>
-      </div>
-    </div>
+  <div class="game-content">
+    <h3>🔢 Math Rush</h3>
+    <p>Practice calculations.</p>
+    <button class="play-btn"
+      onclick="openLearningGame('math-rush')">
+      ▶️ Play Now
+    </button>
+  </div>
+</div>
+```
 
   </div>
 
@@ -468,11 +703,13 @@
 
   <div class="shayari-box">
 
-    <p id="shayariText">
-      मेहनत इतनी खामोशी से करो, कि सफलता शोर मचा दे। 🚀
-    </p>
+```
+<p id="shayariText">
+  मेहनत इतनी खामोशी से करो, कि सफलता शोर मचा दे। 🚀
+</p>
 
-    <button onclick="newShayari()">New Shayari</button>
+<button onclick="newShayari()">New Shayari</button>
+```
 
   </div>
 
@@ -486,18 +723,20 @@
 
   <div class="resume-form">
 
-    <input type="text" id="resumeName" placeholder="Full Name">
-    <input type="email" id="resumeEmail" placeholder="Email">
-    <input type="text" id="resumePhone" placeholder="Phone">
-    <input type="text" id="resumeEducation" placeholder="Education">
-    <input type="text" id="resumeSkills" placeholder="Skills">
+```
+<input type="text" id="resumeName" placeholder="Full Name">
+<input type="email" id="resumeEmail" placeholder="Email">
+<input type="text" id="resumePhone" placeholder="Phone">
+<input type="text" id="resumeEducation" placeholder="Education">
+<input type="text" id="resumeSkills" placeholder="Skills">
 
-    <textarea id="resumeAbout"
-      placeholder="About Yourself"></textarea>
+<textarea id="resumeAbout"
+  placeholder="About Yourself"></textarea>
 
-    <button onclick="generateResume()">
-      Generate Resume
-    </button>
+<button onclick="generateResume()">
+  Generate Resume
+</button>
+```
 
   </div>
 
@@ -514,26 +753,28 @@
 
   <div class="refer-box">
 
-    <p>Share SkillUp with your friends!</p>
+```
+<p>Share SkillUp with your friends!</p>
 
-    <p>Your Referral Code:</p>
+<p>Your Referral Code:</p>
 
-    <h2 id="referralCode">SKILLUP</h2>
+<h2 id="referralCode">SKILLUP</h2>
 
-    <button onclick="copyReferral()">
-      📋 Copy Referral Code
-    </button>
+<button onclick="copyReferral()">
+  📋 Copy Referral Code
+</button>
 
-    <button onclick="shareReferral()">
-      📤 Share Referral Link
-    </button>
+<button onclick="shareReferral()">
+  📤 Share Referral Link
+</button>
 
-    <button onclick="copyReferralLink()">
-      🔗 Copy Referral Link
-    </button>
+<button onclick="copyReferralLink()">
+  🔗 Copy Referral Link
+</button>
 
-    <p id="shareMessage"></p>
-    <p id="copyMessage"></p>
+<p id="shareMessage"></p>
+<p id="copyMessage"></p>
+```
 
   </div>
 
@@ -547,17 +788,19 @@
 
   <div class="pdf-maker-box">
 
-    <input type="text"
-      id="pdfTitle"
-      placeholder="Enter PDF Title">
+```
+<input type="text"
+  id="pdfTitle"
+  placeholder="Enter PDF Title">
 
-    <textarea
-      id="pdfContent"
-      placeholder="Write your content here..."></textarea>
+<textarea
+  id="pdfContent"
+  placeholder="Write your content here..."></textarea>
 
-    <button onclick="generatePDF()">
-      📄 Create PDF
-    </button>
+<button onclick="generatePDF()">
+  📄 Create PDF
+</button>
+```
 
   </div>
 

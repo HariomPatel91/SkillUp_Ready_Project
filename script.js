@@ -1,10 +1,6 @@
-// =====================================================
-// SKILLUP - FIREBASE + MAIN JAVASCRIPT
-// =====================================================
-
-// =====================================================
-// FIREBASE
-// =====================================================
+/* =====================================================
+   SKILLUP - FIREBASE + MAIN JAVASCRIPT
+   ===================================================== */
 
 import {
     initializeApp
@@ -20,9 +16,9 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-// =====================================================
-// FIREBASE CONFIG
-// =====================================================
+/* =====================================================
+   FIREBASE CONFIG
+   ===================================================== */
 
 const firebaseConfig = {
     apiKey: "AIzaSyAGRiax1lT6WFBGAIWu36DxnqYvGXImvpw",
@@ -38,47 +34,87 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 
-// =====================================================
-// HELPER
-// =====================================================
+/* =====================================================
+   HELPER
+   ===================================================== */
 
 function el(id) {
     return document.getElementById(id);
 }
 
 
-// =====================================================
-// LOGIN / ACCOUNT
-// =====================================================
+/* =====================================================
+   LOGIN / CREATE ACCOUNT
+   ===================================================== */
 
 window.showCreateAccount = function () {
-    el("loginPage").classList.add("hidden");
-    el("createAccountPage").classList.remove("hidden");
+
+    const loginPage = el("loginPage");
+    const createPage = el("createAccountPage");
+
+    if (loginPage) {
+        loginPage.classList.add("hidden");
+    }
+
+    if (createPage) {
+        createPage.classList.remove("hidden");
+    }
 };
+
 
 window.showLogin = function () {
-    el("createAccountPage").classList.add("hidden");
-    el("loginPage").classList.remove("hidden");
+
+    const loginPage = el("loginPage");
+    const createPage = el("createAccountPage");
+
+    if (createPage) {
+        createPage.classList.add("hidden");
+    }
+
+    if (loginPage) {
+        loginPage.classList.remove("hidden");
+    }
 };
 
+
+/* =====================================================
+   CREATE ACCOUNT
+   ===================================================== */
 
 window.createAccount = async function () {
 
-    const name = el("signupName").value.trim();
-    const email = el("signupEmail").value.trim();
-    const password = el("signupPassword").value;
+    const nameElement = el("signupName");
+    const emailElement = el("signupEmail");
+    const passwordElement = el("signupPassword");
     const message = el("signupMessage");
 
+    if (!nameElement || !emailElement || !passwordElement) {
+        console.error("Signup fields not found in index.html");
+        return;
+    }
+
+    const name = nameElement.value.trim();
+    const email = emailElement.value.trim();
+    const password = passwordElement.value;
+
     if (!name || !email || !password) {
-        message.textContent = "Please fill all fields.";
-        message.style.color = "red";
+
+        if (message) {
+            message.textContent = "Please fill all fields.";
+            message.style.color = "red";
+        }
+
         return;
     }
 
     if (password.length < 6) {
-        message.textContent =
-            "Password must be at least 6 characters.";
-        message.style.color = "red";
+
+        if (message) {
+            message.textContent =
+                "Password must be at least 6 characters.";
+            message.style.color = "red";
+        }
+
         return;
     }
 
@@ -95,37 +131,68 @@ window.createAccount = async function () {
             displayName: name
         });
 
-        message.textContent =
-            "✅ Account created successfully!";
+        if (message) {
+            message.textContent =
+                "✅ Account created successfully!";
+            message.style.color = "green";
+        }
 
-        message.style.color = "green";
-
-        setTimeout(showLogin, 700);
+        setTimeout(function () {
+            showLogin();
+        }, 700);
 
     } catch (error) {
 
-        message.textContent =
-            error.code === "auth/email-already-in-use"
-                ? "This email is already registered."
-                : error.message;
+        console.error(error);
 
-        message.style.color = "red";
+        let text = "Unable to create account.";
+
+        if (error.code === "auth/email-already-in-use") {
+            text = "This email is already registered.";
+        }
+
+        if (error.code === "auth/invalid-email") {
+            text = "Please enter a valid email.";
+        }
+
+        if (error.code === "auth/weak-password") {
+            text = "Password is too weak.";
+        }
+
+        if (message) {
+            message.textContent = "❌ " + text;
+            message.style.color = "red";
+        }
     }
 };
 
 
+/* =====================================================
+   LOGIN
+   ===================================================== */
+
 window.login = async function () {
 
-    const email = el("loginEmail").value.trim();
-    const password = el("loginPassword").value;
+    const emailElement = el("loginEmail");
+    const passwordElement = el("loginPassword");
     const message = el("loginMessage");
+
+    if (!emailElement || !passwordElement) {
+        console.error("Login fields not found in index.html");
+        return;
+    }
+
+    const email = emailElement.value.trim();
+    const password = passwordElement.value;
 
     if (!email || !password) {
 
-        message.textContent =
-            "Please enter email and password.";
+        if (message) {
+            message.textContent =
+                "Please enter email and password.";
+            message.style.color = "red";
+        }
 
-        message.style.color = "red";
         return;
     }
 
@@ -142,24 +209,47 @@ window.login = async function () {
 
     } catch (error) {
 
-        message.textContent =
-            "❌ Wrong email or password.";
+        console.error(error);
 
-        message.style.color = "red";
+        if (message) {
+            message.textContent =
+                "❌ Wrong email or password.";
+            message.style.color = "red";
+        }
     }
 };
 
 
+/* =====================================================
+   OPEN APP
+   ===================================================== */
+
 function openApp(user) {
 
-    el("loginPage").classList.add("hidden");
-    el("createAccountPage").classList.add("hidden");
-    el("appPage").classList.remove("hidden");
+    const loginPage = el("loginPage");
+    const createPage = el("createAccountPage");
+    const appPage = el("appPage");
 
-    el("welcomeUser").textContent =
-        "Welcome " +
-        (user.displayName || "User") +
-        " 👋";
+    if (loginPage) {
+        loginPage.classList.add("hidden");
+    }
+
+    if (createPage) {
+        createPage.classList.add("hidden");
+    }
+
+    if (appPage) {
+        appPage.classList.remove("hidden");
+    }
+
+    const welcome = el("welcomeUser");
+
+    if (welcome) {
+        welcome.textContent =
+            "Welcome " +
+            (user.displayName || "User") +
+            " 👋";
+    }
 
     generateReferralCode(user.email);
 
@@ -169,32 +259,59 @@ function openApp(user) {
 }
 
 
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
 window.logout = async function () {
 
-    await signOut(auth);
+    stopCourseTimer();
+    clearReadingTimer();
 
-    el("appPage").classList.add("hidden");
-    el("loginPage").classList.remove("hidden");
+    try {
+
+        await signOut(auth);
+
+        const appPage = el("appPage");
+        const loginPage = el("loginPage");
+
+        if (appPage) {
+            appPage.classList.add("hidden");
+        }
+
+        if (loginPage) {
+            loginPage.classList.remove("hidden");
+        }
+
+    } catch (error) {
+
+        console.error(error);
+    }
 };
 
+
+/* =====================================================
+   AUTH STATE
+   ===================================================== */
 
 onAuthStateChanged(auth, function (user) {
 
     if (user) {
         openApp(user);
     }
+
 });
 
 
-// =====================================================
-// SECTION NAVIGATION
-// =====================================================
+/* =====================================================
+   SECTION NAVIGATION
+   ===================================================== */
 
 window.showSection = function (name) {
 
     document
         .querySelectorAll(".section")
-        .forEach(section => {
+        .forEach(function (section) {
             section.classList.add("hidden");
         });
 
@@ -205,7 +322,7 @@ window.showSection = function (name) {
     }
 
     if (name === "quiz") {
-        renderQuizHistory();
+        renderCourseHistory();
     }
 
     if (name === "learning") {
@@ -219,14 +336,16 @@ window.showSection = function (name) {
 };
 
 
-// =====================================================
-// LOCAL STORAGE
-// =====================================================
+/* =====================================================
+   LOCAL STORAGE
+   ===================================================== */
 
 function key() {
 
-    return "skillup_" +
-        (auth.currentUser?.uid || "guest");
+    return (
+        "skillup_" +
+        (auth.currentUser?.uid || "guest")
+    );
 }
 
 
@@ -235,17 +354,19 @@ function load() {
     try {
 
         const saved =
-            JSON.parse(localStorage.getItem(key()));
+            JSON.parse(
+                localStorage.getItem(key())
+            );
 
         if (saved) {
-
-            // पुराने data में missing fields भी ठीक करेंगे
 
             saved.level =
                 saved.level || "Beginner";
 
             saved.englishScore =
-                saved.englishScore || 0;
+                typeof saved.englishScore === "number"
+                    ? saved.englishScore
+                    : 0;
 
             saved.daily =
                 saved.daily || {};
@@ -259,14 +380,19 @@ function load() {
             saved.games =
                 saved.games || [];
 
+            saved.courseHistory =
+                saved.courseHistory || [];
+
             return saved;
         }
 
     } catch (error) {
 
-        console.log("Storage error:", error);
+        console.log(
+            "Storage error:",
+            error
+        );
     }
-
 
     return {
         level: "Beginner",
@@ -274,7 +400,8 @@ function load() {
         daily: {},
         quizHistory: [],
         learningHistory: [],
-        games: []
+        games: [],
+        courseHistory: []
     };
 }
 
@@ -291,18 +418,15 @@ function save(data) {
 function renderAll() {
 
     renderLearning();
-    renderQuizHistory();
+    renderCourseHistory();
     renderGames();
+
 }
 
 
-// =====================================================
-// ENGLISH LEARNING
-// अलग English Learning System
-// =====================================================
-
-
-// ---------- ENGLISH LEVEL TEST ----------
+/* =====================================================
+   ENGLISH ASSESSMENT
+   ===================================================== */
 
 const englishAssessmentQuestions = [
 
@@ -373,7 +497,7 @@ const englishAssessmentQuestions = [
     },
 
     {
-        q: "Choose the best word: She has been studying ___ two hours.",
+        q: "She has been studying ___ two hours.",
         a: [
             "since",
             "for",
@@ -413,9 +537,9 @@ let eaScore = 0;
 let eaAnswered = false;
 
 
-// =====================================================
-// START ENGLISH LEVEL TEST
-// =====================================================
+/* =====================================================
+   START ENGLISH ASSESSMENT
+   ===================================================== */
 
 window.startEnglishAssessment = function () {
 
@@ -423,16 +547,10 @@ window.startEnglishAssessment = function () {
     eaScore = 0;
     eaAnswered = false;
 
-    const assessment =
-        el("englishAssessment");
-
-    const lesson =
-        el("englishLesson");
+    const assessment = el("englishAssessment");
+    const lesson = el("englishLesson");
 
     if (!assessment) {
-        console.error(
-            "englishAssessment element not found."
-        );
         return;
     }
 
@@ -446,45 +564,41 @@ window.startEnglishAssessment = function () {
 };
 
 
-// =====================================================
-// SHOW ENGLISH QUESTION
-// =====================================================
+/* =====================================================
+   SHOW ENGLISH QUESTION
+   ===================================================== */
 
 function showEnglishAssessment() {
 
     const q =
         englishAssessmentQuestions[eaIndex];
 
-    const number =
-        el("englishAssessmentNumber");
-
-    const question =
-        el("englishAssessmentQuestion");
-
-    const answers =
-        el("englishAssessmentAnswers");
-
-    const result =
-        el("englishAssessmentResult");
-
-
     if (!q) {
         finishEnglishAssessment();
         return;
     }
 
+    const number = el("englishAssessmentNumber");
+    const question = el("englishAssessmentQuestion");
+    const result = el("englishAssessmentResult");
+    const answers = el("englishAssessmentAnswers");
+
+    if (!number || !question || !answers) {
+        return;
+    }
 
     number.textContent =
         `Question ${eaIndex + 1} / ${englishAssessmentQuestions.length}`;
 
     question.textContent = q.q;
 
-    result.textContent = "";
+    if (result) {
+        result.textContent = "";
+    }
 
     answers.innerHTML = "";
 
     eaAnswered = false;
-
 
     q.a.forEach(function (option, index) {
 
@@ -492,9 +606,7 @@ function showEnglishAssessment() {
             document.createElement("button");
 
         button.className = "quiz-answer";
-
         button.textContent = option;
-
 
         button.onclick = function () {
 
@@ -504,7 +616,6 @@ function showEnglishAssessment() {
 
             eaAnswered = true;
 
-
             if (index === q.c) {
 
                 eaScore++;
@@ -512,34 +623,33 @@ function showEnglishAssessment() {
                 button.textContent =
                     option + " ✅";
 
-                result.textContent =
-                    "Correct! 🎉";
-
-                result.style.color = "green";
+                if (result) {
+                    result.textContent =
+                        "Correct! 🎉";
+                    result.style.color = "green";
+                }
 
             } else {
 
                 button.textContent =
                     option + " ❌";
 
-                result.textContent =
-                    "Wrong Answer. Try the next one.";
-
-                result.style.color = "red";
+                if (result) {
+                    result.textContent =
+                        "Wrong Answer.";
+                    result.style.color = "red";
+                }
             }
         };
 
-
         answers.appendChild(button);
-
     });
-
 }
 
 
-// =====================================================
-// NEXT ENGLISH QUESTION
-// =====================================================
+/* =====================================================
+   NEXT ENGLISH QUESTION
+   ===================================================== */
 
 window.nextEnglishAssessment = function () {
 
@@ -552,9 +662,7 @@ window.nextEnglishAssessment = function () {
         return;
     }
 
-
     eaIndex++;
-
 
     if (
         eaIndex <
@@ -570,16 +678,15 @@ window.nextEnglishAssessment = function () {
 };
 
 
-// =====================================================
-// FINISH ENGLISH LEVEL TEST
-// =====================================================
+/* =====================================================
+   FINISH ENGLISH ASSESSMENT
+   ===================================================== */
 
 function finishEnglishAssessment() {
 
     const data = load();
 
     data.englishScore = eaScore;
-
 
     if (eaScore >= 8) {
 
@@ -594,7 +701,6 @@ function finishEnglishAssessment() {
         data.level = "Beginner";
     }
 
-
     data.learningHistory.unshift({
 
         date: new Date().toLocaleString(),
@@ -607,17 +713,17 @@ function finishEnglishAssessment() {
         level: data.level
     });
 
-
     data.learningHistory =
         data.learningHistory.slice(0, 50);
 
-
     save(data);
 
+    const assessment =
+        el("englishAssessment");
 
-    el("englishAssessment")
-        .classList.add("hidden");
-
+    if (assessment) {
+        assessment.classList.add("hidden");
+    }
 
     renderLearning();
 
@@ -625,9 +731,9 @@ function finishEnglishAssessment() {
 }
 
 
-// =====================================================
-// ENGLISH DAILY LESSON
-// =====================================================
+/* =====================================================
+   ENGLISH LESSON
+   ===================================================== */
 
 function showEnglishLesson() {
 
@@ -636,65 +742,73 @@ function showEnglishLesson() {
     const lesson =
         el("englishLesson");
 
+    if (!lesson) {
+        return;
+    }
+
     const title =
         el("englishLevelTitle");
 
     const text =
         el("englishLessonText");
 
-    const taskArea =
-        el("englishTaskArea");
+    if (title) {
 
-
-    if (!lesson) {
-        return;
+        title.textContent =
+            `🇬🇧 ${data.level} English • Daily Lesson`;
     }
 
-
-    title.textContent =
-        `🇬🇧 ${data.level} English • Daily Lesson`;
-
+    let lessonText = "";
 
     if (data.level === "Beginner") {
 
-        text.textContent =
+        lessonText =
             "Learn 5 common English words and make 2 simple sentences.";
 
     } else if (data.level === "Intermediate") {
 
-        text.textContent =
+        lessonText =
             "Write 5 sentences using past and future tense.";
 
     } else {
 
-        text.textContent =
+        lessonText =
             "Write a short paragraph and use at least 5 advanced English words.";
     }
 
+    if (text) {
+        text.textContent = lessonText;
+    }
 
-    taskArea.innerHTML = `
-        <div class="history-item">
-            📚 Today's English Task:<br><br>
-            ${text.textContent}
-        </div>
-    `;
+    const taskArea =
+        el("englishTaskArea");
 
+    if (taskArea) {
+
+        taskArea.innerHTML = `
+            <div class="history-item">
+                📚 Today's English Task:<br><br>
+                ${lessonText}
+            </div>
+        `;
+    }
 
     lesson.classList.remove("hidden");
 }
 
 
-// =====================================================
-// COMPLETE ENGLISH LESSON
-// =====================================================
+/* =====================================================
+   COMPLETE ENGLISH LESSON
+   ===================================================== */
 
 window.completeEnglishLesson = function () {
 
     const data = load();
 
     const today =
-        new Date().toISOString().slice(0, 10);
-
+        new Date()
+            .toISOString()
+            .slice(0, 10);
 
     if (data.daily[today]) {
 
@@ -702,7 +816,6 @@ window.completeEnglishLesson = function () {
             el("englishLessonMessage");
 
         if (message) {
-
             message.textContent =
                 "✅ Today's English task is already completed.";
         }
@@ -711,7 +824,6 @@ window.completeEnglishLesson = function () {
 
         return;
     }
-
 
     data.learningHistory.unshift({
 
@@ -724,12 +836,9 @@ window.completeEnglishLesson = function () {
         level: data.level
     });
 
-
     data.daily[today] = true;
 
-
     save(data);
-
 
     const message =
         el("englishLessonMessage");
@@ -740,41 +849,27 @@ window.completeEnglishLesson = function () {
             "✅ Task completed! Your progress is saved.";
     }
 
-
     renderLearning();
 };
 
 
-// =====================================================
-// DAILY TASK BUTTON
-// =====================================================
+window.startDailyEnglishTask = function () {
+
+    showEnglishLesson();
+
+};
+
 
 window.completeDailyTask = function () {
 
     completeEnglishLesson();
 
-    const message =
-        el("dailyTaskMessage");
-
-    if (message) {
-
-        const data = load();
-
-        const today =
-            new Date().toISOString().slice(0, 10);
-
-        if (data.daily[today]) {
-
-            message.textContent =
-                "✅ Today's task completed! Come back tomorrow for the next task.";
-        }
-    }
 };
 
 
-// =====================================================
-// RENDER LEARNING
-// =====================================================
+/* =====================================================
+   RENDER LEARNING
+   ===================================================== */
 
 function renderLearning() {
 
@@ -789,18 +884,16 @@ function renderLearning() {
     const history =
         el("learningHistory");
 
-
     if (!progress) {
         return;
     }
 
-
     const completedTasks =
-        data.learningHistory.filter(
-            item =>
-                item.type.includes("Daily")
-        ).length;
+        data.learningHistory.filter(function (item) {
 
+            return item.type.includes("Daily");
+
+        }).length;
 
     progress.innerHTML = `
 
@@ -820,39 +913,50 @@ function renderLearning() {
             Completed Tasks:
             ${completedTasks}
         </p>
+
     `;
 
-
     const today =
-        new Date().toISOString().slice(0, 10);
+        new Date()
+            .toISOString()
+            .slice(0, 10);
 
+    if (dailyText) {
 
-    dailyText.textContent =
-        data.daily[today]
-            ? "Today's English task is completed ✅"
-            : "Complete today's English task.";
+        dailyText.textContent =
+            data.daily[today]
+                ? "Today's English task is completed ✅"
+                : "Complete today's English task.";
+    }
 
+    if (!history) {
+        return;
+    }
 
     if (data.learningHistory.length) {
 
         history.innerHTML =
             data.learningHistory
-                .map(item => `
+                .map(function (item) {
 
-                    <div class="history-item">
+                    return `
 
-                        📅 ${item.date}<br>
+                        <div class="history-item">
 
-                        <strong>
-                            ${item.type}
-                        </strong>
+                            📅 ${item.date}<br>
 
-                        • ${item.score}
-                        • ${item.level}
+                            <strong>
+                                ${item.type}
+                            </strong>
 
-                    </div>
+                            • ${item.score}
+                            • ${item.level}
 
-                `)
+                        </div>
+
+                    `;
+
+                })
                 .join("");
 
     } else {
@@ -863,9 +967,9 @@ function renderLearning() {
 }
 
 
-// =====================================================
-// RESET ENGLISH
-// =====================================================
+/* =====================================================
+   RESET ENGLISH ASSESSMENT
+   ===================================================== */
 
 function resetEnglishAssessment() {
 
@@ -874,7 +978,6 @@ function resetEnglishAssessment() {
 
     const lesson =
         el("englishLesson");
-
 
     if (assessment) {
         assessment.classList.add("hidden");
@@ -886,631 +989,1054 @@ function resetEnglishAssessment() {
 }
 
 
-// =====================================================
-// PROGRAMMING QUIZ
-// ONLY C, C++, PYTHON, JAVA
-// =====================================================
+/* =====================================================
+   PROGRAMMING COURSES
+   ===================================================== */
 
-const quizData = {
+const courseData = {
 
-    C: [
+    C: {
 
-        [
-            "Which function prints output in C?",
-            [
-                "input()",
-                "printf()",
-                "print()",
-                "output()"
-            ],
-            1
+        readings: [
+
+            {
+                title: "What is C?",
+                content: `
+                    <h3>Introduction to C</h3>
+
+                    <p>
+                        C is a general-purpose programming language
+                        created by Dennis Ritchie.
+                    </p>
+
+                    <h3>Why Learn C?</h3>
+
+                    <ul>
+                        <li>Programming fundamentals</li>
+                        <li>Memory concepts</li>
+                        <li>Pointers</li>
+                        <li>System programming</li>
+                    </ul>
+                `
+            },
+
+            {
+                title: "C Variables and Data Types",
+                content: `
+                    <h3>Variables</h3>
+
+                    <p>
+                        A variable stores data in memory.
+                    </p>
+
+                    <ul>
+                        <li><strong>int</strong> - whole numbers</li>
+                        <li><strong>float</strong> - decimal numbers</li>
+                        <li><strong>char</strong> - characters</li>
+                        <li><strong>double</strong> - decimal values</li>
+                    </ul>
+                `
+            },
+
+            {
+                title: "C Operators",
+                content: `
+                    <h3>Operators</h3>
+
+                    <p>
+                        Operators perform operations on values.
+                    </p>
+
+                    <ul>
+                        <li>+</li>
+                        <li>-</li>
+                        <li>*</li>
+                        <li>/</li>
+                        <li>%</li>
+                        <li>==</li>
+                    </ul>
+                `
+            },
+
+            {
+                title: "C Conditions and Loops",
+                content: `
+                    <h3>Conditions</h3>
+
+                    <p>
+                        The if statement is used for decision making.
+                    </p>
+
+                    <h3>Loops</h3>
+
+                    <p>
+                        C provides for, while and do-while loops.
+                    </p>
+                `
+            },
+
+            {
+                title: "C Functions and Arrays",
+                content: `
+                    <h3>Functions</h3>
+
+                    <p>
+                        Functions are reusable blocks of code.
+                    </p>
+
+                    <h3>Arrays</h3>
+
+                    <p>
+                        Arrays store multiple values of the same type.
+                    </p>
+                `
+            }
+
         ],
 
-        [
-            "Which symbol ends a statement in C?",
-            [
-                ".",
-                ",",
-                ";",
-                ":"
-            ],
-            2
-        ],
+        questions: [
 
-        [
-            "Which data type stores an integer?",
             [
-                "float",
-                "int",
-                "char",
-                "double"
+                "Which function prints output in C?",
+                ["input()", "printf()", "print()", "output()"],
+                1
             ],
-            1
-        ],
 
-        [
-            "Which loop executes at least once?",
             [
-                "for",
-                "while",
-                "do-while",
-                "if"
+                "Which symbol ends a statement in C?",
+                [".", ",", ";", ":"],
+                2
             ],
-            2
-        ],
 
-        [
-            "Which operator gives remainder?",
             [
-                "/",
-                "%",
-                "*",
-                "//"
+                "Which data type stores an integer?",
+                ["float", "int", "char", "double"],
+                1
             ],
-            1
-        ],
 
-        [
-            "Which header is commonly used for printf()?",
             [
-                "stdio.h",
-                "math.h",
-                "string.h",
-                "stdlib.h"
+                "Which loop executes at least once?",
+                ["for", "while", "do-while", "if"],
+                2
             ],
-            0
-        ],
 
-        [
-            "Which keyword declares a constant?",
             [
-                "constant",
-                "const",
-                "fixed",
-                "let"
+                "Which operator gives remainder?",
+                ["/", "%", "*", "//"],
+                1
             ],
-            1
-        ],
 
-        [
-            "Array indexing in C normally starts at?",
             [
-                "0",
-                "1",
-                "-1",
-                "2"
+                "Which header is commonly used for printf()?",
+                ["stdio.h", "math.h", "string.h", "stdlib.h"],
+                0
             ],
-            0
-        ],
 
-        [
-            "Which operator is used to compare equality?",
             [
-                "=",
-                "==",
-                "!=",
-                "<="
+                "Which keyword declares a constant?",
+                ["constant", "const", "fixed", "let"],
+                1
             ],
-            1
-        ],
 
-        [
-            "Which function is the starting point of a C program?",
             [
-                "start()",
-                "main()",
-                "run()",
-                "begin()"
+                "Array indexing in C normally starts at?",
+                ["0", "1", "-1", "2"],
+                0
             ],
-            1
-        ],
 
-        [
-            "Which data type stores a single character?",
             [
-                "char",
-                "string",
-                "text",
-                "character"
+                "Which operator compares equality?",
+                ["=", "==", "!=", "<="],
+                1
             ],
-            0
-        ],
 
-        [
-            "Which keyword is used for a conditional statement?",
             [
-                "if",
-                "when",
-                "check",
-                "condition"
-            ],
-            0
+                "Which function is the starting point of a C program?",
+                ["start()", "main()", "run()", "begin()"],
+                1
+            ]
+
         ]
-    ],
+    },
 
 
-    "C++": [
+    "C++": {
 
-        [
-            "Who developed C++?",
-            [
-                "Dennis Ritchie",
-                "Bjarne Stroustrup",
-                "James Gosling",
-                "Guido van Rossum"
-            ],
-            1
+        readings: [
+
+            {
+                title: "What is C++?",
+                content: `
+                    <h3>Introduction to C++</h3>
+
+                    <p>
+                        C++ is a general-purpose programming language
+                        developed by Bjarne Stroustrup.
+                    </p>
+
+                    <h3>Why Learn C++?</h3>
+
+                    <ul>
+                        <li>Problem solving</li>
+                        <li>Object-oriented programming</li>
+                        <li>Competitive programming</li>
+                        <li>Software development</li>
+                    </ul>
+                `
+            },
+
+            {
+                title: "C++ Classes and Objects",
+                content: `
+                    <h3>Classes</h3>
+
+                    <p>
+                        A class is a blueprint for creating objects.
+                    </p>
+
+                    <h3>Objects</h3>
+
+                    <p>
+                        An object is an instance of a class.
+                    </p>
+                `
+            },
+
+            {
+                title: "C++ Inheritance",
+                content: `
+                    <h3>Inheritance</h3>
+
+                    <p>
+                        Inheritance allows one class to acquire
+                        properties and behavior from another class.
+                    </p>
+                `
+            },
+
+            {
+                title: "C++ Polymorphism",
+                content: `
+                    <h3>Polymorphism</h3>
+
+                    <p>
+                        Polymorphism allows one interface to have
+                        different forms of behavior.
+                    </p>
+                `
+            },
+
+            {
+                title: "C++ STL",
+                content: `
+                    <h3>Standard Template Library</h3>
+
+                    <ul>
+                        <li>vector</li>
+                        <li>map</li>
+                        <li>set</li>
+                        <li>stack</li>
+                        <li>queue</li>
+                    </ul>
+                `
+            }
+
         ],
 
-        [
-            "Which keyword creates a class?",
-            [
-                "class",
-                "object",
-                "new",
-                "define"
-            ],
-            0
-        ],
+        questions: [
 
-        [
-            "Same function name with different parameters is called?",
             [
-                "Inheritance",
-                "Encapsulation",
-                "Overloading",
-                "Abstraction"
+                "Who developed C++?",
+                [
+                    "Dennis Ritchie",
+                    "Bjarne Stroustrup",
+                    "James Gosling",
+                    "Guido van Rossum"
+                ],
+                1
             ],
-            2
-        ],
 
-        [
-            "One class acquiring another class's properties is?",
             [
-                "Inheritance",
-                "Compilation",
-                "Looping",
-                "Casting"
+                "Which keyword creates a class?",
+                ["class", "object", "new", "define"],
+                0
             ],
-            0
-        ],
 
-        [
-            "Object member access operator?",
             [
-                ".",
-                "#",
-                "@",
-                "$"
+                "Same function name with different parameters is called?",
+                [
+                    "Inheritance",
+                    "Encapsulation",
+                    "Overloading",
+                    "Abstraction"
+                ],
+                2
             ],
-            0
-        ],
 
-        [
-            "Which stream is used for output?",
             [
-                "cin",
-                "cout",
-                "scan",
-                "print"
+                "One class acquiring another class's properties is?",
+                [
+                    "Inheritance",
+                    "Compilation",
+                    "Looping",
+                    "Casting"
+                ],
+                0
             ],
-            1
-        ],
 
-        [
-            "Which keyword creates a new object dynamically?",
             [
-                "make",
-                "new",
-                "create",
-                "alloc"
+                "Object member access operator?",
+                [".", "#", "@", "$"],
+                0
             ],
-            1
-        ],
 
-        [
-            "Which feature hides implementation details?",
             [
-                "Abstraction",
-                "Looping",
-                "Casting",
-                "Parsing"
+                "Which stream is used for output?",
+                ["cin", "cout", "scan", "print"],
+                1
             ],
-            0
-        ],
 
-        [
-            "Which symbol starts a preprocessor directive?",
             [
-                "$",
-                "#",
-                "@",
-                "%"
+                "Which keyword creates a new object dynamically?",
+                ["make", "new", "create", "alloc"],
+                1
             ],
-            1
-        ],
 
-        [
-            "Which container stores key-value pairs?",
             [
-                "vector",
-                "map",
-                "stack",
-                "queue"
+                "Which feature hides implementation details?",
+                [
+                    "Abstraction",
+                    "Looping",
+                    "Casting",
+                    "Parsing"
+                ],
+                0
             ],
-            1
-        ],
 
-        [
-            "Which stream is commonly used for input?",
             [
-                "cin",
-                "cout",
-                "input",
-                "scan"
+                "Which symbol starts a preprocessor directive?",
+                ["$", "#", "@", "%"],
+                1
             ],
-            0
-        ],
 
-        [
-            "Which operator is used for scope resolution?",
             [
-                ".",
-                "::",
-                "->",
-                "##"
-            ],
-            1
+                "Which container stores key-value pairs?",
+                ["vector", "map", "stack", "queue"],
+                1
+            ]
+
         ]
-    ],
+    },
 
 
-    Python: [
+    Python: {
 
-        [
-            "Which function displays output?",
-            [
-                "echo()",
-                "print()",
-                "display()",
-                "output()"
-            ],
-            1
+        readings: [
+
+            {
+                title: "What is Python?",
+                content: `
+                    <h3>Introduction to Python</h3>
+
+                    <p>
+                        Python is a high-level general-purpose
+                        programming language with readable syntax.
+                    </p>
+
+                    <h3>Uses</h3>
+
+                    <ul>
+                        <li>Web development</li>
+                        <li>Automation</li>
+                        <li>AI</li>
+                        <li>Data science</li>
+                    </ul>
+                `
+            },
+
+            {
+                title: "Python Variables and Data Types",
+                content: `
+                    <h3>Variables</h3>
+
+                    <p>
+                        Python variables store references to values.
+                    </p>
+
+                    <ul>
+                        <li>int</li>
+                        <li>float</li>
+                        <li>str</li>
+                        <li>bool</li>
+                        <li>list</li>
+                    </ul>
+                `
+            },
+
+            {
+                title: "Python Conditions and Loops",
+                content: `
+                    <h3>Conditions</h3>
+
+                    <p>
+                        Python uses if, elif and else.
+                    </p>
+
+                    <h3>Loops</h3>
+
+                    <p>
+                        Python commonly uses for and while loops.
+                    </p>
+                `
+            },
+
+            {
+                title: "Python Functions",
+                content: `
+                    <h3>Functions</h3>
+
+                    <p>
+                        Functions are reusable blocks of code.
+                    </p>
+
+                    <p>
+                        Python uses the def keyword.
+                    </p>
+                `
+            },
+
+            {
+                title: "Python Collections",
+                content: `
+                    <h3>Collections</h3>
+
+                    <ul>
+                        <li>List</li>
+                        <li>Tuple</li>
+                        <li>Set</li>
+                        <li>Dictionary</li>
+                    </ul>
+                `
+            }
+
         ],
 
-        [
-            "Python comment symbol?",
-            [
-                "//",
-                "#",
-                "/*",
-                "--"
-            ],
-            1
-        ],
+        questions: [
 
-        [
-            "Keyword to define a function?",
             [
-                "function",
-                "define",
-                "def",
-                "fun"
+                "Which function displays output?",
+                ["echo()", "print()", "display()", "output()"],
+                1
             ],
-            2
-        ],
 
-        [
-            "Ordered mutable collection?",
             [
-                "list",
-                "int",
-                "float",
-                "bool"
+                "Python comment symbol?",
+                ["//", "#", "/*", "--"],
+                1
             ],
-            0
-        ],
 
-        [
-            "Loop commonly used for sequences?",
             [
-                "for",
-                "switch",
-                "case",
-                "goto"
+                "Keyword to define a function?",
+                ["function", "define", "def", "fun"],
+                2
             ],
-            0
-        ],
 
-        [
-            "Which type stores true/false?",
             [
-                "bool",
-                "str",
-                "float",
-                "list"
+                "Ordered mutable collection?",
+                ["list", "int", "float", "bool"],
+                0
             ],
-            0
-        ],
 
-        [
-            "Which keyword handles exceptions?",
             [
-                "try",
-                "test",
-                "catching",
-                "error"
+                "Loop commonly used for sequences?",
+                ["for", "switch", "case", "goto"],
+                0
             ],
-            0
-        ],
 
-        [
-            "Which symbol is used for exponentiation?",
             [
-                "^",
-                "**",
-                "//",
-                "%%"
+                "Which type stores true/false?",
+                ["bool", "str", "float", "list"],
+                0
             ],
-            1
-        ],
 
-        [
-            "Which function returns the length of an object?",
             [
-                "length()",
-                "size()",
-                "len()",
-                "count()"
+                "Which keyword handles exceptions?",
+                ["try", "test", "catching", "error"],
+                0
             ],
-            2
-        ],
 
-        [
-            "Which keyword is used for a condition?",
             [
-                "if",
-                "when",
-                "check",
-                "condition"
+                "Which symbol is used for exponentiation?",
+                ["^", "**", "//", "%%"],
+                1
             ],
-            0
-        ],
 
-        [
-            "Which collection does not allow duplicate values?",
             [
-                "list",
-                "tuple",
-                "set",
-                "string"
+                "Which function returns length?",
+                ["length()", "size()", "len()", "count()"],
+                2
             ],
-            2
-        ],
 
-        [
-            "Which keyword is used to import a module?",
             [
-                "include",
-                "import",
-                "using",
-                "require"
-            ],
-            1
+                "Which collection does not allow duplicates?",
+                ["list", "tuple", "set", "string"],
+                2
+            ]
+
         ]
-    ],
+    },
 
 
-    Java: [
+    Java: {
 
-        [
-            "Who originally developed Java?",
-            [
-                "James Gosling",
-                "Bjarne Stroustrup",
-                "Dennis Ritchie",
-                "Guido van Rossum"
-            ],
-            0
+        readings: [
+
+            {
+                title: "What is Java?",
+                content: `
+                    <h3>Introduction to Java</h3>
+
+                    <p>
+                        Java is a popular object-oriented programming
+                        language designed to be portable across platforms.
+                    </p>
+
+                    <h3>Why Learn Java?</h3>
+
+                    <ul>
+                        <li>Object-oriented programming</li>
+                        <li>Software development</li>
+                        <li>Backend development</li>
+                        <li>Large ecosystem</li>
+                    </ul>
+                `
+            },
+
+            {
+                title: "Java Classes and Objects",
+                content: `
+                    <h3>Classes</h3>
+
+                    <p>
+                        A class defines fields and methods.
+                    </p>
+
+                    <h3>Objects</h3>
+
+                    <p>
+                        Objects are instances of classes.
+                    </p>
+                `
+            },
+
+            {
+                title: "Java Inheritance",
+                content: `
+                    <h3>Inheritance</h3>
+
+                    <p>
+                        Java uses the extends keyword for inheritance.
+                    </p>
+                `
+            },
+
+            {
+                title: "Java Data Types and Conditions",
+                content: `
+                    <h3>Data Types</h3>
+
+                    <ul>
+                        <li>int</li>
+                        <li>double</li>
+                        <li>char</li>
+                        <li>boolean</li>
+                    </ul>
+
+                    <h3>Conditions</h3>
+
+                    <p>
+                        Java uses if, else if and else.
+                    </p>
+                `
+            },
+
+            {
+                title: "Java Collections",
+                content: `
+                    <h3>Collections</h3>
+
+                    <ul>
+                        <li>List</li>
+                        <li>Set</li>
+                        <li>Queue</li>
+                        <li>Map</li>
+                    </ul>
+                `
+            }
+
         ],
 
-        [
-            "Keyword to create a class?",
-            [
-                "class",
-                "Class",
-                "object",
-                "newclass"
-            ],
-            0
-        ],
+        questions: [
 
-        [
-            "Java program entry method?",
             [
-                "start()",
-                "run()",
-                "main()",
-                "execute()"
+                "Who originally developed Java?",
+                [
+                    "James Gosling",
+                    "Bjarne Stroustrup",
+                    "Dennis Ritchie",
+                    "Guido van Rossum"
+                ],
+                0
             ],
-            2
-        ],
 
-        [
-            "Keyword for class inheritance?",
             [
-                "inherits",
-                "extends",
-                "inherit",
-                "using"
+                "Keyword to create a class?",
+                ["class", "Class", "object", "newclass"],
+                0
             ],
-            1
-        ],
 
-        [
-            "Whole-number data type?",
             [
-                "float",
-                "char",
-                "int",
-                "boolean"
+                "Java program entry method?",
+                ["start()", "run()", "main()", "execute()"],
+                2
             ],
-            2
-        ],
 
-        [
-            "Which keyword creates an object?",
             [
-                "new",
-                "make",
-                "object",
-                "create"
+                "Keyword for class inheritance?",
+                ["inherits", "extends", "inherit", "using"],
+                1
             ],
-            0
-        ],
 
-        [
-            "Which collection does not allow duplicates?",
             [
-                "List",
-                "Set",
-                "Array",
-                "Queue"
+                "Whole-number data type?",
+                ["float", "char", "int", "boolean"],
+                2
             ],
-            1
-        ],
 
-        [
-            "Which keyword prevents inheritance?",
             [
-                "stop",
-                "final",
-                "private",
-                "static"
+                "Which keyword creates an object?",
+                ["new", "make", "object", "create"],
+                0
             ],
-            1
-        ],
 
-        [
-            "Which keyword is used for a conditional statement?",
             [
-                "if",
-                "when",
-                "check",
-                "condition"
+                "Which collection does not allow duplicates?",
+                ["List", "Set", "Array", "Queue"],
+                1
             ],
-            0
-        ],
 
-        [
-            "Which symbol ends a Java statement?",
             [
-                ".",
-                ",",
-                ";",
-                ":"
+                "Which keyword prevents inheritance?",
+                ["stop", "final", "private", "static"],
+                1
             ],
-            2
-        ],
 
-        [
-            "Which keyword is used to inherit a class?",
             [
-                "extends",
-                "inherits",
-                "superclass",
-                "using"
+                "Which keyword is used for a conditional statement?",
+                ["if", "when", "check", "condition"],
+                0
             ],
-            0
-        ],
 
-        [
-            "Which type stores true or false?",
             [
-                "boolean",
-                "bool",
-                "bit",
-                "logic"
-            ],
-            0
+                "Which symbol ends a Java statement?",
+                [".", ",", ";", ":"],
+                2
+            ]
+
         ]
-    ]
+    }
 
 };
 
 
-let currentLanguage = "";
-let currentQuestionIndex = 0;
-let score = 0;
-let answerSelected = false;
+/* =====================================================
+   COURSE VARIABLES
+   ===================================================== */
+
+const COURSE_MINUTES = 20;
+const READING_LOCK_SECONDS = 5;
+
+let currentCourse = "";
+let currentReadingIndex = 0;
+let currentCourseQuestionIndex = 0;
+let courseScore = 0;
+let courseAnswerSelected = false;
+
+let courseSecondsLeft =
+    COURSE_MINUTES * 60;
+
+let courseTimerInterval = null;
+let readingTimerInterval = null;
+let readingLocked = true;
 
 
-// =====================================================
-// START PROGRAMMING QUIZ
-// =====================================================
+/* =====================================================
+   START COURSE
+   ===================================================== */
 
-window.startQuiz = function (language) {
+window.startCourse = function (language) {
 
-    if (!quizData[language]) {
+    if (!courseData[language]) {
 
-        alert("This quiz is not available.");
+        alert(
+            "This course is not available."
+        );
 
         return;
     }
 
+    stopCourseTimer();
 
-    currentLanguage = language;
+    currentCourse = language;
+    currentReadingIndex = 0;
+    currentCourseQuestionIndex = 0;
+    courseScore = 0;
+    courseAnswerSelected = false;
 
-    currentQuestionIndex = 0;
+    courseSecondsLeft =
+        COURSE_MINUTES * 60;
 
-    score = 0;
+    if (el("quizLanguages")) {
+        el("quizLanguages")
+            .classList.add("hidden");
+    }
 
-    answerSelected = false;
+    if (el("courseDashboard")) {
+        el("courseDashboard")
+            .classList.remove("hidden");
+    }
 
+    if (el("courseReading")) {
+        el("courseReading")
+            .classList.remove("hidden");
+    }
 
-    el("quizLanguages")
-        .classList.add("hidden");
+    if (el("courseQuiz")) {
+        el("courseQuiz")
+            .classList.add("hidden");
+    }
 
-    el("quizFinished")
-        .classList.add("hidden");
+    if (el("courseCompleted")) {
+        el("courseCompleted")
+            .classList.add("hidden");
+    }
 
-    el("quizGame")
-        .classList.remove("hidden");
+    if (el("certificateArea")) {
+        el("certificateArea")
+            .classList.add("hidden");
+    }
 
+    if (el("courseName")) {
+        el("courseName").textContent =
+            `${language} Programming Course`;
+    }
 
-    el("quizTitle").textContent =
-        language + " Quiz";
+    updateCourseTimer();
+    updateCourseProgress();
 
-
-    showQuestion();
+    showReading();
+    startCourseTimer();
 };
 
 
-// =====================================================
-// SHOW PROGRAMMING QUESTION
-// =====================================================
+/* =====================================================
+   COURSE TIMER
+   ===================================================== */
 
-function showQuestion() {
+function startCourseTimer() {
+
+    stopCourseTimer();
+
+    courseTimerInterval =
+        setInterval(function () {
+
+            if (courseSecondsLeft > 0) {
+
+                courseSecondsLeft--;
+
+                updateCourseTimer();
+                updateCourseProgress();
+
+            } else {
+
+                courseSecondsLeft = 0;
+
+                updateCourseTimer();
+                updateCourseProgress();
+
+                stopCourseTimer();
+
+                checkCertificateUnlock();
+            }
+
+        }, 1000);
+}
+
+
+function stopCourseTimer() {
+
+    if (courseTimerInterval) {
+
+        clearInterval(
+            courseTimerInterval
+        );
+
+        courseTimerInterval = null;
+    }
+}
+
+
+function updateCourseTimer() {
+
+    const timer =
+        el("courseTimer");
+
+    if (!timer) {
+        return;
+    }
+
+    const minutes =
+        Math.floor(
+            courseSecondsLeft / 60
+        );
+
+    const seconds =
+        courseSecondsLeft % 60;
+
+    timer.textContent =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+    const message =
+        el("courseTimerMessage");
+
+    if (courseSecondsLeft === 0) {
+
+        timer.style.color = "#16a34a";
+
+        if (message) {
+            message.textContent =
+                "✅ Minimum 20-minute learning time completed.";
+        }
+
+    } else {
+
+        timer.style.color = "";
+
+        if (message) {
+            message.textContent =
+                "⏱️ Keep learning. Certificate unlocks after 20 minutes.";
+        }
+    }
+}
+
+
+/* =====================================================
+   READING
+   ===================================================== */
+
+function showReading() {
+
+    clearReadingTimer();
+
+    if (!currentCourse) {
+        return;
+    }
+
+    const readings =
+        courseData[currentCourse].readings;
+
+    const reading =
+        readings[currentReadingIndex];
+
+    if (!reading) {
+
+        startCourseQuiz();
+
+        return;
+    }
+
+    readingLocked = true;
+
+    if (el("courseReading")) {
+        el("courseReading")
+            .classList.remove("hidden");
+    }
+
+    if (el("readingNumber")) {
+
+        el("readingNumber").textContent =
+            `Reading ${currentReadingIndex + 1} / ${readings.length}`;
+    }
+
+    if (el("readingTitle")) {
+
+        el("readingTitle").textContent =
+            reading.title;
+    }
+
+    if (el("readingContent")) {
+
+        el("readingContent").innerHTML =
+            reading.content;
+    }
+
+    const nextButton =
+        el("nextReadingBtn");
+
+    if (nextButton) {
+        nextButton.disabled = true;
+    }
+
+    if (el("readingTimer")) {
+
+        el("readingTimer").textContent =
+            `🔒 Next available in ${READING_LOCK_SECONDS} seconds...`;
+    }
+
+    let seconds =
+        READING_LOCK_SECONDS;
+
+    readingTimerInterval =
+        setInterval(function () {
+
+            seconds--;
+
+            if (seconds > 0) {
+
+                if (el("readingTimer")) {
+
+                    el("readingTimer").textContent =
+                        `🔒 Next available in ${seconds} seconds...`;
+                }
+
+            } else {
+
+                clearReadingTimer();
+
+                readingLocked = false;
+
+                if (nextButton) {
+                    nextButton.disabled = false;
+                }
+
+                if (el("readingTimer")) {
+
+                    el("readingTimer").textContent =
+                        "✅ Reading completed. You can continue.";
+                }
+            }
+
+        }, 1000);
+
+    updateCourseProgress();
+}
+
+
+function clearReadingTimer() {
+
+    if (readingTimerInterval) {
+
+        clearInterval(
+            readingTimerInterval
+        );
+
+        readingTimerInterval = null;
+    }
+}
+
+
+window.nextReading = function () {
+
+    if (readingLocked) {
+        return;
+    }
+
+    currentReadingIndex++;
+
+    if (
+        currentReadingIndex <
+        courseData[currentCourse].readings.length
+    ) {
+
+        showReading();
+
+    } else {
+
+        startCourseQuiz();
+    }
+};
+
+
+/* =====================================================
+   COURSE QUIZ
+   ===================================================== */
+
+function startCourseQuiz() {
+
+    clearReadingTimer();
+
+    if (el("courseReading")) {
+        el("courseReading")
+            .classList.add("hidden");
+    }
+
+    if (el("courseQuiz")) {
+        el("courseQuiz")
+            .classList.remove("hidden");
+    }
+
+    currentCourseQuestionIndex = 0;
+    courseScore = 0;
+    courseAnswerSelected = false;
+
+    showCourseQuestion();
+
+    updateCourseProgress();
+}
+
+
+function showCourseQuestion() {
+
+    const questions =
+        courseData[currentCourse].questions;
 
     const q =
-        quizData[currentLanguage]
-        [currentQuestionIndex];
+        questions[currentCourseQuestionIndex];
 
+    if (!q) {
 
-    el("questionNumber").textContent =
-        `Question ${currentQuestionIndex + 1} / ${quizData[currentLanguage].length}`;
+        finishCourseQuiz();
 
+        return;
+    }
 
-    el("question").textContent =
-        q[0];
+    courseAnswerSelected = false;
 
+    if (el("courseQuestionNumber")) {
 
-    el("quizResult").textContent = "";
+        el("courseQuestionNumber").textContent =
+            `Question ${currentCourseQuestionIndex + 1} / ${questions.length}`;
+    }
 
-    el("answers").innerHTML = "";
+    if (el("courseQuestion")) {
 
-    answerSelected = false;
+        el("courseQuestion").textContent =
+            q[0];
+    }
 
+    if (el("courseQuizResult")) {
+
+        el("courseQuizResult").textContent = "";
+    }
+
+    const answers =
+        el("courseAnswers");
+
+    if (!answers) {
+        return;
+    }
+
+    answers.innerHTML = "";
 
     q[1].forEach(function (option, index) {
 
@@ -1523,51 +2049,56 @@ function showQuestion() {
         button.textContent =
             option;
 
-
         button.onclick = function () {
 
-            if (answerSelected) {
+            if (courseAnswerSelected) {
                 return;
             }
 
-            answerSelected = true;
-
+            courseAnswerSelected = true;
 
             if (index === q[2]) {
 
-                score++;
+                courseScore++;
 
                 button.textContent =
                     option + " ✅";
 
-                el("quizResult").textContent =
-                    "Correct Answer! 🎉";
+                if (el("courseQuizResult")) {
+
+                    el("courseQuizResult").textContent =
+                        "Correct Answer! 🎉";
+
+                    el("courseQuizResult").style.color =
+                        "green";
+                }
 
             } else {
 
                 button.textContent =
                     option + " ❌";
 
-                el("quizResult").textContent =
-                    "Wrong Answer!";
+                if (el("courseQuizResult")) {
+
+                    el("courseQuizResult").textContent =
+                        "Wrong Answer.";
+
+                    el("courseQuizResult").style.color =
+                        "red";
+                }
             }
         };
 
-
-        el("answers")
-            .appendChild(button);
-
+        answers.appendChild(button);
     });
+
+    updateCourseProgress();
 }
 
 
-// =====================================================
-// NEXT PROGRAMMING QUESTION
-// =====================================================
+window.nextCourseQuestion = function () {
 
-window.nextQuestion = function () {
-
-    if (!answerSelected) {
+    if (!courseAnswerSelected) {
 
         alert(
             "Please select an answer first."
@@ -1576,154 +2107,751 @@ window.nextQuestion = function () {
         return;
     }
 
-
-    currentQuestionIndex++;
-
+    currentCourseQuestionIndex++;
 
     if (
-        currentQuestionIndex <
-        quizData[currentLanguage].length
+        currentCourseQuestionIndex <
+        courseData[currentCourse].questions.length
     ) {
 
-        showQuestion();
+        showCourseQuestion();
 
     } else {
 
-        finishQuiz();
+        finishCourseQuiz();
     }
 };
 
 
-// =====================================================
-// FINISH QUIZ
-// =====================================================
+/* =====================================================
+   FINISH QUIZ
+   ===================================================== */
 
-function finishQuiz() {
+function finishCourseQuiz() {
 
-    el("quizGame")
-        .classList.add("hidden");
+    if (el("courseQuiz")) {
+        el("courseQuiz")
+            .classList.add("hidden");
+    }
 
-    el("quizFinished")
-        .classList.remove("hidden");
+    if (el("courseCompleted")) {
+        el("courseCompleted")
+            .classList.remove("hidden");
+    }
 
+    const total =
+        courseData[currentCourse]
+            .questions.length;
 
-    el("finalScore").textContent =
-        `${currentLanguage} Quiz Score: ${score} / ${quizData[currentLanguage].length}`;
+    const percentage =
+        Math.round(
+            (courseScore / total) * 100
+        );
 
+    if (el("courseFinalScore")) {
 
-    const data = load();
+        el("courseFinalScore").textContent =
+            `${currentCourse} Quiz Score: ${courseScore} / ${total} (${percentage}%)`;
+    }
 
+    if (el("courseTimeMessage")) {
 
-    data.quizHistory.unshift({
+        el("courseTimeMessage").textContent =
+            courseSecondsLeft === 0
+                ? "✅ Minimum 20-minute requirement completed."
+                : `⏱️ ${formatTime(courseSecondsLeft)} remaining before certificate unlock.`;
+    }
 
-        date: new Date().toLocaleString(),
+    saveCourseHistory();
 
-        language: currentLanguage,
+    checkCertificateUnlock();
 
-        score:
-            `${score}/${quizData[currentLanguage].length}`
-    });
-
-
-    data.quizHistory =
-        data.quizHistory.slice(0, 50);
-
-
-    save(data);
-
-    renderQuizHistory();
+    updateCourseProgress();
 }
 
 
-// =====================================================
-// RETRY
-// =====================================================
+/* =====================================================
+   CERTIFICATE UNLOCK
+   ===================================================== */
 
-window.restartQuiz = function () {
+function checkCertificateUnlock() {
 
-    startQuiz(currentLanguage);
+    const button =
+        el("generateCertificateBtn");
+
+    const status =
+        el("certificateStatus");
+
+    if (!button || !status) {
+        return;
+    }
+
+    const readingComplete =
+        currentReadingIndex >=
+        courseData[currentCourse].readings.length;
+
+    const quizComplete =
+        currentCourseQuestionIndex >=
+        courseData[currentCourse].questions.length;
+
+    const timeComplete =
+        courseSecondsLeft <= 0;
+
+    if (
+        readingComplete &&
+        quizComplete &&
+        timeComplete
+    ) {
+
+        button.disabled = false;
+
+        status.textContent =
+            "🎉 All requirements completed! Your certificate is ready.";
+
+        status.style.color = "green";
+
+    } else {
+
+        button.disabled = true;
+
+        const remaining = [];
+
+        if (!readingComplete) {
+            remaining.push(
+                "complete all readings"
+            );
+        }
+
+        if (!quizComplete) {
+            remaining.push(
+                "complete the quiz"
+            );
+        }
+
+        if (!timeComplete) {
+
+            remaining.push(
+                `complete ${formatTime(courseSecondsLeft)} more`
+            );
+        }
+
+        status.textContent =
+            "🔒 Still required: " +
+            remaining.join(" • ");
+
+        status.style.color = "";
+    }
+}
+
+
+/* =====================================================
+   COURSE PROGRESS
+   ===================================================== */
+
+function updateCourseProgress() {
+
+    if (!currentCourse) {
+        return;
+    }
+
+    const totalReadings =
+        courseData[currentCourse]
+            .readings.length;
+
+    const totalQuestions =
+        courseData[currentCourse]
+            .questions.length;
+
+    const readingProgress =
+        Math.min(
+            currentReadingIndex,
+            totalReadings
+        ) / totalReadings;
+
+    const quizProgress =
+        Math.min(
+            currentCourseQuestionIndex,
+            totalQuestions
+        ) / totalQuestions;
+
+    const timeProgress =
+        1 -
+        (
+            courseSecondsLeft /
+            (COURSE_MINUTES * 60)
+        );
+
+    const progress =
+        Math.round(
+            readingProgress * 40 +
+            quizProgress * 40 +
+            Math.max(0, timeProgress) * 20
+        );
+
+    const finalProgress =
+        Math.min(100, progress);
+
+    const text =
+        el("courseProgressText");
+
+    const bar =
+        el("courseProgressBar");
+
+    if (text) {
+
+        text.textContent =
+            `Course Progress: ${finalProgress}%`;
+    }
+
+    if (bar) {
+
+        bar.style.width =
+            `${finalProgress}%`;
+    }
+}
+
+
+function formatTime(totalSeconds) {
+
+    const minutes =
+        Math.floor(
+            totalSeconds / 60
+        );
+
+    const seconds =
+        totalSeconds % 60;
+
+    return (
+        `${minutes}m ${String(seconds).padStart(2, "0")}s`
+    );
+}
+
+
+/* =====================================================
+   CERTIFICATE TIER
+   ===================================================== */
+
+function getCertificateTier(scorePercentage) {
+
+    if (scorePercentage >= 90) {
+
+        return {
+            name: "Gold",
+            emoji: "🥇"
+        };
+    }
+
+    if (scorePercentage >= 75) {
+
+        return {
+            name: "Silver",
+            emoji: "🥈"
+        };
+    }
+
+    return {
+        name: "Bronze",
+        emoji: "🥉"
+    };
+}
+
+
+/* =====================================================
+   GENERATE CERTIFICATE
+   ===================================================== */
+
+window.generateCertificate = function () {
+
+    if (courseSecondsLeft > 0) {
+
+        alert(
+            "⏱️ Complete the full 20-minute course before generating the certificate."
+        );
+
+        return;
+    }
+
+    if (
+        currentReadingIndex <
+        courseData[currentCourse].readings.length
+    ) {
+
+        alert(
+            "📖 Please complete all reading lessons first."
+        );
+
+        return;
+    }
+
+    if (
+        currentCourseQuestionIndex <
+        courseData[currentCourse].questions.length
+    ) {
+
+        alert(
+            "🧠 Please complete the quiz first."
+        );
+
+        return;
+    }
+
+    const total =
+        courseData[currentCourse]
+            .questions.length;
+
+    const percentage =
+        Math.round(
+            (courseScore / total) * 100
+        );
+
+    const tier =
+        getCertificateTier(percentage);
+
+    const user =
+        auth.currentUser;
+
+    const studentName =
+        user?.displayName ||
+        "SkillUp Learner";
+
+    const today =
+        new Date().toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+    if (el("certificateStudentName")) {
+
+        el("certificateStudentName")
+            .textContent =
+            studentName;
+    }
+
+    if (el("certificateCourseName")) {
+
+        el("certificateCourseName")
+            .textContent =
+            `${currentCourse} Programming`;
+    }
+
+    if (el("certificateLanguage")) {
+
+        el("certificateLanguage")
+            .textContent =
+            currentCourse;
+    }
+
+    if (el("certificateAward")) {
+
+        el("certificateAward")
+            .textContent =
+            `${tier.emoji} ${tier.name}`;
+    }
+
+    if (el("certificateScore")) {
+
+        el("certificateScore")
+            .textContent =
+            `${percentage}%`;
+    }
+
+    if (el("certificateDate")) {
+
+        el("certificateDate")
+            .textContent =
+            today;
+    }
+
+    if (el("certificateSeal")) {
+
+        el("certificateSeal")
+            .textContent =
+            tier.name.toUpperCase();
+    }
+
+    if (el("certificateArea")) {
+
+        el("certificateArea")
+            .classList.remove("hidden");
+
+        el("certificateArea")
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+    }
 };
 
 
-// =====================================================
-// CHOOSE ANOTHER QUIZ
-// =====================================================
+/* =====================================================
+   PRINT CERTIFICATE
+   ===================================================== */
 
-window.chooseQuiz = function () {
+window.printCertificate = function () {
 
-    el("quizFinished")
-        .classList.add("hidden");
+    const certificate =
+        el("certificate");
 
-    el("quizGame")
-        .classList.add("hidden");
+    if (!certificate) {
+        return;
+    }
 
-    el("quizLanguages")
-        .classList.remove("hidden");
+    const printWindow =
+        window.open("", "_blank");
+
+    if (!printWindow) {
+
+        alert(
+            "Please allow popups for printing the certificate."
+        );
+
+        return;
+    }
+
+    printWindow.document.write(`
+
+        <html>
+
+        <head>
+
+            <title>
+                SkillUp Certificate
+            </title>
+
+            <style>
+
+                * {
+                    box-sizing: border-box;
+                }
+
+                body {
+                    margin: 0;
+                    padding: 20px;
+                    font-family: Arial, sans-serif;
+                    background: #fff;
+                }
+
+                #certificate {
+                    max-width: 900px;
+                    margin: auto;
+                }
+
+                .certificate-border {
+                    padding: 45px;
+                    min-height: 650px;
+                    border: 12px double #d4af37;
+                    outline: 2px solid #172033;
+                    outline-offset: -25px;
+                    text-align: center;
+                    color: #172033;
+                    background: #fff;
+                }
+
+                .certificate-top {
+                    display: flex;
+                    justify-content: space-between;
+                    font-weight: bold;
+                    font-size: 13px;
+                    letter-spacing: 2px;
+                    color: #555;
+                    margin-bottom: 30px;
+                }
+
+                .certificate-icon {
+                    font-size: 55px;
+                }
+
+                .certificate-small-title {
+                    font-size: 15px;
+                    font-weight: bold;
+                    letter-spacing: 5px;
+                    color: #8a6b00;
+                }
+
+                h1 {
+                    font-family: Georgia, serif;
+                    font-size: 38px;
+                }
+
+                #certificateStudentName {
+                    font-family:
+                        "Brush Script MT",
+                        "Segoe Script",
+                        cursive;
+                    font-size: 38px;
+                    color: #7c3aed;
+                }
+
+                #certificateCourseName {
+                    font-family: Georgia, serif;
+                    font-size: 28px;
+                    color: #2563eb;
+                }
+
+                .certificate-line {
+                    width: 65%;
+                    height: 1px;
+                    background: #aaa;
+                    margin: 8px auto 18px;
+                }
+
+                .certificate-description {
+                    max-width: 650px;
+                    margin: 15px auto;
+                    line-height: 1.6;
+                }
+
+                .certificate-details {
+                    display: grid;
+                    grid-template-columns:
+                        repeat(4, 1fr);
+                    gap: 10px;
+                    margin: 30px auto;
+                    max-width: 750px;
+                }
+
+                .certificate-details div {
+                    padding: 12px 7px;
+                    border-top: 1px solid #ddd;
+                    border-bottom: 1px solid #ddd;
+                }
+
+                .certificate-details span {
+                    display: block;
+                    font-size: 10px;
+                    color: #777;
+                    margin-bottom: 5px;
+                }
+
+                .certificate-details strong {
+                    font-size: 14px;
+                }
+
+                .certificate-signatures {
+                    display: grid;
+                    grid-template-columns:
+                        1fr 110px 1fr;
+                    align-items: end;
+                    gap: 20px;
+                    margin-top: 35px;
+                }
+
+                .signature-box {
+                    text-align: center;
+                }
+
+                .signature-style {
+                    font-family:
+                        "Brush Script MT",
+                        "Segoe Script",
+                        cursive;
+                    font-size: 25px;
+                    font-style: italic;
+                    height: 35px;
+                }
+
+                .signature-line {
+                    height: 1px;
+                    background: #333;
+                    margin-bottom: 7px;
+                }
+
+                .signature-box strong,
+                .signature-box span {
+                    display: block;
+                    font-size: 12px;
+                }
+
+                .certificate-seal {
+                    width: 95px;
+                    height: 95px;
+                    border: 4px double #d4af37;
+                    border-radius: 50%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 10px;
+                    color: #8a6b00;
+                    font-weight: bold;
+                }
+
+                .certificate-actions {
+                    display: none;
+                }
+
+                @media print {
+
+                    body {
+                        padding: 0;
+                    }
+
+                    @page {
+                        size: A4 landscape;
+                        margin: 10mm;
+                    }
+
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            ${certificate.outerHTML}
+
+        </body>
+
+        </html>
+
+    `);
+
+    printWindow.document.close();
+
+    setTimeout(function () {
+
+        printWindow.print();
+
+    }, 500);
 };
 
 
-// =====================================================
-// QUIZ HISTORY
-// =====================================================
+/* =====================================================
+   COURSE HISTORY
+   ===================================================== */
 
-function renderQuizHistory() {
+function saveCourseHistory() {
 
     const data = load();
 
-    const history =
-        el("quizHistory");
+    const total =
+        courseData[currentCourse]
+            .questions.length;
 
+    const percentage =
+        Math.round(
+            (courseScore / total) * 100
+        );
+
+    data.courseHistory.unshift({
+
+        date:
+            new Date().toLocaleString(),
+
+        language:
+            currentCourse,
+
+        score:
+            `${courseScore}/${total}`,
+
+        percentage:
+            percentage,
+
+        certificate:
+            percentage >= 90
+                ? "Gold"
+                : percentage >= 75
+                    ? "Silver"
+                    : "Bronze"
+
+    });
+
+    data.courseHistory =
+        data.courseHistory.slice(0, 50);
+
+    save(data);
+
+    renderCourseHistory();
+}
+
+
+function renderCourseHistory() {
+
+    const history =
+        el("courseHistory");
 
     if (!history) {
         return;
     }
 
+    const data = load();
 
-    if (!data.quizHistory.length) {
+    if (!data.courseHistory.length) {
 
         history.innerHTML =
-            "No quiz history yet.";
+            "No course history yet.";
 
         return;
     }
 
-
     history.innerHTML =
-        data.quizHistory
+        data.courseHistory
             .map(function (item) {
+
+                const emoji =
+                    item.certificate === "Gold"
+                        ? "🥇"
+                        : item.certificate === "Silver"
+                            ? "🥈"
+                            : "🥉";
 
                 return `
 
                     <div class="history-item">
 
-                        📅 ${item.date}
-                        —
+                        📅 ${item.date}<br>
+
                         <strong>
-                            ${item.language}
+                            ${item.language} Programming
                         </strong>
-                        —
+
+                        — Score:
                         ${item.score}
+                        (${item.percentage}%)
 
-                        <br><br>
+                        <br>
 
-                        <button
-                            class="secondary-btn"
-                            onclick="startQuiz('${item.language}')"
-                        >
-                            🔄 Repeat Quiz
-                        </button>
+                        ${emoji}
+                        ${item.certificate} Level
 
                     </div>
 
                 `;
+
             })
             .join("");
 }
 
 
-// =====================================================
-// PLAY ZONE
-// =====================================================
+window.chooseCourse = function () {
+
+    stopCourseTimer();
+    clearReadingTimer();
+
+    if (el("courseDashboard")) {
+
+        el("courseDashboard")
+            .classList.add("hidden");
+    }
+
+    if (el("quizLanguages")) {
+
+        el("quizLanguages")
+            .classList.remove("hidden");
+    }
+
+    currentCourse = "";
+};
+
+
+/* =====================================================
+   PLAY ZONE
+   ===================================================== */
 
 const gameList = [
 
@@ -1761,11 +2889,9 @@ window.renderGames = function () {
     const grid =
         el("gamesGrid");
 
-
     if (!grid) {
         return;
     }
-
 
     grid.innerHTML =
         gameList
@@ -1778,13 +2904,10 @@ window.renderGames = function () {
                 const completed =
                     data.games.includes(index);
 
-
                 return `
 
-                    <div
-                        class="game-card
-                        ${unlocked ? "" : "locked"}"
-                    >
+                    <div class="game-card
+                        ${unlocked ? "" : "locked"}">
 
                         <div class="game-image">
 
@@ -1793,7 +2916,6 @@ window.renderGames = function () {
                             </div>
 
                         </div>
-
 
                         <div class="game-content">
 
@@ -1805,44 +2927,37 @@ window.renderGames = function () {
                                 ${game[2]}
                             </p>
 
-
                             ${
                                 unlocked
+                                    ? `
 
-                                ?
+                                        <a
+                                            href="games/${game[0]}/index.html"
+                                            class="play-btn">
+                                            ▶️ Play Now
+                                        </a>
 
-                                `
+                                        <button
+                                            class="secondary-btn"
+                                            style="margin-top:8px;width:100%"
+                                            onclick="markGameComplete(${index})">
 
-                                <a
-                                    href="games/${game[0]}/index.html"
-                                    class="play-btn"
-                                >
-                                    ▶️ Play Now
-                                </a>
+                                            ${
+                                                completed
+                                                    ? "✅ Completed"
+                                                    : "Mark Complete"
+                                            }
 
-                                <button
-                                    class="secondary-btn"
-                                    style="margin-top:8px;width:100%"
-                                    onclick="markGameComplete(${index})"
-                                >
-                                    ${
-                                        completed
-                                        ? "✅ Completed"
-                                        : "Mark Complete"
-                                    }
-                                </button>
+                                        </button>
 
-                                `
+                                    `
+                                    : `
 
-                                :
+                                        <p class="unlock-note">
+                                            🔒 Complete the previous game first.
+                                        </p>
 
-                                `
-
-                                <p class="unlock-note">
-                                    🔒 Complete the previous game first.
-                                </p>
-
-                                `
+                                    `
                             }
 
                         </div>
@@ -1871,15 +2986,18 @@ window.markGameComplete = function (index) {
 };
 
 
-// =====================================================
-// LEARNING GAMES
-// =====================================================
+/* =====================================================
+   LEARNING GAMES
+   ===================================================== */
 
 window.selectLearningDifficulty = function (level) {
 
     const message =
         el("learningDifficultyMessage");
 
+    if (!message) {
+        return;
+    }
 
     const icon =
         level === "easy"
@@ -1887,7 +3005,6 @@ window.selectLearningDifficulty = function (level) {
             : level === "medium"
                 ? "🟡"
                 : "🔴";
-
 
     message.textContent =
         `${icon} ${level} selected!`;
@@ -1899,8 +3016,10 @@ window.openLearningGame = function (game) {
     const message =
         el("learningDifficultyMessage");
 
-
-    if (!message.textContent.includes("selected")) {
+    if (
+        !message ||
+        !message.textContent.includes("selected")
+    ) {
 
         alert(
             "Please select a difficulty first."
@@ -1909,15 +3028,14 @@ window.openLearningGame = function (game) {
         return;
     }
 
-
     location.href =
         `learning-games/${game}/index.html`;
 };
 
 
-// =====================================================
-// MOTIVATIONAL SHAYARI
-// =====================================================
+/* =====================================================
+   MOTIVATIONAL SHAYARI
+   ===================================================== */
 
 const shayaris = [
 
@@ -1930,8 +3048,6 @@ const shayaris = [
     "सीखते रहो, बढ़ते रहो और कभी हार मत मानो। 🔥",
 
     "हार मत मानो, शुरुआत छोटी हो सकती है, मंजिल बड़ी हो सकती है। 🏆",
-
-    "सपने वो नहीं जो नींद में आते हैं, सपने वो हैं जो आपको मेहनत करने पर मजबूर करते हैं। 🌟",
 
     "हर दिन खुद को कल से बेहतर बनाओ। 🚀",
 
@@ -1952,27 +3068,30 @@ window.newShayari = function () {
             shayaris.length
         );
 
+    const text =
+        el("shayariText");
 
-    el("shayariText").textContent =
-        shayaris[random];
+    if (text) {
+        text.textContent =
+            shayaris[random];
+    }
 };
 
 
-// =====================================================
-// RESUME BUILDER
-// =====================================================
+/* =====================================================
+   RESUME BUILDER
+   ===================================================== */
 
 window.generateResume = function () {
 
     const name =
-        el("resumeName").value.trim();
+        el("resumeName")?.value.trim();
 
     const email =
-        el("resumeEmail").value.trim();
+        el("resumeEmail")?.value.trim();
 
     const education =
-        el("resumeEducation").value.trim();
-
+        el("resumeEducation")?.value.trim();
 
     if (!name || !email || !education) {
 
@@ -1983,8 +3102,14 @@ window.generateResume = function () {
         return;
     }
 
+    const output =
+        el("resumeOutput");
 
-    el("resumeOutput").innerHTML = `
+    if (!output) {
+        return;
+    }
+
+    output.innerHTML = `
 
         <h1>${name}</h1>
 
@@ -1995,7 +3120,7 @@ window.generateResume = function () {
 
         <p>
             <strong>Phone:</strong>
-            ${el("resumePhone").value}
+            ${el("resumePhone")?.value || ""}
         </p>
 
         <hr>
@@ -2003,7 +3128,7 @@ window.generateResume = function () {
         <h3>About Me</h3>
 
         <p>
-            ${el("resumeAbout").value}
+            ${el("resumeAbout")?.value || ""}
         </p>
 
         <h3>Education</h3>
@@ -2015,7 +3140,7 @@ window.generateResume = function () {
         <h3>Skills</h3>
 
         <p>
-            ${el("resumeSkills").value}
+            ${el("resumeSkills")?.value || ""}
         </p>
 
         <br>
@@ -2026,15 +3151,13 @@ window.generateResume = function () {
 
     `;
 
-
-    el("resumeOutput")
-        .classList.remove("hidden");
+    output.classList.remove("hidden");
 };
 
 
-// =====================================================
-// REFER & EARN
-// =====================================================
+/* =====================================================
+   REFER & EARN
+   ===================================================== */
 
 function generateReferralCode(email) {
 
@@ -2046,33 +3169,59 @@ function generateReferralCode(email) {
                 : ""
         );
 
+    const referral =
+        el("referralCode");
 
-    el("referralCode").textContent =
-        code;
+    if (referral) {
+        referral.textContent = code;
+    }
 }
 
 
 window.copyReferral = function () {
 
+    const referral =
+        el("referralCode");
+
+    const message =
+        el("copyMessage");
+
+    if (!referral) {
+        return;
+    }
+
     navigator.clipboard
         .writeText(
-            el("referralCode").textContent
+            referral.textContent
         )
         .then(function () {
 
-            el("copyMessage").textContent =
-                "✅ Referral code copied!";
+            if (message) {
+
+                message.textContent =
+                    "✅ Referral code copied!";
+            }
+
+        })
+        .catch(function () {
+
+            alert(
+                "Unable to copy referral code."
+            );
         });
 };
 
 
 function getReferralLink() {
 
+    const referral =
+        el("referralCode");
+
     return (
         location.origin +
         location.pathname +
         "?ref=" +
-        el("referralCode").textContent
+        (referral?.textContent || "")
     );
 }
 
@@ -2085,8 +3234,15 @@ window.copyReferralLink = function () {
         )
         .then(function () {
 
-            el("shareMessage").textContent =
-                "✅ Referral link copied!";
+            const message =
+                el("shareMessage");
+
+            if (message) {
+
+                message.textContent =
+                    "✅ Referral link copied!";
+            }
+
         });
 };
 
@@ -2096,42 +3252,56 @@ window.shareReferral = async function () {
     const link =
         getReferralLink();
 
-
     if (navigator.share) {
 
-        await navigator.share({
+        try {
 
-            title: "Join SkillUp",
+            await navigator.share({
 
-            text:
-                "Join SkillUp - Learn, Play & Grow 🚀",
+                title: "Join SkillUp",
 
-            url: link
-        });
+                text:
+                    "Join SkillUp - Learn, Play & Grow 🚀",
+
+                url: link
+
+            });
+
+        } catch (error) {
+
+            console.log(
+                "Share cancelled."
+            );
+        }
 
     } else {
 
         await navigator.clipboard
             .writeText(link);
 
-        el("shareMessage").textContent =
-            "✅ Link copied!";
+        const message =
+            el("shareMessage");
+
+        if (message) {
+
+            message.textContent =
+                "✅ Link copied!";
+        }
     }
 };
 
 
-// =====================================================
-// PDF MAKER
-// =====================================================
+/* =====================================================
+   PDF MAKER
+   ===================================================== */
 
 window.generatePDF = function () {
 
     const title =
-        el("pdfTitle").value.trim();
+        el("pdfTitle")?.value.trim();
 
     const content =
-        el("pdfContent").value.trim();
-
+        el("pdfContent")?.value.trim();
 
     if (!title || !content) {
 
@@ -2142,10 +3312,8 @@ window.generatePDF = function () {
         return;
     }
 
-
     const newWindow =
         window.open("", "_blank");
-
 
     if (!newWindow) {
 
@@ -2155,7 +3323,6 @@ window.generatePDF = function () {
 
         return;
     }
-
 
     newWindow.document.write(`
 
@@ -2195,9 +3362,7 @@ window.generatePDF = function () {
 
     `);
 
-
     newWindow.document.close();
-
 
     setTimeout(function () {
 
@@ -2207,9 +3372,9 @@ window.generatePDF = function () {
 };
 
 
-// =====================================================
-// DARK / LIGHT THEME
-// =====================================================
+/* =====================================================
+   DARK / LIGHT THEME
+   ===================================================== */
 
 window.toggleTheme = function () {
 
@@ -2217,27 +3382,35 @@ window.toggleTheme = function () {
         .classList
         .toggle("dark-theme");
 
-
     const dark =
         document.body
             .classList
             .contains("dark-theme");
 
+    const button =
+        el("themeButton");
 
-    el("themeButton").textContent =
-        dark ? "☀️" : "🌙";
+    if (button) {
 
+        button.textContent =
+            dark
+                ? "☀️"
+                : "🌙";
+    }
 
     localStorage.setItem(
         "skillupTheme",
-        dark ? "dark" : "light"
+        dark
+            ? "dark"
+            : "light"
     );
 };
 
 
 if (
-    localStorage.getItem("skillupTheme")
-    === "dark"
+    localStorage.getItem(
+        "skillupTheme"
+    ) === "dark"
 ) {
 
     document.body
@@ -2246,6 +3419,10 @@ if (
 }
 
 
-// =====================================================
-// END
-// =====================================================
+/* =====================================================
+   STARTUP
+   ===================================================== */
+
+console.log(
+    "✅ SkillUp JavaScript loaded successfully."
+);
