@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+
+    background: linear-gradient(
+        #dbeafe,
+        #eff6ff
+    );
+
+    color: #172033;
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 500px;
+
+    text-align: center;
+}
+
+h1 {
+    font-size: 38px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
+    margin-bottom: 15px;
+}
+
+.stats div {
+    background: white;
+
+    padding: 10px 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.08);
+}
+
+.stats strong {
+    display: block;
+
+    font-size: 22px;
+
+    margin-top: 4px;
+}
+
+.game-area {
+    position: relative;
+
+    width: 100%;
+    max-width: 420px;
+
+    height: 500px;
+
+    margin: auto;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            #60a5fa,
+            #bfdbfe
+        );
+
+    border: 4px solid white;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.15);
+}
+
+.player {
+    position: absolute;
+
+    bottom: 25px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-size: 42px;
+
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    user-select: none;
+}
+
+.obstacle {
+    position: absolute;
+
+    top: -50px;
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 10px;
+
+    background: #ef4444;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 25px;
+}
+
+.message {
+    min-height: 30px;
+
+    margin: 15px;
+
+    font-weight: bold;
+}
+
+.start-btn,
+.back-btn {
+    border: none;
+
+    padding: 12px 22px;
+
+    border-radius: 10px;
+
+    color: white;
+
+    cursor: pointer;
+
+    margin: 5px;
+
+    font-size: 15px;
+}
+
+.start-btn {
+    background: #2563eb;
+}
+
+.back-btn {
+    background: #64748b;
+}
+
+.start-btn:hover,
+.back-btn:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 500px) {
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .game-area {
+        height: 450px;
+    }
+}

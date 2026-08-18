@@ -1,1 +1,61 @@
-<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>☁️ Sky Dodge</title><style>body{font-family:Arial;text-align:center;padding:50px;background:#f5f7fb}button{padding:14px 22px;border:0;border-radius:10px;background:#2563eb;color:white}</style></head><body><h1>☁️ Sky Dodge</h1><p>Game folder connected successfully. Replace this page with your existing game code.</p><button onclick="history.back()">⬅️ Back to SkillUp</button></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>☁️ Sky Dodge - SkillUp</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="game-container">
+
+    <h1>☁️ Sky Dodge</h1>
+
+    <p class="subtitle">
+        Dodge the falling obstacles and survive!
+    </p>
+
+    <div class="stats">
+
+        <div>
+            Score
+            <strong id="score">0</strong>
+        </div>
+
+        <div>
+            Best
+            <strong id="best">0</strong>
+        </div>
+
+    </div>
+
+    <div id="gameArea" class="game-area">
+
+        <div id="player" class="player">
+            🛩️
+        </div>
+
+    </div>
+
+    <p id="message" class="message">
+        Use ⬅️ ➡️ keys to move
+    </p>
+
+    <button id="startBtn" class="start-btn">
+        ▶️ Start Game
+    </button>
+
+    <button class="back-btn" onclick="goBack()">
+        ⬅️ Back to SkillUp
+    </button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

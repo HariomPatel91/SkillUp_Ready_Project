@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #172033;
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+.score-board {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    margin-bottom: 20px;
+}
+
+.score-board div {
+    background: white;
+
+    padding: 12px 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.08);
+}
+
+.score-board strong {
+    display: block;
+    font-size: 24px;
+    margin-top: 5px;
+}
+
+#turn {
+    margin-bottom: 20px;
+}
+
+.board {
+    width: 330px;
+    height: 330px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+}
+
+.cell {
+    border: none;
+
+    border-radius: 14px;
+
+    background: white;
+
+    font-size: 55px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.08);
+
+    color: #2563eb;
+}
+
+.cell:hover {
+    background: #eff6ff;
+}
+
+.cell.x {
+    color: #2563eb;
+}
+
+.cell.o {
+    color: #dc2626;
+}
+
+.cell.win {
+    background: #dcfce7;
+}
+
+.message {
+    min-height: 30px;
+
+    margin: 20px 0;
+
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+.restart-btn,
+.back-btn {
+    border: none;
+
+    padding: 12px 22px;
+
+    border-radius: 10px;
+
+    color: white;
+
+    cursor: pointer;
+
+    margin: 5px;
+
+    font-size: 15px;
+}
+
+.restart-btn {
+    background: #2563eb;
+}
+
+.back-btn {
+    background: #64748b;
+}
+
+.restart-btn:hover,
+.back-btn:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 450px) {
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .board {
+        width: 280px;
+        height: 280px;
+    }
+
+    .cell {
+        font-size: 45px;
+    }
+}

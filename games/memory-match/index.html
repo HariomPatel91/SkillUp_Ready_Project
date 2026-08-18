@@ -1,1 +1,49 @@
-<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🧠 Memory Match</title><style>body{font-family:Arial;text-align:center;padding:50px;background:#f5f7fb}button{padding:14px 22px;border:0;border-radius:10px;background:#2563eb;color:white}</style></head><body><h1>🧠 Memory Match</h1><p>Game folder connected successfully. Replace this page with your existing game code.</p><button onclick="history.back()">⬅️ Back to SkillUp</button></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Memory Match - SkillUp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="game-container">
+
+    <a href="../../index.html" class="back-btn">⬅️ Back to SkillUp</a>
+
+    <h1>🧠 Memory Match</h1>
+    <p class="subtitle">Match all the pairs and test your memory!</p>
+
+    <div class="stats">
+        <div>
+            <span>Moves</span>
+            <strong id="moves">0</strong>
+        </div>
+
+        <div>
+            <span>Matches</span>
+            <strong id="matches">0</strong>
+        </div>
+
+        <div>
+            <span>Time</span>
+            <strong id="time">00:00</strong>
+        </div>
+    </div>
+
+    <div id="gameBoard" class="game-board"></div>
+
+    <button id="restartBtn" class="restart-btn">
+        🔄 Restart Game
+    </button>
+
+    <div id="message" class="message"></div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

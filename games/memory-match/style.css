@@ -1,0 +1,169 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #172033;
+    min-height: 100vh;
+    padding: 25px;
+}
+
+.game-container {
+    max-width: 700px;
+    margin: auto;
+    text-align: center;
+}
+
+.back-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #2563eb;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 38px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.stats div {
+    background: white;
+    padding: 12px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    min-width: 110px;
+}
+
+.stats span {
+    display: block;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 5px;
+}
+
+.stats strong {
+    font-size: 20px;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 520px;
+    margin: auto;
+}
+
+.card {
+    height: 110px;
+    cursor: pointer;
+    perspective: 800px;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner,
+.card.matched .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+}
+
+.card-front {
+    background: #2563eb;
+    color: white;
+    font-size: 32px;
+}
+
+.card-back {
+    background: white;
+    transform: rotateY(180deg);
+    font-size: 42px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+}
+
+.card.matched .card-back {
+    background: #dcfce7;
+}
+
+.restart-btn {
+    margin-top: 25px;
+    padding: 13px 25px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.restart-btn:hover {
+    opacity: 0.9;
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .game-board {
+        gap: 8px;
+    }
+
+    .card {
+        height: 80px;
+    }
+
+    .card-back {
+        font-size: 30px;
+    }
+
+    .card-front {
+        font-size: 24px;
+    }
+}

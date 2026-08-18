@@ -1,1 +1,69 @@
-<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>❌⭕ X-O Rush</title><style>body{font-family:Arial;text-align:center;padding:50px;background:#f5f7fb}button{padding:14px 22px;border:0;border-radius:10px;background:#2563eb;color:white}</style></head><body><h1>❌⭕ X-O Rush</h1><p>Game folder connected successfully. Replace this page with your existing game code.</p><button onclick="history.back()">⬅️ Back to SkillUp</button></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>❌⭕ X-O Rush - SkillUp</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="game-container">
+
+    <h1>❌⭕ X-O Rush</h1>
+
+    <p class="subtitle">
+        Play Tic-Tac-Toe and get three in a row!
+    </p>
+
+    <div class="score-board">
+
+        <div>
+            X Score
+            <strong id="xScore">0</strong>
+        </div>
+
+        <div>
+            O Score
+            <strong id="oScore">0</strong>
+        </div>
+
+    </div>
+
+    <h2 id="turn">Player X's Turn</h2>
+
+    <div id="board" class="board">
+
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+
+    </div>
+
+    <p id="message" class="message"></p>
+
+    <button id="restartBtn" class="restart-btn">
+        🔄 New Game
+    </button>
+
+    <button class="back-btn" onclick="goBack()">
+        ⬅️ Back to SkillUp
+    </button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

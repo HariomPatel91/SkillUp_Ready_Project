@@ -1,1 +1,66 @@
-<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🔢 Number Rush</title><style>body{font-family:Arial;text-align:center;padding:50px;background:#f5f7fb}button{padding:14px 22px;border:0;border-radius:10px;background:#2563eb;color:white}</style></head><body><h1>🔢 Number Rush</h1><p>Game folder connected successfully. Replace this page with your existing game code.</p><button onclick="history.back()">⬅️ Back to SkillUp</button></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>🔢 Number Rush - SkillUp</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="game-container">
+
+    <h1>🔢 Number Rush</h1>
+
+    <p class="subtitle">
+        Solve the numbers as fast as you can!
+    </p>
+
+    <div class="stats">
+
+        <div>
+            Score
+            <strong id="score">0</strong>
+        </div>
+
+        <div>
+            Question
+            <strong id="questionNumber">1</strong>
+        </div>
+
+        <div>
+            Time
+            <strong id="timer">30</strong>
+        </div>
+
+    </div>
+
+    <div class="question-box">
+
+        <h2 id="question">
+            Loading...
+        </h2>
+
+        <div id="answers" class="answers"></div>
+
+    </div>
+
+    <p id="message" class="message"></p>
+
+    <button id="restartBtn" class="restart-btn">
+        🔄 Restart
+    </button>
+
+    <button class="back-btn" onclick="goBack()">
+        ⬅️ Back to SkillUp
+    </button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
