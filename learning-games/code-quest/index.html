@@ -1,1 +1,61 @@
-<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>💻 Code Quest</title><style>body{font-family:Arial;text-align:center;padding:50px;background:#f5f7fb}button{padding:14px 22px;border:0;border-radius:10px;background:#7c3aed;color:white}</style></head><body><h1>💻 Code Quest</h1><p>Learning game folder connected successfully.</p><button onclick="history.back()">⬅️ Back to SkillUp</button></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>💻 Code Quiz - SkillUp</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="game-container">
+
+    <header>
+        <h1>💻 Code Quiz</h1>
+        <p>Test your programming knowledge!</p>
+    </header>
+
+    <div class="top-bar">
+        <span>Score: <strong id="score">0</strong></span>
+        <span>Question: <strong id="questionNumber">1</strong>/10</span>
+    </div>
+
+    <div class="game-card">
+
+        <h2 id="question">Loading question...</h2>
+
+        <div id="answers" class="answers"></div>
+
+        <p id="result"></p>
+
+        <button id="nextBtn" onclick="nextQuestion()" disabled>
+            Next ➡️
+        </button>
+
+    </div>
+
+    <div id="finalScreen" class="hidden">
+
+        <h2>🎉 Quiz Complete!</h2>
+
+        <p id="finalScore"></p>
+
+        <button onclick="restartGame()">
+            🔄 Play Again
+        </button>
+
+        <button onclick="goBack()">
+            ⬅️ Back to SkillUp
+        </button>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
