@@ -4194,7 +4194,7 @@ function checkLoginState() {
 
 
     if (loggedUser) {
-
+document.body.classList.add("logged-in");
         /*
             User already logged in.
         */
@@ -4234,7 +4234,7 @@ function checkLoginState() {
         showPage("homePage");
 
     } else {
-
+document.body.classList.remove("logged-in");
         /*
             No login session.
         */
