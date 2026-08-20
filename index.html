@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,898 +10,458 @@
 </head>
 
 <body>
-
 <!-- =====================================================
-     LOGIN PAGE
+     LOGIN / SIGNUP PAGE
 ===================================================== -->
 
-<div id="loginPage" class="auth-page">
+<section id="loginPage" class="login-page">
 
-    <div class="auth-box">
+    <div class="login-card">
 
-        <h1>🚀 SkillUp</h1>
+        <div class="login-logo">
+            🚀
+        </div>
 
-        <p class="tagline">
-            Learn, Play & Grow
+        <h1>Welcome to SkillUp</h1>
+
+        <p class="login-subtitle">
+            Learn • Play • Grow
         </p>
 
-        <h2>Login</h2>
+        <!-- LOGIN FORM -->
 
-        <input
-            type="email"
-            id="loginEmail"
-            placeholder="Enter Email">
+        <div id="loginForm">
 
-        <input
-            type="password"
-            id="loginPassword"
-            placeholder="Enter Password">
+            <h2>Login</h2>
 
-        <button id="loginButton">
-            Login
-        </button>
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Enter your email"
+                autocomplete="email"
+            >
 
-        <p>
-            Don't have an account?
-        <button id="createAccountButton">
-    Create Account
-</button>  
-        </p>
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+            >
 
-        <p id="loginMessage"></p>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     CREATE ACCOUNT
-===================================================== -->
-
-<div id="createAccountPage" class="auth-page hidden">
-
-    <div class="auth-box">
-
-        <h1>🚀 SkillUp</h1>
-
-        <p class="tagline">
-            Create your account
-        </p>
-
-        <h2>Create Account</h2>
-
-        <input
-            type="text"
-            id="signupName"
-            placeholder="Enter Name">
-
-        <input
-            type="email"
-            id="signupEmail"
-            placeholder="Enter Email">
-
-        <input
-            type="password"
-            id="signupPassword"
-            placeholder="Create Password">
-
-        <button onclick="createAccount()">
-            Create Account
-        </button>
-
-        <p>
-            Already have an account?
-            <span
-                class="link"
-                onclick="showLogin()">
+            <button
+                type="button"
+                id="loginBtn"
+                class="primary-btn">
                 Login
-            </span>
-        </p>
+            </button>
 
-        <p id="signupMessage"></p>
+            <p id="loginMessage" class="form-message"></p>
+
+            <p class="switch-login">
+                Don't have an account?
+                <button
+                    type="button"
+                    id="showSignupBtn"
+                    class="text-btn">
+                    Create Account
+                </button>
+            </p>
+
+        </div>
+
+
+        <!-- SIGNUP FORM -->
+
+        <div id="signupForm" class="hidden">
+
+            <h2>Create Account</h2>
+
+            <input
+                type="text"
+                id="signupName"
+                placeholder="Enter your name"
+                autocomplete="name"
+            >
+
+            <input
+                type="email"
+                id="signupEmail"
+                placeholder="Enter your email"
+                autocomplete="email"
+            >
+
+            <input
+                type="password"
+                id="signupPassword"
+                placeholder="Create password"
+                autocomplete="new-password"
+            >
+
+            <input
+                type="password"
+                id="signupConfirmPassword"
+                placeholder="Confirm password"
+                autocomplete="new-password"
+            >
+
+            <button
+                type="button"
+                id="createAccountBtn"
+                class="primary-btn">
+                Create Account
+            </button>
+
+            <p
+                id="signupMessage"
+                class="form-message">
+            </p>
+
+            <p class="switch-login">
+                Already have an account?
+                <button
+                    type="button"
+                    id="showLoginBtn"
+                    class="text-btn">
+                    Login
+                </button>
+            </p>
+
+        </div>
+
+        <div class="login-founder">
+            <strong>SkillUp</strong>
+            <span>Founder: Hariom Patel</span>
+        </div>
 
     </div>
 
-</div>
+</section>
+<!-- =========================================================
+     APP HEADER
+========================================================= -->
 
+<header class="topbar">
 
-<!-- =====================================================
-     MAIN APP
-===================================================== -->
-
-<div id="appPage" class="hidden">
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
-<header>
-
-    <div class="logo">
-        🚀 SkillUp
+    <div class="brand">
+        <div class="brand-logo">S</div>
+        <div>
+            <h2>SkillUp</h2>
+            <span>Learn • Play • Grow</span>
+        </div>
     </div>
 
-    <div class="founder">
-        Founder:
-        <strong>
-            Hariom Patel & Vedika Yadav
-        </strong>
-    </div>
+    <nav class="main-nav">
+        <button class="nav-btn active" data-page="homePage">Home</button>
+        <button class="nav-btn" data-page="learningPage">Learn</button>
+        <button class="nav-btn" data-page="gamesPage">Games</button>
+        <button class="nav-btn" data-page="profilePage">Profile</button>
+        <button class="nav-btn"data-page="certificatePage">🏆 Certificate</button>
+    </nav>
 
-    <button
-        class="theme-btn"
-        onclick="toggleTheme()"
-        id="themeButton">
-        🌙
-    </button>
-<button class="profile-btn" onclick="showSection('profile')">
-  👤 Profile
-</button>
-
-    <button
-        class="logout-btn"
-        onclick="logout()">
-        Logout
+    <button class="profile-mini" data-page="profilePage">
+        <span id="headerInitial">H</span>
     </button>
 
 </header>
 
 
-<!-- =====================================================
-     WELCOME
-===================================================== -->
+<!-- =========================================================
+     MAIN APP
+========================================================= -->
 
-<section class="welcome">
-
-    <h1 id="welcomeUser">
-        Welcome to SkillUp 👋
-    </h1>
-
-    <p>
-        Learn new skills, play quizzes and grow every day.
-    </p>
-
-</section>
+<main class="app-container">
 
 
-<!-- =====================================================
-     NAVIGATION
-===================================================== -->
+<!-- =========================================================
+     HOME PAGE
+========================================================= -->
 
-<nav class="menu">
+<section id="homePage" class="page active-page">
 
-    <button onclick="showSection('home')">
-        🏠 Home
-    </button>
+    <div class="hero">
 
-    <button onclick="showSection('learning')">
-        📚 Learn English
-    </button>
+        <div class="hero-content">
 
-    <button onclick="showSection('quiz')">
-        🎓 Courses & Certificate
-    </button>
+            <span class="hero-badge">🚀 Smart Learning Platform</span>
 
-    <button onclick="showSection('englishQuiz')">
-        🇬🇧 English Quiz
-    </button>
-
-    <button onclick="showSection('games')">
-        🎮 Games
-    </button>
-
-    <button onclick="showSection('learningGames')">
-        🎓 Learning Games
-    </button>
-
-    <button onclick="showSection('typingMaster')">
-        ⌨️ Typing Master
-    </button>
-
-    <button onclick="showSection('shayari')">
-        ✨ Motivational Shayari
-    </button>
-
-    <button onclick="showSection('resume')">
-        📄 Resume Builder
-    </button>
-
-    <button onclick="showSection('refer')">
-        🎁 Refer & Earn
-    </button>
-
-    <button onclick="showSection('pdfMaker')">
-        📕 PDF Maker
-    </button>
-
-    <button onclick="showSection('profile')">
-        👤 Profile
-    </button>
-
-</nav>
-
-
-<!-- =====================================================
-     HOME
-===================================================== -->
-
-<section id="home" class="section">
-
-    <h2>
-        🚀 SkillUp Features
-    </h2>
-
-    <div class="cards">
-
-
-        <!-- LEARN ENGLISH -->
-
-        <div
-            class="card"
-            onclick="showSection('learning')">
-
-            <div class="icon">
-                🇬🇧
-            </div>
-
-            <h3>
-                Learn English
-            </h3>
+            <h1>
+                Learn Skills.<br>
+                <span>Play. Grow.</span>
+            </h1>
 
             <p>
-                Check your level and learn English
-                with daily tasks.
+                Improve your typing, reading, coding, maths, GK and
+                logical thinking with SkillUp.
             </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn" data-page="learningPage">
+                    Start Learning
+                </button>
+
+                <button class="secondary-btn" data-page="gamesPage">
+                    Play Games
+                </button>
+
+            </div>
 
         </div>
 
+        <div class="hero-card">
 
-        <!-- PROGRAMMING -->
+            <div class="hero-card-icon">🏆</div>
 
-        <div
-            class="card"
-            onclick="showSection('quiz')">
+            <h3>Your Learning Journey</h3>
 
-            <div class="icon">
-                🎓
+            <p>Keep practicing and improve your skills every day.</p>
+
+            <div class="hero-progress">
+                <div class="progress-bar">
+                    <div id="homeProgressBar"></div>
+                </div>
+                <span id="homeProgressText">0%</span>
             </div>
-
-            <h3>
-                Programming Courses
-            </h3>
-
-            <p>
-                Learn C, C++, Python and Java
-                with reading, quizzes and certificates.
-            </p>
 
         </div>
 
-
-        <!-- ENGLISH QUIZ -->
-
-        <div
-            class="card"
-            onclick="showSection('englishQuiz')">
-
-            <div class="icon">
-                🇬🇧
-            </div>
-
-            <h3>
-                English Quiz
-            </h3>
-
-            <p>
-                Test your English knowledge separately.
-            </p>
-
-        </div>
-
-
-        <!-- GAMES -->
-
-        <div
-            class="card"
-            onclick="showSection('games')">
-
-            <div class="icon">
-                🎮
-            </div>
-
-            <h3>
-                Play Zone
-            </h3>
-
-            <p>
-                Play games one by one and
-                unlock the next game.
-            </p>
-
-        </div>
-
-
-        <!-- LEARNING GAMES -->
-
-        <div
-            class="card"
-            onclick="showSection('learningGames')">
-
-            <div class="icon">
-                🎓
-            </div>
-
-            <h3>
-                Learning Games
-            </h3>
-
-            <p>
-                Learn while playing educational games.
-            </p>
-
-        </div>
-
-
-        <!-- TYPING MASTER -->
-
-        <div class="card"
-         onclick="showSection('typingMaster')">
-    <div class="icon">
-      ⌨️</div>
-    <h3>
-      Typing Master
-    </h3>
-    <p>
-      Learn typing and practice your speed and accuracy.
-    </p>
-</div>
-      <!-- =====================================================
-     PROFILE
-===================================================== -->
-
-<section id="profile" class="section hidden">
-
-  <div class="profile-header">
-    <div class="profile-avatar">
-      👤
     </div>
 
-    <div>
-      <h2>👤 My Profile</h2>
-      <p>Manage your SkillUp profile information.</p>
+
+    <!-- DASHBOARD STATS -->
+
+    <div class="section-title">
+        <div>
+            <span class="small-label">YOUR DASHBOARD</span>
+            <h2>Learning Overview</h2>
+        </div>
     </div>
-  </div>
 
+    <div class="stats-grid">
 
-  <div class="profile-container">
-
-    <!-- PROFILE FORM -->
-
-    <div class="profile-card">
-
-      <h3>📝 Personal Information</h3>
-
-      <div class="profile-grid">
-
-        <div class="profile-field">
-          <label>Full Name</label>
-          <input
-            type="text"
-            id="profileName"
-            placeholder="Enter your full name">
+        <div class="stat-card">
+            <div class="stat-icon">📚</div>
+            <div>
+                <span>Tests Completed</span>
+                <strong id="testsCompleted">0</strong>
+            </div>
         </div>
 
-        <div class="profile-field">
-          <label>Email</label>
-          <input
-            type="email"
-            id="profileEmail"
-            placeholder="Enter your email">
+        <div class="stat-card">
+            <div class="stat-icon">⚡</div>
+            <div>
+                <span>Best WPM</span>
+                <strong id="bestWpm">0</strong>
+            </div>
         </div>
 
-        <div class="profile-field">
-          <label>Phone Number</label>
-          <input
-            type="tel"
-            id="profilePhone"
-            placeholder="Enter phone number">
+        <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div>
+                <span>Best Accuracy</span>
+                <strong id="bestAccuracy">0%</strong>
+            </div>
         </div>
 
-        <div class="profile-field">
-          <label>WhatsApp Number</label>
-          <input
-            type="tel"
-            id="profileWhatsapp"
-            placeholder="Enter WhatsApp number">
+        <div class="stat-card">
+            <div class="stat-icon">🏅</div>
+            <div>
+                <span>Achievements</span>
+                <strong id="achievementCount">0</strong>
+            </div>
         </div>
 
-        <div class="profile-field">
-          <label>College / Institute</label>
-          <input
-            type="text"
-            id="profileCollege"
-            placeholder="Enter college name">
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="section-title">
+        <div>
+            <span class="small-label">QUICK ACCESS</span>
+            <h2>Continue Learning</h2>
         </div>
+    </div>
 
-        <div class="profile-field">
-          <label>Course</label>
-          <input
-            type="text"
-            id="profileCourse"
-            placeholder="Example: B.Tech IT">
-        </div>
+    <div class="quick-grid">
 
-        <div class="profile-field">
-          <label>Year</label>
-          <select id="profileYear">
-            <option value="">Select Year</option>
-            <option value="1st Year">1st Year</option>
-            <option value="2nd Year">2nd Year</option>
-            <option value="3rd Year">3rd Year</option>
-            <option value="4th Year">4th Year</option>
-          </select>
-        </div>
-
-        <div class="profile-field">
-          <label>City</label>
-          <input
-            type="text"
-            id="profileCity"
-            placeholder="Enter city">
-        </div>
-
-      </div>
-
-
-      <div class="profile-field full-field">
-
-        <label>Skills</label>
-
-        <input
-          type="text"
-          id="profileSkills"
-          placeholder="Example: C, C++, Java, Python, HTML, CSS, JavaScript">
-
-      </div>
-
-
-      <div class="profile-field full-field">
-
-        <label>About Me</label>
-
-        <textarea
-          id="profileAbout"
-          rows="5"
-          placeholder="Write something about yourself..."></textarea>
-
-      </div>
-
-
-      <div class="profile-actions">
-
-        <button
-          class="primary-btn"
-          onclick="saveProfile()">
-          💾 Save Profile
+        <button class="quick-card" data-page="typingPage">
+            <span>⌨️</span>
+            <strong>Typing Test</strong>
+            <small>Improve your speed</small>
         </button>
 
-        <button
-          class="secondary-btn"
-          onclick="loadProfile()">
-          🔄 Reset
+        <button class="quick-card" data-page="readingPage">
+            <span>📖</span>
+            <strong>Reading Test</strong>
+            <small>Test comprehension</small>
         </button>
 
-      </div>
+        <button class="quick-card" data-page="quizPage">
+            <span>💻</span>
+            <strong>Coding Quiz</strong>
+            <small>Test programming knowledge</small>
+        </button>
 
-      <p id="profileMessage" class="status"></p>
-
-    </div>
-
-
-    <!-- PROFILE PREVIEW -->
-
-    <div class="profile-card profile-preview">
-
-      <h3>👀 Profile Preview</h3>
-
-      <div class="preview-avatar">
-        👤
-      </div>
-
-      <h2 id="previewName">
-        Your Name
-      </h2>
-
-      <p id="previewCourse">
-        Your Course
-      </p>
-
-      <div class="preview-info">
-
-        <div>
-          <span>📧 Email</span>
-          <strong id="previewEmail">
-            Not Added
-          </strong>
-        </div>
-
-        <div>
-          <span>📱 Phone</span>
-          <strong id="previewPhone">
-            Not Added
-          </strong>
-        </div>
-
-        <div>
-          <span>💬 WhatsApp</span>
-          <strong id="previewWhatsapp">
-            Not Added
-          </strong>
-        </div>
-
-        <div>
-          <span>🎓 College</span>
-          <strong id="previewCollege">
-            Not Added
-          </strong>
-        </div>
-
-        <div>
-          <span>📅 Year</span>
-          <strong id="previewYear">
-            Not Added
-          </strong>
-        </div>
-
-        <div>
-          <span>📍 City</span>
-          <strong id="previewCity">
-            Not Added
-          </strong>
-        </div>
-
-      </div>
-
-
-      <div class="preview-section">
-
-        <h4>💻 Skills</h4>
-
-        <p id="previewSkills">
-          No skills added yet.
-        </p>
-
-      </div>
-
-
-      <div class="preview-section">
-
-        <h4>🙋 About Me</h4>
-
-        <p id="previewAbout">
-          No information added yet.
-        </p>
-
-      </div>
+        <button class="quick-card" data-page="gamesPage">
+            <span>🎮</span>
+            <strong>Games</strong>
+            <small>Learn while playing</small>
+        </button>
 
     </div>
 
-  </div>
 
-</section>
+    <!-- FOUNDER -->
 
-        <!-- SHAYARI -->
+    <div class="founder-card">
 
-        <div
-            class="card"
-            onclick="showSection('shayari')">
+        <div class="founder-symbol">S</div>
 
-            <div class="icon">
-                ✨
-            </div>
-
-            <h3>
-                Motivational Shayari
-            </h3>
-
-            <p>
-                Read motivational Shayari.
-            </p>
-
+        <div>
+            <span>SkillUp Founder</span>
+            <h3>Hariom Patel</h3>
+            <p>Learn • Practice • Improve • Grow</p>
         </div>
-
-
-        <!-- RESUME -->
-
-        <div
-            class="card"
-            onclick="showSection('resume')">
-
-            <div class="icon">
-                📄
-            </div>
-
-            <h3>
-                Resume Builder
-            </h3>
-
-            <p>
-                Create your basic resume.
-            </p>
-
-        </div>
-
-
-        <!-- REFER -->
-
-        <div
-            class="card"
-            onclick="showSection('refer')">
-
-            <div class="icon">
-                🎁
-            </div>
-
-            <h3>
-                Refer & Earn
-            </h3>
-
-            <p>
-                Share SkillUp with friends.
-            </p>
-
-        </div>
-
-
-        <!-- PDF -->
-
-        <div
-            class="card"
-            onclick="showSection('pdfMaker')">
-
-            <div class="icon">
-                📕
-            </div>
-
-            <h3>
-                PDF Maker
-            </h3>
-
-            <p>
-                Create printable PDF content.
-            </p>
-
-        </div>
-
-
-        <!-- PROFILE -->
-
-        <div
-            class="card"
-            onclick="showSection('profile')">
-
-            <div class="icon">
-                👤
-            </div>
-
-            <h3>
-                My Profile
-            </h3>
-
-            <p>
-                View your profile and SkillUp progress.
-            </p>
-
-        </div>
-
 
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     LEARN ENGLISH
-===================================================== -->
 
-<section
-    id="learning"
-    class="section hidden">
+<!-- =========================================================
+     LEARNING PAGE
+========================================================= -->
 
-    <h2>
-        🇬🇧 Learn English
-    </h2>
+<section id="learningPage" class="page">
+
+    <div class="page-heading">
+
+        <div>
+            <span class="small-label">LEARNING ZONE</span>
+            <h1>Build Your Skills</h1>
+            <p>Choose a challenge and start learning.</p>
+        </div>
+
+        <button class="back-btn" data-page="homePage">
+            ← Home
+        </button>
+
+    </div>
+
 
     <div class="learning-grid">
 
-
-        <div class="learning-card">
-
-            <span class="big-icon">
-                📝
-            </span>
-
-            <h3>
-                English Level Test
-            </h3>
-
-            <p>
-                First test your English level.
-            </p>
-
-            <button
-                class="primary-btn"
-                onclick="startEnglishAssessment()">
-
-                Start Level Test
-
-            </button>
-
-        </div>
-
-
-        <div class="learning-card">
-
-            <span class="big-icon">
-                📅
-            </span>
-
-            <h3>
-                Daily English Practice
-            </h3>
-
-            <p id="dailyTaskText">
-                Take your level test first.
-            </p>
-
-            <button
-                class="primary-btn"
-                onclick="startDailyEnglishTask()">
-
-                Start Today's Task
-
-            </button>
-
-            <p
-                id="dailyTaskMessage"
-                class="status">
-            </p>
-
-        </div>
-
-
-        <div class="learning-card">
-
-            <span class="big-icon">
-                📈
-            </span>
-
-            <h3>
-                Your Progress
-            </h3>
-
-            <div id="learningProgress"></div>
-
-        </div>
-
-
-    </div>
-
-
-    <div
-        id="englishAssessment"
-        class="quiz-box hidden">
-
-        <h3>
-            🇬🇧 English Level Test
-        </h3>
-
-        <p id="englishAssessmentNumber"></p>
-
-        <h3 id="englishAssessmentQuestion"></h3>
-
-        <div id="englishAssessmentAnswers"></div>
-
-        <p id="englishAssessmentResult"></p>
-
-        <button
-            class="primary-btn"
-            onclick="nextEnglishAssessment()">
-
-            Next Question
-
+        <button class="learning-card" data-page="typingPage">
+            <div class="learning-icon typing-icon">⌨️</div>
+            <h3>Typing Test</h3>
+            <p>Improve typing speed and accuracy.</p>
+            <span>Easy • Medium • Hard →</span>
         </button>
 
-    </div>
-
-
-    <div
-        id="englishLesson"
-        class="quiz-box hidden">
-
-        <h3 id="englishLevelTitle"></h3>
-
-        <p id="englishLessonText"></p>
-
-        <div id="englishTaskArea"></div>
-
-        <button
-            class="primary-btn"
-            onclick="completeEnglishLesson()">
-
-            Complete Task
-
+        <button class="learning-card" data-page="readingPage">
+            <div class="learning-icon">📖</div>
+            <h3>Reading Test</h3>
+            <p>Read passages and answer questions.</p>
+            <span>Test Knowledge →</span>
         </button>
 
-        <p
-            id="englishLessonMessage"
-            class="status">
-        </p>
+        <button class="learning-card" data-page="brainPage">
+            <div class="learning-icon">🧠</div>
+            <h3>Brain Challenge</h3>
+            <p>Improve logical thinking and memory.</p>
+            <span>Challenge Yourself →</span>
+        </button>
 
-    </div>
+        <button class="learning-card" data-page="quizPage">
+            <div class="learning-icon">💻</div>
+            <h3>Coding Quiz</h3>
+            <p>Practice C, C++, Java and Python.</p>
+            <span>Start Quiz →</span>
+        </button>
 
+        <button class="learning-card" data-page="gkPage">
+            <div class="learning-icon">🌍</div>
+            <h3>GK Master</h3>
+            <p>Improve your general knowledge.</p>
+            <span>Start GK →</span>
+        </button>
 
-    <div class="history-box">
-
-        <h3>
-            📜 English Learning History
-        </h3>
-
-        <div id="learningHistory"></div>
+        <button class="learning-card" data-page="mathPage">
+            <div class="learning-icon">➗</div>
+            <h3>Math Challenge</h3>
+            <p>Test your mathematical skills.</p>
+            <span>Start Maths →</span>
+        </button>
 
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     PROGRAMMING COURSES
-===================================================== -->
 
-<section
-    id="quiz"
-    class="section hidden">
+<!-- =========================================================
+     TYPING PAGE
+========================================================= -->
 
-    <h2>
-        🎓 Programming Courses & Certificates
-    </h2>
+<section id="typingPage" class="page">
 
+    <div class="page-heading">
 
-    <div
-        id="quizLanguages"
-        class="quiz-box">
+        <div>
+            <span class="small-label">SKILL TEST</span>
+            <h1>⌨️ Typing Test</h1>
+            <p>Type faster. Type smarter. Improve every time.</p>
+        </div>
 
-        <h3>
-            📚 Select Your Programming Course
-        </h3>
+        <button class="back-btn" data-page="learningPage">
+            ← Learning
+        </button>
 
-        <p class="course-intro">
-
-            Select one language. You will study the
-            selected language, complete the reading
-            lessons and quiz, then unlock your certificate.
-
-        </p>
+    </div>
 
 
-        <div class="quiz-language-buttons">
+    <!-- DIFFICULTY -->
 
-            <button onclick="startCourse('C')">
-                💻 C Programming
+    <div class="test-toolbar">
+
+        <div class="difficulty-box">
+
+            <span>Difficulty</span>
+
+            <div class="difficulty-buttons">
+
+                <button class="difficulty-btn active"
+                        data-difficulty="easy"
+                        id="typingEasyBtn">
+                    Easy
+                </button>
+
+                <button class="difficulty-btn"
+                        data-difficulty="medium"
+                        id="typingMediumBtn">
+                    Medium
+                </button>
+
+                <button class="difficulty-btn"
+                        data-difficulty="hard"
+                        id="typingHardBtn">
+                    Hard
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="typing-actions">
+
+            <button id="newTypingTestBtn" class="secondary-btn">
+                🔄 New Test
             </button>
 
-            <button onclick="startCourse('C++')">
-                ⚡ C++ Programming
-            </button>
-
-            <button onclick="startCourse('Python')">
-                🐍 Python Programming
-            </button>
-
-            <button onclick="startCourse('Java')">
-                ☕ Java Programming
+            <button id="startTypingBtn" class="primary-btn">
+                ▶ Start Typing
             </button>
 
         </div>
@@ -910,1379 +469,1217 @@
     </div>
 
 
-    <div
-        id="courseDashboard"
-        class="quiz-box hidden">
+    <!-- LIVE STATS -->
+
+    <div class="typing-stats">
+
+        <div class="typing-stat">
+            <span>⏱️ Time</span>
+            <strong id="typingTime">0s</strong>
+        </div>
+
+        <div class="typing-stat">
+            <span>⚡ WPM</span>
+            <strong id="typingWpm">0</strong>
+        </div>
+
+        <div class="typing-stat">
+            <span>🎯 Accuracy</span>
+            <strong id="typingAccuracy">100%</strong>
+        </div>
+
+        <div class="typing-stat">
+            <span>✅ Correct</span>
+            <strong id="typingCorrect">0</strong>
+        </div>
+
+        <div class="typing-stat">
+            <span>❌ Wrong</span>
+            <strong id="typingWrong">0</strong>
+        </div>
+
+    </div>
 
 
-        <div class="course-heading">
+    <!-- PASSAGE -->
 
-            <h2 id="courseName"></h2>
+    <div class="typing-panel">
 
-            <p>
-                📖 Reading → 🧠 Quiz → 🏆 Certificate
-            </p>
+        <div class="panel-header">
+            <h3>Type the following passage</h3>
+            <span id="typingDifficultyLabel">Easy</span>
+        </div>
+
+        <div id="typingText" class="typing-text">
+            Click "Start Typing" to begin your test.
+        </div>
+
+        <textarea
+            id="typingInput"
+            class="typing-input"
+            placeholder="Start typing here..."
+            disabled
+            spellcheck="false"></textarea>
+
+    </div>
+
+
+    <!-- TYPING RESULT -->
+
+    <div id="typingResult" class="result-panel hidden">
+
+        <div class="result-medal" id="typingMedal">🥉</div>
+
+        <h2 id="typingResultTitle">Typing Test Complete!</h2>
+
+        <p id="typingResultMessage">
+            Great job! Keep practicing.
+        </p>
+
+        <div class="result-grid">
+
+            <div>
+                <span>WPM</span>
+                <strong id="finalWpm">0</strong>
+            </div>
+
+            <div>
+                <span>Accuracy</span>
+                <strong id="finalAccuracy">0%</strong>
+            </div>
+
+            <div>
+                <span>Correct</span>
+                <strong id="finalCorrect">0</strong>
+            </div>
+
+            <div>
+                <span>Wrong</span>
+                <strong id="finalWrong">0</strong>
+            </div>
 
         </div>
 
+        <div class="result-actions">
 
-        <div class="course-timer-box">
-
-            <span>
-                ⏱️ Minimum Course Time
-            </span>
-
-            <div id="courseTimer">
-                15:00
-            </div>
-
-            <p id="courseTimerMessage">
-                Complete the minimum 15-minute learning time.
-            </p>
-
-        </div>
-
-
-        <div class="course-progress-box">
-
-            <p id="courseProgressText">
-                Course Progress: 0%
-            </p>
-
-            <div class="progress-bar">
-
-                <div id="courseProgressBar"></div>
-
-            </div>
-
-        </div>
-
-
-        <!-- READING -->
-
-        <div
-            id="courseReading"
-            class="course-part">
-
-            <div class="reading-header">
-
-                <span>
-                    📖 Reading & Learning
-                </span>
-
-                <span id="readingNumber">
-                    Reading 1
-                </span>
-
-            </div>
-
-            <h2 id="readingTitle"></h2>
-
-            <div
-                id="readingContent"
-                class="reading-content">
-            </div>
-
-
-            <div class="reading-lock-box">
-
-                <p id="readingTimer">
-                    🔒 Next available in 5 seconds...
-                </p>
-
-                <button
-                    id="nextReadingBtn"
+            <button id="typingCertificateBtn"
                     class="primary-btn"
-                    onclick="nextReading()"
                     disabled>
+                📜 Generate Certificate
+            </button>
 
-                    Next Reading →
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- COURSE QUIZ -->
-
-        <div
-            id="courseQuiz"
-            class="course-part hidden">
-
-            <h3>
-                🧠 Course Quiz
-            </h3>
-
-            <p id="courseQuestionNumber"></p>
-
-            <h3 id="courseQuestion"></h3>
-
-            <div id="courseAnswers"></div>
-
-            <p id="courseQuizResult"></p>
-
-            <button
-                id="nextCourseQuestionBtn"
-                class="primary-btn"
-                onclick="nextCourseQuestion()">
-
-                Next Question →
-
+            <button id="typingNewTestResultBtn"
+                    class="secondary-btn">
+                🔄 New Test
             </button>
 
         </div>
-
-
-        <!-- COURSE COMPLETED -->
-
-        <div
-            id="courseCompleted"
-            class="course-part hidden">
-
-            <h2>
-                🎉 Course Completed!
-            </h2>
-
-            <h3 id="courseFinalScore"></h3>
-
-            <p id="courseTimeMessage"></p>
-
-
-            <div class="certificate-status-box">
-
-                <h3>
-                    🏆 Certificate Status
-                </h3>
-
-                <p id="certificateStatus">
-                    Complete the course requirements
-                    to unlock your certificate.
-                </p>
-
-            </div>
-
-
-            <button
-                id="generateCertificateBtn"
-                class="primary-btn"
-                onclick="generateCertificate()"
-                disabled>
-
-                🏆 Generate Certificate
-
-            </button>
-
-
-            <button
-                class="secondary-btn"
-                onclick="chooseCourse()">
-
-                📚 Choose Another Course
-
-            </button>
-
-        </div>
-
-
-        <!-- CERTIFICATE -->
-
-        <div
-            id="certificateArea"
-            class="hidden">
-
-
-            <div id="certificate">
-
-                <div class="certificate-border">
-
-
-                    <div class="certificate-top">
-
-                        <span>
-                            🚀 SKILLUP
-                        </span>
-
-                        <span>
-                            LEARN • PLAY • GROW
-                        </span>
-
-                    </div>
-
-
-                    <div class="certificate-icon">
-                        🏆
-                    </div>
-
-
-                    <p class="certificate-small-title">
-                        CERTIFICATE OF COMPLETION
-                    </p>
-
-
-                    <h1>
-                        Certificate of Achievement
-                    </h1>
-
-
-                    <p class="certificate-presented">
-                        This certificate is proudly presented to
-                    </p>
-
-
-                    <h2 id="certificateStudentName">
-                        Student Name
-                    </h2>
-
-
-                    <div class="certificate-line"></div>
-
-
-                    <p>
-                        for successfully completing the
-                    </p>
-
-
-                    <h3 id="certificateCourseName">
-                        Programming Course
-                    </h3>
-
-
-                    <p class="certificate-description">
-
-                        The learner successfully completed
-                        the required reading lessons,
-                        learning activities and assessment.
-
-                    </p>
-
-
-                    <div class="certificate-details">
-
-
-                        <div>
-
-                            <span>
-                                COURSE
-                            </span>
-
-                            <strong id="certificateLanguage">
-                                Programming
-                            </strong>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                ACHIEVEMENT
-                            </span>
-
-                            <strong id="certificateAward">
-                                Gold
-                            </strong>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                SCORE
-                            </span>
-
-                            <strong id="certificateScore">
-                                0%
-                            </strong>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                DATE
-                            </span>
-
-                            <strong id="certificateDate"></strong>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="certificate-signatures">
-
-
-                        <div class="signature-box">
-
-                            <div class="signature-style">
-                                Hariom Patel
-                            </div>
-
-                            <div class="signature-line"></div>
-
-                            <strong>
-                                Founder
-                            </strong>
-
-                            <span>
-                                SkillUp
-                            </span>
-
-                        </div>
-
-
-                        <div class="certificate-seal">
-
-                            <span>
-                                SKILLUP
-                            </span>
-
-                            <strong id="certificateSeal">
-                                GOLD
-                            </strong>
-
-                            <span>
-                                2026
-                            </span>
-
-                        </div>
-
-
-                        <div class="signature-box">
-
-                            <div class="signature-style">
-                                Vedika Yadav
-                            </div>
-
-                            <div class="signature-line"></div>
-
-                            <strong>
-                                Co-Founder
-                            </strong>
-
-                            <span>
-                                SkillUp
-                            </span>
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="certificate-actions">
-
-                <button
-                    class="primary-btn"
-                    onclick="printCertificate()">
-
-                    🖨️ Print / Save Certificate
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-    <div class="history-box">
-
-        <h3>
-            📜 Course & Certificate History
-        </h3>
-
-        <div id="courseHistory"></div>
 
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     ENGLISH QUIZ
-===================================================== -->
 
-<section
-    id="englishQuiz"
-    class="section hidden">
+<!-- =========================================================
+     READING PAGE
+========================================================= -->
 
-    <h2>
-        🇬🇧 English Quiz
-    </h2>
+<section id="readingPage" class="page">
+
+    <div class="page-heading">
+
+        <div>
+            <span class="small-label">READING</span>
+            <h1>📖 Reading Test</h1>
+            <p>Read carefully and answer the questions.</p>
+        </div>
+
+        <button class="back-btn" data-page="learningPage">
+            ← Learning
+        </button>
+
+    </div>
 
 
-    <div
-        id="englishQuizStart"
-        class="quiz-box">
+    <div class="test-toolbar">
 
-        <h3>
-            Test Your English
-        </h3>
+        <div class="difficulty-buttons">
 
-        <p>
-            Choose the English quiz and improve
-            your grammar, vocabulary and sentence skills.
+            <button class="difficulty-btn active"
+                    data-reading-difficulty="easy">
+                Easy
+            </button>
+
+            <button class="difficulty-btn"
+                    data-reading-difficulty="medium">
+                Medium
+            </button>
+
+            <button class="difficulty-btn"
+                    data-reading-difficulty="hard">
+                Hard
+            </button>
+
+        </div>
+
+        <button id="startReadingBtn" class="primary-btn">
+            ▶ Start Reading Test
+        </button>
+
+    </div>
+
+
+    <div class="reading-panel">
+
+        <h3 id="readingTitle">Reading Passage</h3>
+
+        <p id="readingPassage">
+            Choose a difficulty and click Start Reading Test.
         </p>
 
-        <button
-            class="primary-btn"
-            onclick="startEnglishQuiz()">
-
-            ▶️ Start English Quiz
-
-        </button>
-
     </div>
 
 
-    <div
-        id="englishQuizGame"
-        class="quiz-box hidden">
+    <div id="readingQuestions" class="questions-container"></div>
 
-        <h3>
-            🇬🇧 English Quiz
-        </h3>
-
-        <p id="englishQuizNumber"></p>
-
-        <h3 id="englishQuizQuestion"></h3>
-
-        <div id="englishQuizAnswers"></div>
-
-        <p id="englishQuizResult"></p>
-
-        <button
-            class="primary-btn"
-            onclick="nextEnglishQuizQuestion()">
-
-            Next Question
-
-        </button>
-
-    </div>
+    <button id="submitReadingBtn"
+            class="primary-btn hidden">
+        Submit Reading Test
+    </button>
 
 
-    <div
-        id="englishQuizFinished"
-        class="quiz-box hidden">
+    <div id="readingResult" class="result-panel hidden">
 
-        <h2>
-            🎉 English Quiz Completed!
-        </h2>
+        <div class="result-medal" id="readingMedal">🥉</div>
 
-        <h3 id="englishFinalScore"></h3>
+        <h2>Reading Test Complete!</h2>
 
-        <button
-            class="primary-btn"
-            onclick="startEnglishQuiz()">
+        <p id="readingResultMessage"></p>
 
-            🔄 Retry English Quiz
+        <div class="result-grid">
 
-        </button>
+            <div>
+                <span>Score</span>
+                <strong id="readingScore">0</strong>
+            </div>
 
-        <button
-            class="secondary-btn"
-            onclick="returnToQuizzes()">
+            <div>
+                <span>Accuracy</span>
+                <strong id="readingAccuracy">0%</strong>
+            </div>
 
-            📚 Return to Quizzes
-
-        </button>
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     GAMES
-===================================================== -->
 
-<section
-    id="games"
-    class="section hidden">
+<!-- =========================================================
+     BRAIN PAGE
+========================================================= -->
 
-    <div class="play-zone-header">
+<section id="brainPage" class="page">
 
-        <h2>
-            🎮 SkillUp Play Zone
-        </h2>
+    <div class="page-heading">
 
-        <p>
-            Complete one game to unlock the next.
-        </p>
+        <div>
+            <span class="small-label">LOGIC</span>
+            <h1>🧠 Brain Challenge</h1>
+            <p>Challenge your thinking.</p>
+        </div>
+
+        <button class="back-btn" data-page="learningPage">
+            ← Learning
+        </button>
 
     </div>
 
 
-    <div
-        id="gamesGrid"
-        class="games-grid">
+    <div class="challenge-card">
+
+        <div class="challenge-top">
+
+            <span id="brainQuestionNumber">Question 1</span>
+            <span id="brainTimer">30s</span>
+
+        </div>
+
+        <h2 id="brainQuestion">
+            Press Start to begin the challenge.
+        </h2>
+
+        <div id="brainOptions" class="option-grid"></div>
+
+        <button id="startBrainBtn" class="primary-btn">
+            ▶ Start Challenge
+        </button>
+
+    </div>
+
+
+    <div id="brainResult" class="result-panel hidden">
+
+        <div class="result-medal" id="brainMedal">🥉</div>
+
+        <h2>Brain Challenge Complete!</h2>
+
+        <p id="brainResultMessage"></p>
+
+        <div class="result-grid">
+
+            <div>
+                <span>Score</span>
+                <strong id="brainScore">0</strong>
+            </div>
+
+            <div>
+                <span>Accuracy</span>
+                <strong id="brainAccuracy">0%</strong>
+            </div>
+
+        </div>
+
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     LEARNING GAMES
-===================================================== -->
 
-<section
-    id="learningGames"
-    class="section hidden">
+<!-- =========================================================
+     CODING QUIZ PAGE
+========================================================= -->
 
-    <div class="play-zone-header">
+<section id="quizPage" class="page">
 
-        <h2>
-            🎓 SkillUp Learning Games
+    <div class="page-heading">
+
+        <div>
+            <span class="small-label">PROGRAMMING</span>
+            <h1>💻 Coding Quiz</h1>
+            <p>Test your programming knowledge.</p>
+        </div>
+
+        <button class="back-btn" data-page="learningPage">
+            ← Learning
+        </button>
+
+    </div>
+
+
+    <div class="quiz-language-buttons">
+
+        <button class="language-btn active" data-language="C">
+            C
+        </button>
+
+        <button class="language-btn" data-language="C++">
+            C++
+        </button>
+
+        <button class="language-btn" data-language="Java">
+            Java
+        </button>
+
+        <button class="language-btn" data-language="Python">
+            Python
+        </button>
+
+    </div>
+
+
+    <div class="challenge-card">
+
+        <div class="challenge-top">
+
+            <span id="quizQuestionNumber">Question 1</span>
+            <span id="quizScore">Score: 0</span>
+
+        </div>
+
+        <h2 id="quizQuestion">
+            Select a language to begin.
         </h2>
 
-        <p>
-            Select difficulty and play educational games.
-        </p>
+        <div id="quizOptions" class="option-grid"></div>
+
+        <button id="nextQuizBtn"
+                class="primary-btn hidden">
+            Next Question →
+        </button>
+
+        <button id="startQuizBtn"
+                class="primary-btn">
+            ▶ Start Quiz
+        </button>
 
     </div>
 
 
-    <div class="quiz-box difficulty-box">
+    <div id="quizResult" class="result-panel hidden">
 
-        <h3>
-            🎯 Choose Difficulty
-        </h3>
+        <div class="result-medal" id="quizMedal">🥉</div>
 
-        <button
-            onclick="selectLearningDifficulty('easy')">
+        <h2>Quiz Complete!</h2>
 
-            🟢 Easy
+        <p id="quizResultMessage"></p>
 
-        </button>
+        <div class="result-grid">
 
-        <button
-            onclick="selectLearningDifficulty('medium')">
+            <div>
+                <span>Score</span>
+                <strong id="quizFinalScore">0</strong>
+            </div>
 
-            🟡 Medium
+            <div>
+                <span>Accuracy</span>
+                <strong id="quizFinalAccuracy">0%</strong>
+            </div>
 
-        </button>
-
-        <button
-            onclick="selectLearningDifficulty('hard')">
-
-            🔴 Hard
-
-        </button>
-
-        <p id="learningDifficultyMessage">
-            Please select difficulty first.
-        </p>
+        </div>
 
     </div>
 
+</section>
+
+
+
+<!-- =========================================================
+     GK PAGE
+========================================================= -->
+
+<section id="gkPage" class="page">
+
+    <div class="page-heading">
+
+        <div>
+            <span class="small-label">GENERAL KNOWLEDGE</span>
+            <h1>🌍 GK Master</h1>
+            <p>Test what you know about the world.</p>
+        </div>
+
+        <button class="back-btn" data-page="learningPage">
+            ← Learning
+        </button>
+
+    </div>
+
+
+    <div class="challenge-card">
+
+        <div class="challenge-top">
+
+            <span id="gkQuestionNumber">Question 1</span>
+            <span id="gkScore">Score: 0</span>
+
+        </div>
+
+        <h2 id="gkQuestion">
+            Press Start to begin GK Master.
+        </h2>
+
+        <div id="gkOptions" class="option-grid"></div>
+
+        <button id="startGkBtn" class="primary-btn">
+            ▶ Start GK
+        </button>
+
+        <button id="nextGkBtn"
+                class="primary-btn hidden">
+            Next Question →
+        </button>
+
+    </div>
+
+
+    <div id="gkResult" class="result-panel hidden">
+
+        <div class="result-medal" id="gkMedal">🥉</div>
+
+        <h2>GK Test Complete!</h2>
+
+        <p id="gkResultMessage"></p>
+
+        <div class="result-grid">
+
+            <div>
+                <span>Score</span>
+                <strong id="gkFinalScore">0</strong>
+            </div>
+
+            <div>
+                <span>Accuracy</span>
+                <strong id="gkFinalAccuracy">0%</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MATH PAGE
+========================================================= -->
+
+<section id="mathPage" class="page">
+
+    <div class="page-heading">
+
+        <div>
+            <span class="small-label">MATHEMATICS</span>
+            <h1>➗ Math Challenge</h1>
+            <p>Calculate quickly and accurately.</p>
+        </div>
+
+        <button class="back-btn" data-page="learningPage">
+            ← Learning
+        </button>
+
+    </div>
+
+
+    <div class="math-settings">
+
+        <button class="difficulty-btn active"
+                data-math-difficulty="easy">
+            Easy
+        </button>
+
+        <button class="difficulty-btn"
+                data-math-difficulty="medium">
+            Medium
+        </button>
+
+        <button class="difficulty-btn"
+                data-math-difficulty="hard">
+            Hard
+        </button>
+
+    </div>
+
+
+    <div class="challenge-card">
+
+        <div class="challenge-top">
+
+            <span id="mathQuestionNumber">Question 1</span>
+            <span id="mathScore">Score: 0</span>
+
+        </div>
+
+        <h2 id="mathQuestion">
+            Press Start to begin Math Challenge.
+        </h2>
+
+        <input
+            type="number"
+            id="mathAnswer"
+            class="answer-input"
+            placeholder="Enter your answer">
+
+        <button id="submitMathBtn"
+                class="primary-btn hidden">
+            Submit Answer
+        </button>
+
+        <button id="startMathBtn"
+                class="primary-btn">
+            ▶ Start Maths
+        </button>
+
+        <p id="mathFeedback" class="feedback-text"></p>
+
+    </div>
+
+
+    <div id="mathResult" class="result-panel hidden">
+
+        <div class="result-medal" id="mathMedal">🥉</div>
+
+        <h2>Math Challenge Complete!</h2>
+
+        <p id="mathResultMessage"></p>
+
+        <div class="result-grid">
+
+            <div>
+                <span>Score</span>
+                <strong id="mathFinalScore">0</strong>
+            </div>
+
+            <div>
+                <span>Accuracy</span>
+                <strong id="mathFinalAccuracy">0%</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     GAMES PAGE
+========================================================= -->
+
+<section id="gamesPage" class="page">
+
+    <div class="page-heading">
+
+        <div>
+            <span class="small-label">GAME ZONE</span>
+            <h1>🎮 Learn While Playing</h1>
+            <p>Improve your brain with fun games.</p>
+        </div>
+
+        <button class="back-btn" data-page="homePage">
+            ← Home
+        </button>
+
+    </div>
+
+
+    <h2 class="sub-heading">Entertainment Games</h2>
 
     <div class="games-grid">
 
+        <button class="game-card" data-game="xo">
+            <div class="game-icon">❌⭕</div>
+            <h3>X-O Rush</h3>
+            <p>Classic X and O challenge.</p>
+            <span>Play Now →</span>
+        </button>
 
-        <!-- BRAIN CHALLENGE -->
+        <button class="game-card" data-game="memory">
+            <div class="game-icon">🧩</div>
+            <h3>Memory Match</h3>
+            <p>Test your memory.</p>
+            <span>Play Now →</span>
+        </button>
 
-        <div class="game-card">
+        <button class="game-card" data-game="number">
+            <div class="game-icon">🔢</div>
+            <h3>Number Rush</h3>
+            <p>Challenge your number skills.</p>
+            <span>Play Now →</span>
+        </button>
 
-            <div class="game-image">
+        <button class="game-card" data-game="sky">
+            <div class="game-icon">☁️</div>
+            <h3>Sky Dodge</h3>
+            <p>Test your reaction.</p>
+            <span>Play Now →</span>
+        </button>
 
-                <div class="game-placeholder">
-                    🧠
-                </div>
-
-            </div>
-
-            <div class="game-content">
-
-                <h3>
-                    🧠 Brain Challenge
-                </h3>
-
-                <p>
-                    Improve logical thinking and memory.
-                </p>
-
-                <button
-                    class="play-btn"
-                    onclick="openLearningGame('brain-challenge')">
-
-                    ▶️ Play Now
-
-                </button>
-
-            </div>
-
-        </div>
+    </div>
 
 
-        <!-- CODE QUEST -->
+    <h2 class="sub-heading">Learning Games</h2>
 
-        <div class="game-card">
+    <div class="games-grid">
 
-            <div class="game-image">
+        <button class="game-card learning-game" data-game="mathgame">
+            <div class="game-icon">➗</div>
+            <h3>Math Game</h3>
+            <p>Learn maths through play.</p>
+            <span>Play Now →</span>
+        </button>
 
-                <div class="game-placeholder">
-                    💻
-                </div>
+        <button class="game-card learning-game" data-game="codinggame">
+            <div class="game-icon">💻</div>
+            <h3>Coding Game</h3>
+            <p>Learn programming concepts.</p>
+            <span>Play Now →</span>
+        </button>
 
-            </div>
+        <button class="game-card learning-game" data-game="gkgame">
+            <div class="game-icon">🌍</div>
+            <h3>GK Game</h3>
+            <p>Learn while answering.</p>
+            <span>Play Now →</span>
+        </button>
 
-            <div class="game-content">
-
-                <h3>
-                    💻 Code Quest
-                </h3>
-
-                <p>
-                    Learn programming concepts.
-                </p>
-
-                <button
-                    class="play-btn"
-                    onclick="openLearningGame('code-quest')">
-
-                    ▶️ Play Now
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- GK MASTER -->
-
-        <div class="game-card">
-
-            <div class="game-image">
-
-                <div class="game-placeholder">
-                    🌍
-                </div>
-
-            </div>
-
-            <div class="game-content">
-
-                <h3>
-                    🌍 GK Master
-                </h3>
-
-                <p>
-                    Improve General Knowledge.
-                </p>
-
-                <button
-                    class="play-btn"
-                    onclick="openLearningGame('gk-master')">
-
-                    ▶️ Play Now
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- MATH RUSH -->
-
-        <div class="game-card">
-
-            <div class="game-image">
-
-                <div class="game-placeholder">
-                    🔢
-                </div>
-
-            </div>
-
-            <div class="game-content">
-
-                <h3>
-                    🔢 Math Rush
-                </h3>
-
-                <p>
-                    Practice calculations.
-                </p>
-
-                <button
-                    class="play-btn"
-                    onclick="openLearningGame('math-rush')">
-
-                    ▶️ Play Now
-
-                </button>
-
-            </div>
-
-        </div>
-
+        <button class="game-card learning-game" data-game="braingame">
+            <div class="game-icon">🧠</div>
+            <h3>Brain Game</h3>
+            <p>Improve your logical thinking.</p>
+            <span>Play Now →</span>
+        </button>
 
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     TYPING MASTER
-===================================================== -->
 
-<section
-    id="typingMaster"
-    class="section hidden">
+<!-- =========================================================
+     GAME MODAL
+========================================================= -->
+
+<div id="gameModal" class="modal hidden">
+
+    <div class="modal-box">
+
+        <button id="closeGameBtn" class="modal-close">×</button>
+
+        <div id="gameContent"></div>
+
+    </div>
+
+</div>
 
 
-    <div class="section-header">
 
-        <h2>
-            ⌨️ Typing Master
-        </h2>
+<!-- =========================================================
+     PROFILE PAGE
+========================================================= -->
 
-        <p>
-            Improve your typing speed,
-            accuracy and confidence.
-        </p>
+<section id="profilePage" class="page">
+
+    <div class="page-heading">
+
+        <div>
+            <span class="small-label">MY PROFILE</span>
+            <h1>👤 Profile</h1>
+            <p>Manage your SkillUp profile.</p>
+        </div>
+
+        <button class="back-btn" data-page="homePage">
+            ← Home
+        </button>
 
     </div>
 
 
-    <div class="typing-master-card">
+    <div class="profile-layout">
 
+        <div class="profile-card">
 
-        <!-- START SCREEN -->
-
-        <div id="typingStartScreen">
-
-            <div class="typing-icon">
-                ⌨️
+            <div class="profile-avatar" id="profileAvatar">
+                H
             </div>
 
-            <h2>
-                Typing Master
-            </h2>
+            <h2 id="profileDisplayName">Hariom</h2>
 
-            <p>
-                Test your typing speed and accuracy.
+            <p id="profileDisplayEmail">
+                learner@skillup.com
             </p>
 
+            <span class="profile-role">
+                SkillUp Learner
+            </span>
 
-            <div class="typing-options">
+        </div>
 
-                <button
-                    class="primary-btn"
-                    onclick="startTypingTest(30)">
 
-                    30 Seconds
+        <div class="profile-form-card">
 
+            <h2>Profile Information</h2>
+
+            <form id="profileForm">
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="profileName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="profileName"
+                            placeholder="Enter your name">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="profileEmail">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="profileEmail"
+                            placeholder="Enter email">
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="profilePhone">
+                            Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="profilePhone"
+                            placeholder="Enter phone number">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="profileYear">
+                            Year
+                        </label>
+
+                        <select id="profileYear">
+
+                            <option value="">
+                                Select Year
+                            </option>
+
+                            <option value="1st Year">
+                                1st Year
+                            </option>
+
+                            <option value="2nd Year">
+                                2nd Year
+                            </option>
+
+                            <option value="3rd Year">
+                                3rd Year
+                            </option>
+
+                            <option value="4th Year">
+                                4th Year
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="profileCourse">
+                        Course
+                    </label>
+
+                    <input
+                        type="text"
+                        id="profileCourse"
+                        placeholder="Example: B.Tech Information Technology">
+
+                </div>
+
+
+                <button type="submit" class="primary-btn">
+                    Save Profile
                 </button>
 
+            </form>
 
-                <button
-                    class="primary-btn"
-                    onclick="startTypingTest(60)">
+        </div>
 
-                    60 Seconds
+    </div>
 
-                </button>
+
+    <div class="profile-stat-grid">
+
+        <div class="profile-stat">
+            <span>Tests</span>
+            <strong id="profileTests">0</strong>
+        </div>
+
+        <div class="profile-stat">
+            <span>Best WPM</span>
+            <strong id="profileWpm">0</strong>
+        </div>
+
+        <div class="profile-stat">
+            <span>Accuracy</span>
+            <strong id="profileAccuracy">0%</strong>
+        </div>
+
+        <div class="profile-stat">
+            <span>Achievements</span>
+            <strong id="profileAchievements">0</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ACHIEVEMENTS PAGE
+========================================================= -->
+
+<section id="achievementPage" class="page">
+
+    <div class="page-heading">
+
+        <div>
+            <span class="small-label">ACHIEVEMENTS</span>
+            <h1>🏆 Your Achievements</h1>
+            <p>Every completed challenge brings you closer.</p>
+        </div>
+
+        <button class="back-btn" data-page="homePage">
+            ← Home
+        </button>
+
+    </div>
+
+
+    <div class="achievement-card">
+
+        <div class="achievement-medal">🥉</div>
+
+        <div>
+            <span>Bronze</span>
+            <h3>Getting Started</h3>
+            <p>Complete your first learning test.</p>
+        </div>
+
+    </div>
+
+
+    <div class="achievement-card">
+
+        <div class="achievement-medal">🥈</div>
+
+        <div>
+            <span>Silver</span>
+            <h3>Skill Builder</h3>
+            <p>Achieve a strong performance.</p>
+        </div>
+
+    </div>
+
+
+    <div class="achievement-card">
+
+        <div class="achievement-medal">🥇</div>
+
+        <div>
+            <span>Gold</span>
+            <h3>SkillUp Champion</h3>
+            <p>Reach an excellent score.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CERTIFICATE PAGE
+========================================================= -->
+
+<section id="certificatePage" class="page">
+
+    <div class="page-heading">
+
+        <div>
+            <span class="small-label">ACHIEVEMENT</span>
+            <h1>📜 Certificate</h1>
+            <p>Your SkillUp achievement certificate.</p>
+        </div>
+
+        <button class="back-btn" data-page="homePage">
+            ← Home
+        </button>
+
+    </div>
+
+
+    <div id="certificateLocked" class="locked-card">
+
+        <div>🔒</div>
+
+        <h2>Certificate Locked</h2>
+
+        <p>
+            Complete a SkillUp test and generate your result first.
+        </p>
+
+        <button class="primary-btn" data-page="learningPage">
+            Start Learning
+        </button>
+
+    </div>
+
+
+    <div id="certificateContainer"
+         class="certificate-container hidden">
+
+        <div class="certificate">
+
+            <div class="certificate-border">
+
+                <div class="certificate-top">
+
+                    <span class="certificate-logo">
+                        SKILLUP
+                    </span>
+
+                    <span>
+                        Learn • Play • Grow
+                    </span>
+
+                </div>
+
+
+                <div class="certificate-content">
+
+                    <p class="certificate-small">
+                        CERTIFICATE OF ACHIEVEMENT
+                    </p>
+
+                    <h1>Certificate of Excellence</h1>
+
+                    <p>
+                        This certificate is proudly presented to
+                    </p>
+
+                    <h2 id="certificateName">
+                        Hariom
+                    </h2>
+
+                    <p>
+                        for successfully completing
+                    </p>
+
+                    <h3 id="certificateTest">
+                        SkillUp Typing Test
+                    </h3>
+
+
+                    <div class="certificate-score">
+
+                        <div>
+                            <span>Score</span>
+                            <strong id="certificateScore">0</strong>
+                        </div>
+
+                        <div>
+                            <span>Accuracy</span>
+                            <strong id="certificateAccuracy">
+                                0%
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Achievement</span>
+                            <strong id="certificateMedal">
+                                Bronze
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="certificate-footer">
+
+                        <div class="signature-area">
+
+                            <div class="signature">
+                                Hariom Patel
+                            </div>
+
+                            <span>Founder Signature</span>
+
+                        </div>
+
+
+                        <div class="founder-area">
+
+                            <strong>Hariom Patel</strong>
+
+                            <span>Founder, SkillUp</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
 
-        <!-- TEST SCREEN -->
-
-        <div
-            id="typingTestScreen"
-            class="hidden">
-
-
-            <div class="typing-stats">
-
-
-                <div class="typing-stat">
-
-                    <span>
-                        ⏱️ Time
-                    </span>
-
-                    <strong id="typingTimer">
-                        30
-                    </strong>
-
-                </div>
-
-
-                <div class="typing-stat">
-
-                    <span>
-                        ⚡ WPM
-                    </span>
-
-                    <strong id="typingWPM">
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div class="typing-stat">
-
-                    <span>
-                        🎯 Accuracy
-                    </span>
-
-                    <strong id="typingAccuracy">
-                        100%
-                    </strong>
-
-                </div>
-
-
-                <div class="typing-stat">
-
-                    <span>
-                        ✅ Correct
-                    </span>
-
-                    <strong id="typingCorrect">
-                        0
-                    </strong>
-
-                </div>
-
-
-            </div>
-
-
-            <div
-                id="typingText"
-                class="typing-text">
-            </div>
-
-
-            <textarea
-                id="typingInput"
-                class="typing-input"
-                placeholder="Start typing here..."
-                spellcheck="false"
-                autocomplete="off"
-                autocorrect="off"
-                autocapitalize="off">
-            </textarea>
-
-
-            <div
-                id="typingMessage"
-                class="typing-message">
-
-                Start typing to begin.
-
-            </div>
-
-
-        </div>
-
-
-        <!-- RESULT SCREEN -->
-
-        <div
-            id="typingResultScreen"
-            class="hidden">
-
-
-            <div class="typing-result-icon">
-                🏆
-            </div>
-
-
-            <h2>
-                Typing Test Complete!
-            </h2>
-
-
-            <div class="typing-result-grid">
-
-
-                <div class="typing-result-box">
-
-                    <span>
-                        ⚡ WPM
-                    </span>
-
-                    <strong id="finalTypingWPM">
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div class="typing-result-box">
-
-                    <span>
-                        🎯 Accuracy
-                    </span>
-
-                    <strong id="finalTypingAccuracy">
-                        0%
-                    </strong>
-
-                </div>
-
-
-                <div class="typing-result-box">
-
-                    <span>
-                        ✅ Correct
-                    </span>
-
-                    <strong id="finalTypingCorrect">
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div class="typing-result-box">
-
-                    <span>
-                        ❌ Wrong
-                    </span>
-
-                    <strong id="finalTypingWrong">
-                        0
-                    </strong>
-
-                </div>
-
-
-            </div>
-
-
-            <div
-                id="typingPerformance"
-                class="typing-performance">
-            </div>
-
-
-            <button
-                class="primary-btn"
-                onclick="restartTypingTest()">
-
-                🔄 Try Again
-
+        <div class="certificate-actions">
+
+            <button id="printCertificateBtn"
+                    class="primary-btn">
+                🖨️ Print / Save Certificate
             </button>
 
-
-        </div>
-
-
-    </div>
-
-
-    <!-- TYPING HISTORY -->
-
-    <div class="typing-history-card">
-
-        <h3>
-            📊 Typing History
-        </h3>
-
-        <div id="typingHistory">
-
-            No typing tests completed yet.
+            <button class="secondary-btn"
+                    data-page="homePage">
+                ← Back to Home
+            </button>
 
         </div>
 
     </div>
-
 
 </section>
 
 
-<!-- =====================================================
-     PROFILE
-===================================================== -->
 
-<section
-    id="profile"
-    class="section hidden">
+<!-- =========================================================
+     REFER PAGE
+========================================================= -->
+
+<section id="referPage" class="page">
+
+    <div class="page-heading">
+
+        <div>
+            <span class="small-label">REFER</span>
+            <h1>🔗 Refer & Grow</h1>
+            <p>Invite friends to join SkillUp.</p>
+        </div>
+
+        <button class="back-btn" data-page="homePage">
+            ← Home
+        </button>
+
+    </div>
 
 
-    <div class="section-header">
+    <div class="refer-card">
 
-        <h2>
-            👤 My Profile
-        </h2>
+        <div class="refer-icon">
+            🚀
+        </div>
+
+        <h2>Share SkillUp</h2>
 
         <p>
-            View your SkillUp profile and learning progress.
-        </p>
-
-    </div>
-
-
-    <div class="profile-card">
-
-
-        <div class="profile-avatar">
-            👤
-        </div>
-
-
-        <h2 id="profileName">
-            Student
-        </h2>
-
-
-        <p id="profileEmail">
-            student@email.com
+            Invite your friends and help them learn, play and grow.
         </p>
 
 
-        <div class="profile-info">
+        <div class="referral-box">
 
+            <span>Your Referral Code</span>
 
-            <div class="profile-item">
+            <strong id="referralCode">
+                SKILLUP-HARIOM
+            </strong>
 
-                <span>
-                    🎓 Courses
-                </span>
-
-                <strong id="profileCourses">
-                    0
-                </strong>
-
-            </div>
-
-
-            <div class="profile-item">
-
-                <span>
-                    🧠 Quizzes
-                </span>
-
-                <strong id="profileQuizzes">
-                    0
-                </strong>
-
-            </div>
-
-
-            <div class="profile-item">
-
-                <span>
-                    ⌨️ Typing Tests
-                </span>
-
-                <strong id="profileTyping">
-                    0
-                </strong>
-
-            </div>
-
-
-            <div class="profile-item">
-
-                <span>
-                    🏆 Certificates
-                </span>
-
-                <strong id="profileCertificates">
-                    0
-                </strong>
-
-            </div>
-
+            <button id="copyReferralBtn"
+                    class="secondary-btn">
+                📋 Copy Code
+            </button>
 
         </div>
 
 
-        <div class="profile-progress">
+        <button id="shareReferralBtn"
+                class="primary-btn">
+            🔗 Share SkillUp
+        </button>
 
-            <h3>
-                📈 My Progress
-            </h3>
 
+        <div class="referral-stats">
 
-            <div class="progress-bar">
-
-                <div
-                    id="profileProgressBar"
-                    style="width:0%">
-                </div>
-
+            <div>
+                <span>Referrals</span>
+                <strong id="referralCount">0</strong>
             </div>
 
-
-            <p id="profileProgressText">
-                Progress: 0%
-            </p>
+            <div>
+                <span>Status</span>
+                <strong>Active</strong>
+            </div>
 
         </div>
 
-
-        <button
-            class="primary-btn"
-            onclick="showSection('typingMaster')">
-
-            ⌨️ Practice Typing
-
-        </button>
-
-
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     SHAYARI
-===================================================== -->
 
-<section
-    id="shayari"
-    class="section hidden">
-
-    <h2>
-        ✨ Motivational Shayari
-    </h2>
-
-
-    <div class="shayari-box">
-
-        <p id="shayariText">
-
-            मेहनत इतनी खामोशी से करो,
-            कि सफलता शोर मचा दे। 🚀
-
-        </p>
-
-
-        <button onclick="newShayari()">
-
-            New Shayari
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     RESUME
-===================================================== -->
-
-<section
-    id="resume"
-    class="section hidden">
-
-    <h2>
-        📄 Resume Builder
-    </h2>
-
-
-    <div class="resume-form">
-
-
-        <input
-            type="text"
-            id="resumeName"
-            placeholder="Full Name">
-
-
-        <input
-            type="email"
-            id="resumeEmail"
-            placeholder="Email">
-
-
-        <input
-            type="text"
-            id="resumePhone"
-            placeholder="Phone">
-
-
-        <input
-            type="text"
-            id="resumeEducation"
-            placeholder="Education">
-
-
-        <input
-            type="text"
-            id="resumeSkills"
-            placeholder="Skills">
-
-
-        <textarea
-            id="resumeAbout"
-            placeholder="About Yourself">
-        </textarea>
-
-
-        <button onclick="generateResume()">
-
-            Generate Resume
-
-        </button>
-
-
-    </div>
-
-
-    <div
-        id="resumeOutput"
-        class="resume-output hidden">
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     REFER & EARN
-===================================================== -->
-
-<section
-    id="refer"
-    class="section hidden">
-
-    <h2>
-        🎁 Refer & Earn
-    </h2>
-
-
-    <div class="refer-box">
-
-        <p>
-            Share SkillUp with your friends!
-        </p>
-
-
-        <p>
-            Your Referral Code:
-        </p>
-
-
-        <h2 id="referralCode">
-            SKILLUP
-        </h2>
-
-
-        <button onclick="copyReferral()">
-
-            📋 Copy Referral Code
-
-        </button>
-
-
-        <button onclick="shareReferral()">
-
-            📤 Share Referral Link
-
-        </button>
-
-
-        <button onclick="copyReferralLink()">
-
-            🔗 Copy Referral Link
-
-        </button>
-
-
-        <p id="shareMessage"></p>
-
-        <p id="copyMessage"></p>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     PDF MAKER
-===================================================== -->
-
-<section
-    id="pdfMaker"
-    class="section hidden">
-
-    <h2>
-        📕 PDF Maker
-    </h2>
-
-
-    <div class="pdf-maker-box">
-
-
-        <input
-            type="text"
-            id="pdfTitle"
-            placeholder="Enter PDF Title">
-
-
-        <textarea
-            id="pdfContent"
-            placeholder="Write your content here...">
-        </textarea>
-
-
-        <button onclick="generatePDF()">
-
-            📄 Create PDF
-
-        </button>
-
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
+<!-- =========================================================
      FOOTER
-===================================================== -->
+========================================================= -->
 
-<footer>
+<footer class="footer">
+
+    <div>
+        <strong>SkillUp</strong>
+        <span>Learn • Play • Grow</span>
+    </div>
+
+    <div class="footer-links">
+
+        <button data-page="homePage">
+            Home
+        </button>
+
+        <button data-page="learningPage">
+            Learn
+        </button>
+
+        <button data-page="gamesPage">
+            Games
+        </button>
+
+        <button data-page="profilePage">
+            Profile
+        </button>
+
+        <button data-page="referPage">
+            Refer
+        </button>
+
+    </div>
 
     <p>
-        © 2026 SkillUp - Learn, Play & Grow
+        © 2026 SkillUp. Built for learning and growth.
     </p>
 
-    <p>
-        Made with ❤️ by Hariom Patel & Vedika Yadav
+    <p class="founder-footer">
+        Founder: <strong>Hariom Patel</strong>
     </p>
 
 </footer>
 
 
+</main>
+
+
+
+<!-- =========================================================
+     TOAST NOTIFICATION
+========================================================= -->
+
+<div id="toast" class="toast">
+    <span id="toastMessage">Success!</span>
 </div>
 
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
 
-<script
-    type="module"
-    src="script.js">
-</script>
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script src="script.js"></script>
 
 </body>
-
 </html>
