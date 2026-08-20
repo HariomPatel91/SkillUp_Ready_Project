@@ -10,7 +10,11 @@
 ========================================================= */
 
 const $ = (id) => document.getElementById(id);
+const appContent = $("appContent");
 
+if (appContent) {
+    appContent.style.display = "none";
+}
 const STORAGE_KEY = "skillup_final_v1";
 
 const safeJSON = (value, fallback = {}) => {
@@ -4119,13 +4123,8 @@ function openDashboardAfterLogin() {
     /*
         Show the main website.
     */
-
-    const mainContent =
-        $("appPage") ||
-        $("mainApp") ||
-        $("dashboardPage");
-
-
+ const mainContent =
+    $("appContent");
     if (mainContent) {
 
         mainContent.classList.remove(
@@ -4158,10 +4157,7 @@ function logoutSkillUp() {
 
 
     const mainContent =
-        $("appPage") ||
-        $("mainApp") ||
-        $("dashboardPage");
-
+    $("appContent");
 
     if (mainContent) {
 
@@ -4207,12 +4203,8 @@ function checkLoginState() {
             ?.classList.add("hidden");
 
 
-        const mainContent =
-            $("appPage") ||
-            $("mainApp") ||
-            $("dashboardPage");
-
-
+       const mainContent =
+    $("appContent");
         if (mainContent) {
 
             mainContent.classList.remove(
