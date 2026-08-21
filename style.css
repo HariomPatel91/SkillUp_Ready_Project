@@ -2517,7 +2517,23 @@ button:disabled {
 
 /* PRINT */
 
+/* PRINT - SINGLE PAGE CERTIFICATE */
+
 @media print {
+
+    @page {
+        size: A4 landscape;
+        margin: 0;
+    }
+
+    html,
+    body {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
 
     body * {
         visibility: hidden;
@@ -2529,19 +2545,40 @@ button:disabled {
     }
 
     #certificateContainer {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        max-width: none;
-        margin: 0;
-        box-shadow: none;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+
+        width: 100% !important;
+        height: 100vh !important;
+
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 25px !important;
+
+        box-sizing: border-box !important;
+        box-shadow: none !important;
+
+        page-break-before: avoid !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+
+        break-before: avoid !important;
+        break-after: avoid !important;
+        break-inside: avoid !important;
+
+        transform: scale(0.90);
+        transform-origin: top center;
+    }
+
+    #certificateContainer * {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
     }
 
     #printCertificateBtn {
-        display: none;
+        display: none !important;
     }
-
 }
 /* =====================================================
    FINAL CERTIFICATE FIX
