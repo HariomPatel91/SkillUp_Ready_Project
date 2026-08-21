@@ -1655,7 +1655,115 @@ button:disabled {
 
     margin-top: 20px;
 }
+/* =========================================================
+   CERTIFICATE - SINGLE PAGE PRINT
+========================================================= */
 
+@media print {
+
+    @page {
+        size: A4 landscape;
+        margin: 0;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #certificatePage,
+    #certificatePage * {
+        visibility: visible;
+    }
+
+    #certificatePage {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+
+        width: 100% !important;
+        height: 100vh !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        overflow: hidden !important;
+    }
+
+    /* Hide page heading and buttons */
+
+    #certificatePage .page-heading,
+    #certificatePage .certificate-actions {
+        display: none !important;
+    }
+
+    /* Certificate container */
+
+    #certificateContainer {
+        display: block !important;
+
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+
+        width: 100% !important;
+        height: 100vh !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        box-shadow: none !important;
+        overflow: hidden !important;
+    }
+
+    /* Certificate */
+
+    #certificateContainer .certificate {
+        width: 100% !important;
+        height: 100vh !important;
+
+        margin: 0 !important;
+        padding: 10mm !important;
+
+        box-sizing: border-box !important;
+
+        page-break-before: avoid !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+
+        break-before: avoid !important;
+        break-after: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    /* Certificate border */
+
+    #certificateContainer .certificate-border {
+        width: 100% !important;
+        height: 100% !important;
+
+        min-height: 0 !important;
+
+        box-sizing: border-box !important;
+
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    .certificate-content {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+}
 
 /* =========================================================
    REFER
